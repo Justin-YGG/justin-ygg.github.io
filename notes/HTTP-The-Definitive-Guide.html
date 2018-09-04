@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>HTTP-The-Definitive-Guide</title>
-<!-- 2018-09-02 Sun 22:42 -->
+<!-- 2018-09-05 Wed 17:47 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="Justin" />
@@ -23,6 +23,35 @@
 </div>
 <div id="outline-container-sec-1" class="outline-2">
 <h2 id="sec-1">URL与资源</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+URI (Uniform Resource Identifier) 包含 URL (Uniform Resource Locator) 和 URN (Uniform Resource Name)。
+目前普遍使用的是 URL，URL 指代的是资源的实际地址，如果资源被移走了，就不能再访问。URN 通过提供一个统一的资源名称来保证
+无论资源被移到何处都能访问得到。PURL (Persistent Uniform Resource Locators) 就是 URN 的一个实际应用，其通过提供
+一个 resource locator (中间资源定位符) 对实际的 URL 进行登记和追踪，用户可以访问一个固定的永久 URL，定位符会重定向到
+资源的实际地址。
+</p>
+
+<p>
+URL 语法格式:  <code>&lt;shceme&gt;://&lt;user&gt;:&lt;password&gt;@&lt;host&gt;:&lt;port&gt;/&lt;path&gt;;&lt;param&gt;?&lt;query&gt;#&lt;frag&gt;</code>
+</p>
+
+<ul class="org-ul">
+<li>这里提一下 <code>param</code> 和 <code>query</code> 的区别，两者都是以键值对的形式存在即 <code>key=value</code>, <code>param</code> 出现在 <code>path</code> 中以 <code>;</code> 隔开，=query= 在 <code>path</code>
+       之后，并且以 <code>?</code> 与 <code>path</code> 隔开
+</li>
+<li>在 <code>POST</code> 请求中 <code>param</code> 可以在 <code>URL</code> 中被传到服务端， <code>query</code> 只能在 <code>GET</code> 请求的 URL 中
+</li>
+</ul>
+
+<p>
+FYI: <a href="https://stackoverflow.com/questions/39266970/what-is-the-difference-between-url-parameters-and-query-strings">What is the difference between URL parameters and query strings?</a>
+</p>
+
+<p>
+更多语法细节 see：<a href="https://tools.ietf.org/html/rfc2396.html">Uniform Resource Identifiers (URI): Generic Syntax</a>
+</p>
+</div>
 </div>
 </div>
 </body>
