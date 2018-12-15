@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>MySQL实战45讲</title>
+<!-- 2018-12-19 Wed 18:42 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Justin" />
+<link rel="stylesheet" type="text/css" href="/css/worg.css"/>
+</head>
+<body>
+<div id="content">
+<h1 class="title">MySQL实战45讲</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">01 | 基础架构：一条SQL查询语句是如何执行的？</a>
+<ul>
+<li><a href="#sec-1-1">连接器</a></li>
+<li><a href="#sec-1-2">查询缓存</a></li>
+<li><a href="#sec-1-3">分析器</a></li>
+<li><a href="#sec-1-4">优化器</a></li>
+<li><a href="#sec-1-5">执行器</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">02 | 日志系统：一条SQL更新语句是如何执行的？</a>
+<ul>
+<li><a href="#sec-2-1">redo log</a></li>
+<li><a href="#sec-2-2">binlog</a></li>
+<li><a href="#sec-2-3">update 语句执行流程</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">03 | 事务隔离：为什么你改了我还看不见？</a>
+<ul>
+<li><a href="#sec-3-1">隔离级别</a></li>
+<li><a href="#sec-3-2">事务隔离的实现</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">01 | 基础架构：一条SQL查询语句是如何执行的？</h2>
+<div class="outline-text-2" id="text-1">
+
+<div class="figure">
+<p><img src=" ../img/mysql-45/mysql-architecture.png" alt="mysql-architecture.png" width="500" />
+</p>
+</div>
+
+<p>
+Mysql 大体分为 <code>Server</code> 层和 <code>存储引擎</code> 两部分，Server层分为连接器、分析器、优化器和执行器，
+存储引擎是插件式的，现在最常用的存储引擎是 InnoDB。
+</p>
+</div>
+
+<div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1">连接器</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+经过经典的 TCP握手后，认证身份建立连接，建立连接后即使通过管理员修改用户权限，连接也不会断开，会在下一次连接生效。
+建立连接后长时间没有操作，连接就会自动断开，默认8小时（参数 <code>wait_timeout</code> ）
+</p>
+
+<ul class="org-ul">
+<li>长连接：客户端持续有请求，一直使用一个连接
+</li>
+<li>短连接：每次执行完几次操作后断开，下一次重新建立连接
+</li>
+</ul>
+
+<p>
+连接的建立比较复杂，应尽量减少建立连接的动作，也就是使用长连接。但是 MySQL 在执行过程中临时使用的内存是管理在连接对象
+中的，在连接断开后，资源才会释放，所以要定期断开长连接，或者在执行比较大的操作后通过 <code>mysql_reset_connection</code> 重置连接，
+这个过程不需要重连和重新做权限验证，但是会将连接恢复到刚刚创创建完时的状态。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2">查询缓存</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+建立连接后，执行语句前会先查询缓存，检查相同语句是否执行过，命中缓存则直接返回，否则继续执行。查询缓存失效非常频繁，表的任何
+更新都会导致缓存失效，所以一般不使用，MySQL 8.0后，不再支持查询缓存。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3">分析器</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+MySQL通过关键字将 SQL语句解析，生成一课对应的“解析树”， <code>MySQL 解析器</code> 使用 MySQL 语法规则，验证和解析查询，比如关键字是否正确、
+关键字顺序、前后匹配等。 <code>预处理器</code> 通过 MySQL 语法规则进一步检查语法树是否正确，比如表和数据列是否存在，名字和别名是否有歧义。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-4" class="outline-3">
+<h3 id="sec-1-4">优化器</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+语法树合法后，会交由优化器转换为执行计划，一条查询有多种执行方式，结果都相同，但可能性能不一，比如索引的选择等，优化器就是要制定成本最低的执行计划。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-5" class="outline-3">
+<h3 id="sec-1-5">执行器</h3>
+<div class="outline-text-3" id="text-1-5">
+<p>
+执行器根据优化器生成的执行计划调用存储引擎接口执行，执行计划是一个数据结构，并非字节码，MySQL只是简单的根据执行计划逐步执行指令。
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2">02 | 日志系统：一条SQL更新语句是如何执行的？</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1">redo log</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+如果每次更新操作都是直接写磁盘，IO 成本和查找成本都很高，所以 MySQL 采用 <code>WAL(Write-Ahead Logging)</code> 技术先写日志，并在系统比较空闲时再写磁盘。
+</p>
+
+
+<div class="figure">
+<p><img src=" ../img/mysql-45/WAL.jpg" alt="WAL.jpg" width="500" />
+</p>
+</div>
+
+<p>
+<code>write pos</code> 边写边后移，写到文件末尾后继续从头开始写； <code>checkpoint</code> 擦除记录，往后推移也是循环的，擦除之前需要更新数据到磁盘；
+<code>checkpoint</code> 追赶上 <code>write pos</code> 时，不能再执行新的更新操作，需要停下来擦除一些记录，因为 InnoDB redo log 是固定大小的。有了 redo log，InnoDB就
+可以保证在数据库异常重启时，保证数据不丢失，这个能力成为 <code>crash-safe</code> 。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2">binlog</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+MySQL server 层提供 binlog 功能，用以归档，没有 <code>crash-safe</code> 功能。
+</p>
+
+<p>
+对比：
+</p>
+
+<ul class="org-ul">
+<li>redo log 是 InnoDB 引擎特有的，binlog 是 MySQL server层提供的；
+</li>
+<li>redo log 是物理日志，记录了“在数据页做了什么修改”；binlog 是逻辑日志，有两种模式， <code>statement</code> 模式记录sql语句， <code>row</code> 模式记录行的内容，记两条更新前和更新后。
+</li>
+<li>redo log 是循环写的，空间固定会用完；binlog 是追加写，文件写到一定大小后会切换下一个，不会覆盖之前的日志。
+</li>
+<li>redo log 和 binlog 通过事务 ID 关联。
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-2-3" class="outline-3">
+<h3 id="sec-2-3">update 语句执行流程</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+图中浅色框表示是在 InnoDB 内部执行的，深色框表示是在执行器中执行。
+</p>
+
+
+<div class="figure">
+<p><img src=" ../img/mysql-45/update.png" alt="update.png" width="500" />
+</p>
+</div>
+
+<p>
+关键逻辑在 <code>两阶段提交</code> ，InnoDB 将新行写入到内存后，更新 redo log 为 <code>prepare</code> 状态，server 层写入 binlog，事务提交后更新 redo log 为 <code>commit</code> 状态。
+</p>
+
+<p>
+<code>1. redo log prepare 2. binlog 3. redo log commit</code> 
+</p>
+
+<p>
+如果在 <code>2</code> 之前异常，恢复备份时没有 binlog，数据一致；如果在 <code>3</code> 之前异常，恢复备份时虽然没有 commit，但是 prepare 和 binlog 完整，重启后自动 commit，数据一致。
+</p>
+
+<p>
+<b>复习用-思考：</b>
+</p>
+
+<ul class="org-ul">
+<li>redo log的概念是什么? 为什么会存在
+</li>
+<li>什么是WAL(Write-Ahead Logging)机制, 好处是什么
+</li>
+<li>redo log 为什么可以保证crash safe机制
+</li>
+<li>binlog的概念是什么, 起到什么作用, 可以做crash safe吗? 
+</li>
+<li>binlog和redolog的不同点有哪些?
+</li>
+<li>物理一致性和逻辑一直性各应该怎么理解?
+</li>
+<li>执行器和innoDB在执行update语句时候的流程是什么样的?
+</li>
+<li>如果数据库误操作, 如何执行数据恢复?
+</li>
+<li>什么是两阶段提交, 为什么需要两阶段提交, 两阶段提交怎么保证数据库中两份日志间的逻辑一致性(什么叫逻辑一致性)?
+</li>
+<li>如果不是两阶段提交, 先写redo log和先写bin log两种情况各会遇到什么问题
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3">03 | 事务隔离：为什么你改了我还看不见？</h2>
+<div class="outline-text-2" id="text-3">
+</div><div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1">隔离级别</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+SQL 标准隔离级别： <code>读未提交（read uncommited）</code> 、 <code>读提交（read commited）</code> 、 <code>可重复读（repeatable read）</code> 和 <code>串行化（serializable）</code> 。
+在实现上，数据库会创建一个视图，访问的时候以视图的逻辑结果为准。
+</p>
+
+<ul class="org-ul">
+<li><code>读未提交</code> ：一个事务还未提交，变更就可被其他事务看到 | 直接返回记录最新值，没有视图概念。
+</li>
+<li><code>读提交</code> ：一个事务提交后，变更才能被其他事务看到 | 视图在 SQL 语句执行时创建。
+</li>
+<li><code>可重复读</code> ：一个事务在执行过程中看到的数据与启动时一致 | 视图在事务启动时创建。
+</li>
+<li><code>串行化</code> : 对同一行记录，读加“读锁”，写加“写锁”，读写冲突时，后访问的事务必须等待前一个结束 | 用加锁方式避免并行访问。
+</li>
+</ul>
+
+<p>
+<img src=" ../img/mysql-45/session.png" alt="session.png" width="400" />
+可通过此图，理解各个隔离级别下 <code>V1</code> 、 <code>V2</code> 、 <code>V3</code> 的值来加深理解。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-3-2" class="outline-3">
+<h3 id="sec-3-2">事务隔离的实现</h3>
+<div class="outline-text-3" id="text-3-2">
+
+<div class="figure">
+<p><img src=" ../img/mysql-45/read-view.png" alt="read-view.png" />
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
