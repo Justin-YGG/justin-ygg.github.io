@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>MySQL实战45讲</title>
-<!-- 2019-01-01 Tue 19:40 -->
+<!-- 2019-01-03 Thu 22:03 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="Justin" />
@@ -265,6 +265,58 @@ SQL 标准隔离级别： <code>读未提交（read uncommited）</code> 、 <co
 <p><img src=" ../img/mysql-45/read-view.png" alt="read-view.png" width="500" />
 </p>
 </div>
+
+<p>
+MySQL 中每条更新记录都会记录一条回滚操作，记录上的最新值都可以通过回滚操作得到上一个值。不同时刻启动的事务会有不同的 <code>read-view</code> ，
+同一条记录在系统中存在多个版本，就是数据库的多版本并发控制(<a href="https://www.cnblogs.com/chenpingzhao/p/5065316.html">MVCC</a>)。没有比回滚日志更早的 <code>read-view</code> 时，系统会将日志删除。所以要尽量避免使用长事务，
+长事务意味着存在很多老的视图，即使在事务提交后，对应的回滚日志也不会删除，浪费存储空间，同时长事务还会占用资源锁，可能会拖垮系统。
+</p>
+
+<p>
+<b>事务启动的方式：</b>
+</p>
+<ul class="org-ul">
+<li>显示启动： <code>begin</code> 或者 <code>start transaction</code>, 提交 <code>commit</code>, 回滚 <code>rollback</code> 。
+</li>
+<li><code>set autocommit=1</code>
+</li>
+</ul>
+
+<p>
+<b>MySQLLdb 或者 SQLAlchemy 默认 <code>autocommit=0</code> 。</b>
+<code>commit work</code> 是用来控制事务结束后的行为，是 <code>chain</code> 还是 <code>release</code> ，可以通过参数 <code>completion_type</code> 来控制，默认为0（或者NO<sub>CHAIN），</sub>
+等同于 <code>commit</code> 。 <code>completion_type=1</code> 时提交事务并自动开启下一个事务， <code>completion_type=2</code> 时等同于 <code>commit and release</code> ，提交事务并断开
+连接。
+</p>
+
+<p>
+<b>复习用-思考：</b>
+</p>
+
+<ul class="org-ul">
+<li>事务的概念是什么?
+</li>
+<li>mysql的事务隔离级别读未提交, 读已提交, 可重复读, 串行各是什么意思?
+</li>
+<li>读已提交, 可重复读是怎么通过视图构建实现的?
+</li>
+<li>可重复读的使用场景举例? 对账的时候应该很有用?
+</li>
+<li>事务隔离是怎么通过read-view(读视图)实现的?
+</li>
+<li>并发版本控制(MCVV)的概念是什么, 是怎么实现的?
+</li>
+<li>使用长事务的弊病? 为什么使用常事务可能拖垮整个库?
+</li>
+<li>事务的启动方式有哪几种? 
+</li>
+<li>commit work and chain的语法是做什么用的? 
+</li>
+<li>怎么查询各个表中的长事务?
+</li>
+<li>如何避免长事务的出现?
+</li>
+</ul>
 </div>
 </div>
 </div>
