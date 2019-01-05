@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>MySQL实战45讲</title>
-<!-- 2019-01-03 Thu 22:03 -->
+<!-- 2019-01-05 Sat 14:00 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="Justin" />
@@ -39,6 +39,7 @@
 <li><a href="#sec-3-2">事务隔离的实现</a></li>
 </ul>
 </li>
+<li><a href="#sec-4">04 | 深入浅出索引</a></li>
 </ul>
 </div>
 </div>
@@ -223,6 +224,7 @@ MySQL server 层提供 binlog 功能，用以归档，没有 <code>crash-safe</c
 </div>
 </div>
 
+
 <div id="outline-container-sec-3" class="outline-2">
 <h2 id="sec-3">03 | 事务隔离：为什么你改了我还看不见？</h2>
 <div class="outline-text-2" id="text-3">
@@ -283,8 +285,19 @@ MySQL 中每条更新记录都会记录一条回滚操作，记录上的最新�
 </ul>
 
 <p>
+查询持续时间超过60s的事务示例:
+</p>
+
+<p>
+<code>select * from information_schema.innodb_trx where TIME_TO_SEC(timediff(now(),trx_started))&gt;60</code>
+</p>
+
+<p>
 <b>MySQLLdb 或者 SQLAlchemy 默认 <code>autocommit=0</code> 。</b>
-<code>commit work</code> 是用来控制事务结束后的行为，是 <code>chain</code> 还是 <code>release</code> ，可以通过参数 <code>completion_type</code> 来控制，默认为0（或者NO<sub>CHAIN），</sub>
+</p>
+
+<p>
+<code>commit work</code> 是用来控制事务结束后的行为，是 <code>chain</code> 还是 <code>release</code> ，可以通过参数 <code>completion_type</code> 来控制，默认为0(或者 NOCHAIN)，
 等同于 <code>commit</code> 。 <code>completion_type=1</code> 时提交事务并自动开启下一个事务， <code>completion_type=2</code> 时等同于 <code>commit and release</code> ，提交事务并断开
 连接。
 </p>
@@ -319,6 +332,10 @@ MySQL 中每条更新记录都会记录一条回滚操作，记录上的最新�
 </ul>
 </div>
 </div>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4">04 | 深入浅出索引</h2>
 </div>
 </div>
 </body>
