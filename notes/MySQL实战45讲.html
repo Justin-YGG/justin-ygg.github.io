@@ -4,11 +4,57 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>MySQL实战45讲</title>
-<!-- 2019-01-05 Sat 14:00 -->
+<!-- 2019-02-21 Thu 19:17 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="Justin" />
 <link rel="stylesheet" type="text/css" href="/css/worg.css"/>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
 </head>
 <body>
 <div id="content">
@@ -39,7 +85,16 @@
 <li><a href="#sec-3-2">事务隔离的实现</a></li>
 </ul>
 </li>
-<li><a href="#sec-4">04 | 深入浅出索引</a></li>
+<li><a href="#sec-4">04 | 深入浅出索引</a>
+<ul>
+<li><a href="#sec-4-1">索引</a>
+<ul>
+<li><a href="#sec-4-1-1">常见的索引模型</a></li>
+<li><a href="#sec-4-1-2">InnoDB 索引模型</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -336,6 +391,89 @@ MySQL 中每条更新记录都会记录一条回滚操作，记录上的最新�
 
 <div id="outline-container-sec-4" class="outline-2">
 <h2 id="sec-4">04 | 深入浅出索引</h2>
+<div class="outline-text-2" id="text-4">
+</div><div id="outline-container-sec-4-1" class="outline-3">
+<h3 id="sec-4-1">索引</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+索引的作用是为了提高数据查询的效率，作用就像书的目录，更快的超找到目标数据。
+</p>
+</div>
+
+<div id="outline-container-sec-4-1-1" class="outline-4">
+<h4 id="sec-4-1-1">常见的索引模型</h4>
+<div class="outline-text-4" id="text-4-1-1">
+<ul class="org-ul">
+<li>哈希表
+以 <code>key-value</code> 形式存储数据结构，使用哈希函数把 <code>key</code> 换算成一个具体的位置，将 <code>value</code> 放到此位置上。
+多个 <code>key</code> 会出现计算后值一样的情况，使用链表来处理这种情况。查询时首先更加 <code>key</code> 计算出位置，然后遍历链表顺序查找目标数据。链表数据是向后追加，所以是无序的，所以做区间查询就会很慢。
+所以，*哈希表适用于等值查询*， 如：Memcached 及其他一些 NoSQL 引擎。
+</li>
+
+<li>有序数组
+有序数组在*等值查询*和*范围查询*中性能都非常优秀，可以充分利用二分法。但是要维护数据的有序，在新增数据时，数据挪动成本较高。
+所以，*有序数组适用于静态存储引擎*。
+</li>
+
+<li>二叉搜索树
+二叉搜索树的特点是：每个节点的左儿子小于父节点，父节点又小于右儿子。为了维持 O(log(N)) 的查询复杂度，需要保持这棵树是平衡二叉树，更新时间复杂度也为 O(log(N))，数据库存储实际上使用的不是二叉树，因为所以不仅存在内存中，
+还有写到磁盘上，如果平衡二叉树树高过高，从磁盘中读取数据次数过多，就会导致查询变慢，所以要使用 <code>N 叉树</code> ，N 叉树由于在读写上的性能优点，以及适配磁盘的访问模式，已经被广泛应用在数据库引擎中了，“N 叉”树中的“N”取决于数据块的大小。
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-4-1-2" class="outline-4">
+<h4 id="sec-4-1-2">InnoDB 索引模型</h4>
+<div class="outline-text-4" id="text-4-1-2">
+<p>
+InnoDB 使用了 B+ 树索引模型，每一个索引对应一棵 B+ 树。
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sql">mysql&gt; <span style="color: #4f97d7; font-weight: bold;">create</span> <span style="color: #4f97d7; font-weight: bold;">table</span> T<span style="color: #4f97d7;">(</span>
+id <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #4f97d7; font-weight: bold;">primary</span> <span style="color: #4f97d7; font-weight: bold;">key</span>, 
+k <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #4f97d7; font-weight: bold;">not</span> <span style="color: #4f97d7; font-weight: bold;">null</span>, 
+<span style="color: #4f97d7; font-weight: bold;">name</span> <span style="color: #ce537a; font-weight: bold;">varchar</span><span style="color: #bc6ec5;">(</span>16<span style="color: #bc6ec5;">)</span>,
+index <span style="color: #bc6ec5;">(</span>k<span style="color: #bc6ec5;">)</span>
+<span style="color: #4f97d7;">)</span>engine=InnoDB;
+</pre>
+</div>
+
+<p>
+表中 R1~R5 的 (ID,k) 值分别为 (100,1)、(200,2)、(300,3)、(500,5) 和 (600,6)，两棵树示意图如下：
+</p>
+
+<div class="figure">
+<p><img src=" ../img/mysql-45/4.1.png" alt="4.1.png" width="400" />
+</p>
+</div>
+
+<ul class="org-ul">
+<li>主键索引，叶子节点存储的是整行数据，也叫做 <code>聚簇索引(clustered index)</code> 。 
+</li>
+<li>非主键索引，叶子节点存储的是主键的值，也叫做 <code>二级索引(secondary index)</code> 。
+</li>
+</ul>
+
+<p>
+<b>区别：</b>
+</p>
+<ul class="org-ul">
+<li><code>select * from T where ID=500</code> ，主键查询只搜索主键这课 B+ 树。
+</li>
+<li><code>select * from T where k=500</code> ， 先搜索 k 索引树，拿到主键，在搜索主键索引树。
+</li>
+</ul>
+
+<p>
+B+ 树为了维护有序性，在数据插入、删除时，可能会涉及到磁盘数据页的分裂或合并，所以一般会创建自增主键，这样每次插入都是追加数据，不会触发叶子节点分裂。
+主键长度越小，普通索引的叶子节点就越小，普通索引占用的空间也越小。从性能和存储空间方面考量，自增主键往往是更合理的选择。在 <code>Key-Value</code> 的场景下，只有一个索引且是唯一索引，则适合直接使用业务字段作为主键索引。
+</p>
+</div>
+</div>
+</div>
 </div>
 </div>
 </body>
