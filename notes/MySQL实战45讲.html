@@ -4,11 +4,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>MySQL实战45讲</title>
-<!-- 2019-02-21 Thu 19:17 -->
+<!-- 2019-02-26 Tue 19:55 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="Justin" />
 <link rel="stylesheet" type="text/css" href="/css/worg.css"/>
+<link rel="icon" type="image/png" href="/img/icons/heckert.png">
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -85,7 +86,7 @@ for the JavaScript code in this tag.
 <li><a href="#sec-3-2">事务隔离的实现</a></li>
 </ul>
 </li>
-<li><a href="#sec-4">04 | 深入浅出索引</a>
+<li><a href="#sec-4">04 | 深入浅出索引（上）</a>
 <ul>
 <li><a href="#sec-4-1">索引</a>
 <ul>
@@ -99,8 +100,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 <div id="outline-container-sec-1" class="outline-2">
-<h2 id="sec-1">01 | 基础架构：一条SQL查询语句是如何执行的？</h2>
+<h2 id="sec-1"><a id="ID-1DF0D6D2-C2C8-45A7-A877-581F747DBAD4" name="ID-1DF0D6D2-C2C8-45A7-A877-581F747DBAD4"></a>01 | 基础架构：一条SQL查询语句是如何执行的？</h2>
 <div class="outline-text-2" id="text-1">
+
 
 <div class="figure">
 <p><img src=" ../img/mysql-45/mysql-architecture.png" alt="mysql-architecture.png" width="500" />
@@ -114,7 +116,7 @@ Mysql 大体分为 <code>Server</code> 层和 <code>存储引擎</code> 两部�
 </div>
 
 <div id="outline-container-sec-1-1" class="outline-3">
-<h3 id="sec-1-1">连接器</h3>
+<h3 id="sec-1-1"><a id="ID-8B16C177-D7CB-4F93-92EA-25D92F687049" name="ID-8B16C177-D7CB-4F93-92EA-25D92F687049"></a>连接器</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 经过经典的 TCP握手后，认证身份建立连接，建立连接后即使通过管理员修改用户权限，连接也不会断开，会在下一次连接生效。
@@ -137,7 +139,7 @@ Mysql 大体分为 <code>Server</code> 层和 <code>存储引擎</code> 两部�
 </div>
 
 <div id="outline-container-sec-1-2" class="outline-3">
-<h3 id="sec-1-2">查询缓存</h3>
+<h3 id="sec-1-2"><a id="ID-2A54FEBE-C173-4364-A7C8-30362A27861A" name="ID-2A54FEBE-C173-4364-A7C8-30362A27861A"></a>查询缓存</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 建立连接后，执行语句前会先查询缓存，检查相同语句是否执行过，命中缓存则直接返回，否则继续执行。查询缓存失效非常频繁，表的任何
@@ -147,7 +149,7 @@ Mysql 大体分为 <code>Server</code> 层和 <code>存储引擎</code> 两部�
 </div>
 
 <div id="outline-container-sec-1-3" class="outline-3">
-<h3 id="sec-1-3">分析器</h3>
+<h3 id="sec-1-3"><a id="ID-6CE4354C-D34C-452A-BED8-6B00069EA8A7" name="ID-6CE4354C-D34C-452A-BED8-6B00069EA8A7"></a>分析器</h3>
 <div class="outline-text-3" id="text-1-3">
 <p>
 MySQL通过关键字将 SQL语句解析，生成一课对应的“解析树”， <code>MySQL 解析器</code> 使用 MySQL 语法规则，验证和解析查询，比如关键字是否正确、
@@ -157,7 +159,7 @@ MySQL通过关键字将 SQL语句解析，生成一课对应的“解析树”�
 </div>
 
 <div id="outline-container-sec-1-4" class="outline-3">
-<h3 id="sec-1-4">优化器</h3>
+<h3 id="sec-1-4"><a id="ID-4C565AD3-1E14-4977-94B9-F53CEF388FCA" name="ID-4C565AD3-1E14-4977-94B9-F53CEF388FCA"></a>优化器</h3>
 <div class="outline-text-3" id="text-1-4">
 <p>
 语法树合法后，会交由优化器转换为执行计划，一条查询有多种执行方式，结果都相同，但可能性能不一，比如索引的选择等，优化器就是要制定成本最低的执行计划。
@@ -166,7 +168,7 @@ MySQL通过关键字将 SQL语句解析，生成一课对应的“解析树”�
 </div>
 
 <div id="outline-container-sec-1-5" class="outline-3">
-<h3 id="sec-1-5">执行器</h3>
+<h3 id="sec-1-5"><a id="ID-E9E1AAB5-0BFF-4BF9-ABA3-FD1FBF11E57D" name="ID-E9E1AAB5-0BFF-4BF9-ABA3-FD1FBF11E57D"></a>执行器</h3>
 <div class="outline-text-3" id="text-1-5">
 <p>
 执行器根据优化器生成的执行计划调用存储引擎接口执行，执行计划是一个数据结构，并非字节码，MySQL只是简单的根据执行计划逐步执行指令。
@@ -177,10 +179,12 @@ MySQL通过关键字将 SQL语句解析，生成一课对应的“解析树”�
 
 
 <div id="outline-container-sec-2" class="outline-2">
-<h2 id="sec-2">02 | 日志系统：一条SQL更新语句是如何执行的？</h2>
+<h2 id="sec-2"><a id="ID-94DE69B3-8F92-4548-8C43-FD985CA9E03E" name="ID-94DE69B3-8F92-4548-8C43-FD985CA9E03E"></a>02 | 日志系统：一条SQL更新语句是如何执行的？</h2>
 <div class="outline-text-2" id="text-2">
-</div><div id="outline-container-sec-2-1" class="outline-3">
-<h3 id="sec-2-1">redo log</h3>
+</div>
+
+<div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1"><a id="ID-6BBC4D1A-C514-45FE-85BB-6BAC3E2880B7" name="ID-6BBC4D1A-C514-45FE-85BB-6BAC3E2880B7"></a>redo log</h3>
 <div class="outline-text-3" id="text-2-1">
 <p>
 如果每次更新操作都是直接写磁盘，IO 成本和查找成本都很高，所以 MySQL 采用 <code>WAL(Write-Ahead Logging)</code> 技术先写日志，并在系统比较空闲时再写磁盘。
@@ -201,7 +205,7 @@ MySQL通过关键字将 SQL语句解析，生成一课对应的“解析树”�
 </div>
 
 <div id="outline-container-sec-2-2" class="outline-3">
-<h3 id="sec-2-2">binlog</h3>
+<h3 id="sec-2-2"><a id="ID-5A5BD0FC-168A-4C29-8A8D-DF501E06B14F" name="ID-5A5BD0FC-168A-4C29-8A8D-DF501E06B14F"></a>binlog</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>
 MySQL server 层提供 binlog 功能，用以归档，没有 <code>crash-safe</code> 功能。
@@ -225,8 +229,9 @@ MySQL server 层提供 binlog 功能，用以归档，没有 <code>crash-safe</c
 </div>
 
 <div id="outline-container-sec-2-3" class="outline-3">
-<h3 id="sec-2-3">update 语句执行流程</h3>
+<h3 id="sec-2-3"><a id="ID-68D39C8C-E4EC-4A4B-B978-C0BE930E5A01" name="ID-68D39C8C-E4EC-4A4B-B978-C0BE930E5A01"></a>update 语句执行流程</h3>
 <div class="outline-text-3" id="text-2-3">
+
 <p>
 图中浅色框表示是在 InnoDB 内部执行的，深色框表示是在执行器中执行。
 </p>
@@ -281,11 +286,14 @@ MySQL server 层提供 binlog 功能，用以归档，没有 <code>crash-safe</c
 
 
 <div id="outline-container-sec-3" class="outline-2">
-<h2 id="sec-3">03 | 事务隔离：为什么你改了我还看不见？</h2>
+<h2 id="sec-3"><a id="ID-2D93EE96-F0AB-4950-A13B-DD4486F8EEB7" name="ID-2D93EE96-F0AB-4950-A13B-DD4486F8EEB7"></a>03 | 事务隔离：为什么你改了我还看不见？</h2>
 <div class="outline-text-2" id="text-3">
-</div><div id="outline-container-sec-3-1" class="outline-3">
-<h3 id="sec-3-1">隔离级别</h3>
+</div>
+
+<div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1"><a id="ID-58A91664-B7C3-4E82-B345-16D205D7369F" name="ID-58A91664-B7C3-4E82-B345-16D205D7369F"></a>隔离级别</h3>
 <div class="outline-text-3" id="text-3-1">
+
 <p>
 SQL 标准隔离级别： <code>读未提交（read uncommited）</code> 、 <code>读提交（read commited）</code> 、 <code>可重复读（repeatable read）</code> 和 <code>串行化（serializable）</code> 。
 在实现上，数据库会创建一个视图，访问的时候以视图的逻辑结果为准。
@@ -315,8 +323,9 @@ SQL 标准隔离级别： <code>读未提交（read uncommited）</code> 、 <co
 </div>
 
 <div id="outline-container-sec-3-2" class="outline-3">
-<h3 id="sec-3-2">事务隔离的实现</h3>
+<h3 id="sec-3-2"><a id="ID-0204D1D0-960A-4927-8E82-A03B8A1EBEA8" name="ID-0204D1D0-960A-4927-8E82-A03B8A1EBEA8"></a>事务隔离的实现</h3>
 <div class="outline-text-3" id="text-3-2">
+
 
 <div class="figure">
 <p><img src=" ../img/mysql-45/read-view.png" alt="read-view.png" width="500" />
@@ -390,18 +399,19 @@ MySQL 中每条更新记录都会记录一条回滚操作，记录上的最新�
 </div>
 
 <div id="outline-container-sec-4" class="outline-2">
-<h2 id="sec-4">04 | 深入浅出索引</h2>
+<h2 id="sec-4"><a id="ID-608DEA2A-D13C-4E1D-823A-174FC88663A2" name="ID-608DEA2A-D13C-4E1D-823A-174FC88663A2"></a>04 | 深入浅出索引（上）</h2>
 <div class="outline-text-2" id="text-4">
-</div><div id="outline-container-sec-4-1" class="outline-3">
-<h3 id="sec-4-1">索引</h3>
+</div>
+<div id="outline-container-sec-4-1" class="outline-3">
+<h3 id="sec-4-1"><a id="ID-50C4F04D-E348-4087-8A3A-A10B1F384343" name="ID-50C4F04D-E348-4087-8A3A-A10B1F384343"></a>索引</h3>
 <div class="outline-text-3" id="text-4-1">
 <p>
-索引的作用是为了提高数据查询的效率，作用就像书的目录，更快的超找到目标数据。
+索引的作用是为了提高数据查询的效率，作用就像书的目录，更快地4.2找到目标数据。
 </p>
 </div>
 
 <div id="outline-container-sec-4-1-1" class="outline-4">
-<h4 id="sec-4-1-1">常见的索引模型</h4>
+<h4 id="sec-4-1-1"><a id="ID-2A7CACD0-B4AD-4B68-88F0-C014E0247C48" name="ID-2A7CACD0-B4AD-4B68-88F0-C014E0247C48"></a>常见的索引模型</h4>
 <div class="outline-text-4" id="text-4-1-1">
 <ul class="org-ul">
 <li>哈希表
@@ -424,7 +434,7 @@ MySQL 中每条更新记录都会记录一条回滚操作，记录上的最新�
 </div>
 
 <div id="outline-container-sec-4-1-2" class="outline-4">
-<h4 id="sec-4-1-2">InnoDB 索引模型</h4>
+<h4 id="sec-4-1-2"><a id="ID-CEC29D22-5AAB-4C55-8E8A-6C0E7E371E58" name="ID-CEC29D22-5AAB-4C55-8E8A-6C0E7E371E58"></a>InnoDB 索引模型</h4>
 <div class="outline-text-4" id="text-4-1-2">
 <p>
 InnoDB 使用了 B+ 树索引模型，每一个索引对应一棵 B+ 树。
