@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0"
+     xmlns:content="http://purl.org/rss/1.0/modules/content/"
+     xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:atom="http://www.w3.org/2005/Atom"
+     xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+     xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+     xmlns:georss="http://www.georss.org/georss"
+     xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+     xmlns:media="http://search.yahoo.com/mrss/"><channel>
+  <title>(Sitemap)</title>
+  <atom:link href="https://www.mxtsing.com/sitemap.xml" rel="self" type="application/rss+xml" />
+  <link>https://www.mxtsing.com</link>
+  <description><![CDATA[]]></description>
+  <language>en</language>
+  <pubDate>Wed, 27 Feb 2019 14:59:21 +0800</pubDate>
+  <lastBuildDate>Wed, 27 Feb 2019 14:59:21 +0800</lastBuildDate>
+  <generator>Emacs 25.1 Org-mode 8.2.10</generator>
+  <webMaster>Justin@Justin-MacBook-Pro.local (Justin)</webMaster>
+  <image>
+    <url>https://www.mxtsing.com/img/icons/rss.png</url>
+    <title>(Sitemap)</title>
+    <link>https://www.mxtsing.com</link>
+  </image>
+
+  <ul class="org-ul">
+    <li>plans
+    <ul class="org-ul">
+      <li><a href="https://www.mxtsing.com/plans/2019.html">2019-01-02 2019</a>
+      </li>
+    </ul>
+    </li>
+    <li>notes
+    <ul class="org-ul">
+      <li><a href="https://www.mxtsing.com/notes/MySQL实战45讲.html">2019-02-26 MySQL实战45讲</a>
+      </li>
+      <li><a href="https://www.mxtsing.com/notes/数据结构与算法之美.html">2019-01-29 数据结构与算法之美</a>
+      </li>
+      <li><a href="https://www.mxtsing.com/notes/Structure-and-Interpretation-of-Computer-Programs.html">2018-09-18 Structure-and-Interpretation-of-Computer-Programs</a>
+      </li>
+      <li><a href="https://www.mxtsing.com/notes/sicp.html">2018-09-17 sicp</a>
+      </li>
+      <li><a href="https://www.mxtsing.com/notes/HTTP-The-Definitive-Guide.html">2018-09-09 HTTP-The-Definitive-Guide</a>
+      </li>
+    </ul>
+    </li>
+    <li><a href="https://www.mxtsing.com/index-books.html">2019-02-26 index-books</a>
+    </li>
+    <li><a href="https://www.mxtsing.com/DoWhatYouCant.html">2019-02-26 DoWhatYouCant</a>
+    </li>
+    <li><a href="https://www.mxtsing.com/index-music.html">2019-02-26 如果世界太危险，只有音乐最安全</a>
+    </li>
+    <li><a href="https://www.mxtsing.com/index-os.html">2019-02-26 index-os</a>
+    </li>
+    <li><a href="https://www.mxtsing.com/index-notes.html">2019-02-26 Study Notes</a>
+    </li>
+    <li><a href="https://www.mxtsing.com/index-tools.html">2019-02-26 Tools</a>
+    </li>
+    <li><a href="https://www.mxtsing.com/index-pl.html">2019-02-26 Programming Language</a>
+    </li>
+    <li><a href="https://www.mxtsing.com/index.html">2019-02-26 #DoWhatYouCant</a>
+    </li>
+  </ul>
+</channel>
+</rss>
