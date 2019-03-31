@@ -4,51 +4,56 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>week-1</title>
-<!-- 2019-03-25 Mon 10:31 -->
+<!-- 2019-03-31 Sun 16:16 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="Justin" />
 <link rel="stylesheet" type="text/css" href="/css/worg.css"/>
 <link rel="icon" type="image/png" href="/img/icons/heckert.png">
-
-<script type="text/javascript" src="https://www.mxtsing.com/js/MathJax.js?config=TeX-AMS-MML_HTMLorMML,local/local"></script>
 <script type="text/javascript">
-<!--/*--><![CDATA[/*><!--*/
-    MathJax.Hub.Config({
-        jax: ["input/TeX", "output/HTML-CSS"],
-        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
-                     "TeX/noUndefined.js", "[Contrib]/siunitx/siunitx.js", "[Contrib]/mhchem/mhchem.js"],
-        tex2jax: {
-            inlineMath: [ ["\\(","\\)"] ],
-            displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
-            skipTags: ["script","noscript","style","textarea","pre","code"],
-            ignoreClass: "tex2jax_ignore",
-            processEscapes: false,
-            processEnvironments: true,
-            preview: "TeX"
-        },
-        TeX: {extensions: ["AMSmath.js","AMSsymbols.js",  "[Contrib]/siunitx/siunitx.js", "[Contrib]/mhchem/mhchem.js"]},
-        showProcessingMessages: true,
-        displayAlign: "left",
-        displayIndent: "5em",
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
 
-        "HTML-CSS": {
-             scale: 100,
-             availableFonts: ["STIX","TeX"],
-             preferredFont: "TeX",
-             webFont: "TeX",
-             imageFont: "TeX",
-             showMathMenu: true,
-        },
-        MMLorHTML: {
-             prefer: {
-                 MSIE:    "MML",
-                 Firefox: "MML",
-                 Opera:   "HTML",
-                 other:   "HTML"
-             }
-        }
-    });
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
 /*]]>*///-->
 </script>
 </head>
@@ -74,13 +79,13 @@
 <h2 id="sec-1">Algorithm</h2>
 <div class="outline-text-2" id="text-1">
 <p>
-<a href="https://leetcode.com/problems/two-sum/">Two Sum</a>
+<a href="https://leetcode.com/problems/two-sum/">1.Two Sum</a>
 </p>
 
 <ul class="org-ul">
-<li>暴力求解：直接双重遍历去找是否存在与当期值加和等于目标值的元素，时间复杂度 <code>O(\({n^2}\))</code> ，空间复杂度 <code>O(1)</code>, O(\({2^n}\))
+<li>暴力求解：直接双重遍历去找是否存在与当期值加和等于目标值的元素，时间复杂度 O(n<sup>2</sup>) ，空间复杂度 O(1)
 </li>
-<li>哈希表：构建 <code>值-索引</code> 的键值对，然后遍历去找与当前值匹配的对应值，当然更好的方式是边构建边往回找目标值，时间复杂度 <code>O(n)</code> ，空间复杂度 <code>O(n)</code>
+<li>哈希表：构建 <code>值-索引</code> 的键值对，然后遍历去找与当前值匹配的对应值，当然更好的方式是边构建边往回找目标值，时间复杂度 O(n) ，空间复杂度 O(n)
 </li>
 </ul>
 

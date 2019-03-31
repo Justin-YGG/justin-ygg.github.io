@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>week-2</title>
+<!-- 2019-03-31 Sun 16:16 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Justin" />
+<link rel="stylesheet" type="text/css" href="/css/worg.css"/>
+<link rel="icon" type="image/png" href="/img/icons/heckert.png">
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="index.html"> UP </a>
+ |
+ <a accesskey="H" href="../index.html"> HOME </a>
+</div><div id="content">
+<h1 class="title">week-2</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">Algorithm</a></li>
+<li><a href="#sec-2">Review</a>
+<ul>
+<li><a href="#sec-2-1">文档型注释</a></li>
+<li><a href="#sec-2-2">声明式注释</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">Tip</a></li>
+<li><a href="#sec-4">Share</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">Algorithm</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+<a href="https://leetcode.com/problems/remove-nth-node-from-end-of-list/">19. Remove Nth Node From End of List</a>
+</p>
+
+<ul class="org-ul">
+<li>首先想到的解决办法是先遍历链表，同时存储游标（从0开始）和节点对应关系到字典，获取到链表长度 L，要删除的节点就是 <code>L - n</code> 。时间复杂度是 <code>O(n)</code>, 空间复杂度 <code>O(1)</code> 。但是此方法需要额外判断边界条件，故加入 <code>哨兵</code> 节点进行优化。
+</li>
+
+<li>引入 <code>哨兵</code> ，使用 <code>快慢指针</code> 的方式， <code>快指针</code> 先走 <code>n+1</code> 步，确保两个指针之间相差 n 个节点，然后两个指针同时前进， <code>快指针</code> 到达最后一个节点的 <code>next</code> 时， <code>慢指针</code> 正好指向 <code>从后数第 n 个节点</code> 。
+</li>
+</ul>
+
+
+
+<div class="figure">
+<p><img src="img/19_Remove_nth_node_from_end_of_list.png" alt="19_Remove_nth_node_from_end_of_list.png" width="300" />
+</p>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-python"><span style="color: #2aa1ae; background-color: #292e34;"># </span><span style="color: #2aa1ae; background-color: #292e34;">Definition for singly-linked list.</span>
+<span style="color: #2aa1ae; background-color: #292e34;"># </span><span style="color: #2aa1ae; background-color: #292e34;">class ListNode(object):</span>
+<span style="color: #2aa1ae; background-color: #292e34;">#     </span><span style="color: #2aa1ae; background-color: #292e34;">def __init__(self, x):</span>
+<span style="color: #2aa1ae; background-color: #292e34;">#         </span><span style="color: #2aa1ae; background-color: #292e34;">self.val = x</span>
+<span style="color: #2aa1ae; background-color: #292e34;">#         </span><span style="color: #2aa1ae; background-color: #292e34;">self.next = None</span>
+
+<span style="color: #4f97d7; font-weight: bold;">class</span> <span style="color: #ce537a; font-weight: bold;">Solution</span><span style="color: #4f97d7;">(</span><span style="color: #4f97d7;">object</span><span style="color: #4f97d7;">)</span>:
+    <span style="color: #4f97d7; font-weight: bold;">def</span> <span style="color: #bc6ec5; font-weight: bold;">removeNthFromEnd</span><span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">self</span>, head, n<span style="color: #4f97d7;">)</span>:
+        <span style="color: #9f8766;">"""</span>
+<span style="color: #9f8766;">        :type head: ListNode</span>
+<span style="color: #9f8766;">        :type n: int</span>
+<span style="color: #9f8766;">        :rtype: ListNode</span>
+<span style="color: #9f8766;">        """</span>
+
+        <span style="color: #7590db;">dummy</span> = ListNode<span style="color: #4f97d7;">(</span>0<span style="color: #4f97d7;">)</span>
+        dummy.<span style="color: #4f97d7;">next</span> = head
+        <span style="color: #7590db;">fast</span> = <span style="color: #7590db;">slow</span> = dummy
+
+        <span style="color: #4f97d7; font-weight: bold;">for</span> _ <span style="color: #4f97d7; font-weight: bold;">in</span> <span style="color: #4f97d7;">range</span><span style="color: #4f97d7;">(</span>n<span style="color: #4f97d7;">)</span>:
+            <span style="color: #7590db;">fast</span> = fast.<span style="color: #4f97d7;">next</span>
+
+        <span style="color: #4f97d7; font-weight: bold;">while</span> fast.<span style="color: #4f97d7;">next</span>:
+            <span style="color: #7590db;">fast</span> = fast.<span style="color: #4f97d7;">next</span>
+            <span style="color: #7590db;">slow</span> = slow.<span style="color: #4f97d7;">next</span>
+
+        slow.<span style="color: #4f97d7;">next</span> = slow.<span style="color: #4f97d7;">next</span>.<span style="color: #4f97d7;">next</span>
+        <span style="color: #4f97d7; font-weight: bold;">return</span> dummy.<span style="color: #4f97d7;">next</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2">Review</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+<a href="https://medium.freecodecamp.org/code-comments-the-good-the-bad-and-the-ugly-be9cc65fbf83">Putting comments in code: the good, the bad, and the ugly</a>
+</p>
+
+<p>
+这是一篇关于代码注释的文章，很多时候我们都听到过 <code>Good code is self-documenting</code> ，但是否要添加注释需要视情况而定，不能一味为了展示代码质量而忽视了
+注释。
+</p>
+
+<p>
+注释一般分为两类， <code>文档型注释</code> 和 <code>声明式注释</code> 。
+</p>
+</div>
+
+<div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1">文档型注释</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+如果你是在维护一个公共库、开源库、框架或者是 API，这时就应该在代码中编写规范且统一的注释，并且能够与 <code>声明式注释</code> 明显区别开，
+方便调用者能够清晰明了地了解代码的使用方法，同时也能够利用一些工具，将注释提取出来，形成一份独立的文档。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2">声明式注释</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+<code>声明式注释</code> 就是给对代码维护、重构或扩展的人员看的了，当然，也包括未来的自己。添加这类注释时，首先要审视代码在可读性上是否还能改进，若通过优化代码可以避免注释，那就可以不必添加。
+</p>
+
+<ul class="org-ul">
+<li>不用添加无意义的注释，比如对代码的解释
+</li>
+<li>可以适当添加幽默点儿的注释，但不要试图用此方法掩饰差代码
+</li>
+<li>对自己反复思考和实践后认为最好的解决方案处适当添加注释，避免其他开发人员在此重复浪费时间去优化
+</li>
+</ul>
+
+<p>
+<b>文章评论中提到了比较重要的一点，测试用例也是注释的一种形式。有时可能比直接接阅读代码，更能够清晰、快速的读懂其中的用法和含义。</b>
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3">Tip</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+之前解决过两层嵌套的列表，最容易想到的是 <code>forfor</code> 方法，另外发现比较好玩的方法是使用 <code>sum</code> 方法，但是这种方法效率不较低，实际上只是把列表中的元素（列表）相加，
+等同于 <code>[1, 2] + [3, 4] = [1, 2, 3, 4]</code> ，会额外创建一个列表并复制最终结果到新列表，而且也只支持两重嵌套。官方文档中，对于可迭代元素建议使用 <code>itertools.chain()</code> 。
+</p>
+
+<p>
+stackoverflow 上有回答对于各种操作进行了时间上的对比，最快的方法是 <code>functools_reduce_iconcat</code>
+<a href="https://stackoverflow.com/a/45323085">
+How to flat list nested list?</a>
+</p>
+
+
+<div class="figure">
+<p><img src="img/flat-list.png" alt="flat-list.png" width="500" />
+</p>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-python"><span style="color: #2aa1ae; background-color: #292e34;"># </span><span style="color: #2aa1ae; background-color: #292e34;">coding: utf-8</span>
+<span style="color: #4f97d7; font-weight: bold;">import</span> functools
+<span style="color: #4f97d7; font-weight: bold;">import</span> itertools
+<span style="color: #4f97d7; font-weight: bold;">import</span> numpy
+<span style="color: #4f97d7; font-weight: bold;">import</span> operator
+<span style="color: #4f97d7; font-weight: bold;">import</span> perfplot
+
+
+<span style="color: #4f97d7; font-weight: bold;">def</span> <span style="color: #bc6ec5; font-weight: bold;">forfor</span><span style="color: #4f97d7;">(</span>a<span style="color: #4f97d7;">)</span>:
+    <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #4f97d7;">[</span>item <span style="color: #4f97d7; font-weight: bold;">for</span> sublist <span style="color: #4f97d7; font-weight: bold;">in</span> a <span style="color: #4f97d7; font-weight: bold;">for</span> item <span style="color: #4f97d7; font-weight: bold;">in</span> sublist<span style="color: #4f97d7;">]</span>
+
+<span style="color: #4f97d7; font-weight: bold;">def</span> <span style="color: #bc6ec5; font-weight: bold;">sum_brackets</span><span style="color: #4f97d7;">(</span>a<span style="color: #4f97d7;">)</span>:
+    <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #4f97d7;">sum</span><span style="color: #4f97d7;">(</span>a, <span style="color: #bc6ec5;">[]</span><span style="color: #4f97d7;">)</span>
+
+<span style="color: #4f97d7; font-weight: bold;">def</span> <span style="color: #bc6ec5; font-weight: bold;">functools_reduce</span><span style="color: #4f97d7;">(</span>a<span style="color: #4f97d7;">)</span>:
+    <span style="color: #4f97d7; font-weight: bold;">return</span> functools.<span style="color: #4f97d7;">reduce</span><span style="color: #4f97d7;">(</span>operator.concat, a<span style="color: #4f97d7;">)</span>
+
+<span style="color: #4f97d7; font-weight: bold;">def</span> <span style="color: #bc6ec5; font-weight: bold;">functools_reduce_iconcat</span><span style="color: #4f97d7;">(</span>a<span style="color: #4f97d7;">)</span>:
+    <span style="color: #4f97d7; font-weight: bold;">return</span> functools.<span style="color: #4f97d7;">reduce</span><span style="color: #4f97d7;">(</span>operator.iconcat, a, <span style="color: #bc6ec5;">[]</span><span style="color: #4f97d7;">)</span>
+
+<span style="color: #4f97d7; font-weight: bold;">def</span> <span style="color: #bc6ec5; font-weight: bold;">itertools_chain</span><span style="color: #4f97d7;">(</span>a<span style="color: #4f97d7;">)</span>:
+    <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #4f97d7;">list</span><span style="color: #4f97d7;">(</span>itertools.chain.from_iterable<span style="color: #bc6ec5;">(</span>a<span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>
+
+<span style="color: #4f97d7; font-weight: bold;">def</span> <span style="color: #bc6ec5; font-weight: bold;">numpy_flat</span><span style="color: #4f97d7;">(</span>a<span style="color: #4f97d7;">)</span>:
+    <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #4f97d7;">list</span><span style="color: #4f97d7;">(</span>numpy.array<span style="color: #bc6ec5;">(</span>a<span style="color: #bc6ec5;">)</span>.flat<span style="color: #4f97d7;">)</span>
+
+<span style="color: #4f97d7; font-weight: bold;">def</span> <span style="color: #bc6ec5; font-weight: bold;">numpy_concatenate</span><span style="color: #4f97d7;">(</span>a<span style="color: #4f97d7;">)</span>:
+    <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #4f97d7;">list</span><span style="color: #4f97d7;">(</span>numpy.concatenate<span style="color: #bc6ec5;">(</span>a<span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4">Share</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+之前没写过 ftp 服务上传文件，正好之前有这个需求，实现了一下。需要注意的有两个点，一个是加入对文件类型的限制，避免非法文件上传至服务器；另外一个是需要动态
+建立不存在的子目录；上传完毕后要记得关闭连接。
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-python"><span style="color: #2aa1ae; background-color: #292e34;"># </span><span style="color: #2aa1ae; background-color: #292e34;">coding: utf-8</span>
+<span style="color: #4f97d7; font-weight: bold;">import</span> ftplib
+
+
+<span style="color: #4f97d7; font-weight: bold;">class</span> <span style="color: #ce537a; font-weight: bold;">Ftp</span><span style="color: #4f97d7;">(</span><span style="color: #4f97d7;">object</span><span style="color: #4f97d7;">)</span>:
+
+    <span style="color: #7590db;">BASE_DIR</span> = <span style="color: #2d9574;">'ftp/test'</span>
+    <span style="color: #7590db;">ALLOWED_EXTENSIONS</span> = <span style="color: #4f97d7;">set</span><span style="color: #4f97d7;">(</span><span style="color: #bc6ec5;">[</span><span style="color: #2d9574;">'png'</span>, <span style="color: #2d9574;">'jpg'</span>, <span style="color: #2d9574;">'jpeg'</span><span style="color: #bc6ec5;">]</span><span style="color: #4f97d7;">)</span>
+
+    <span style="color: #4f97d7; font-weight: bold;">def</span> <span style="color: #bc6ec5; font-weight: bold;">__init__</span><span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">self</span>, host, port, user, passwd<span style="color: #4f97d7;">)</span>:
+        <span style="color: #4f97d7; font-weight: bold;">self</span>.host = host
+        <span style="color: #4f97d7; font-weight: bold;">self</span>.port = port
+        <span style="color: #4f97d7; font-weight: bold;">self</span>.user = user
+        <span style="color: #4f97d7; font-weight: bold;">self</span>.passwd = passwd
+
+    <span style="color: #4f97d7; font-weight: bold;">def</span> <span style="color: #bc6ec5; font-weight: bold;">connect</span><span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">self</span><span style="color: #4f97d7;">)</span>:
+        <span style="color: #7590db;">ftp</span> = ftplib.FTP<span style="color: #4f97d7;">()</span>
+        ftp.connect<span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">self</span>.host, <span style="color: #4f97d7; font-weight: bold;">self</span>.port<span style="color: #4f97d7;">)</span>
+        ftp.login<span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">self</span>.user, <span style="color: #4f97d7; font-weight: bold;">self</span>.passwd<span style="color: #4f97d7;">)</span>
+        <span style="color: #4f97d7; font-weight: bold;">return</span> ftp
+
+    <span style="color: #4f97d7; font-weight: bold;">def</span> <span style="color: #bc6ec5; font-weight: bold;">upload</span><span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">self</span>, user_dir, file_name, <span style="color: #4f97d7;">file</span><span style="color: #4f97d7;">)</span>:
+        <span style="color: #4f97d7; font-weight: bold;">self</span>._check_file<span style="color: #4f97d7;">(</span><span style="color: #4f97d7;">file</span>.filename<span style="color: #4f97d7;">)</span>
+
+        <span style="color: #7590db;">f</span> = <span style="color: #4f97d7; font-weight: bold;">self</span>.connect<span style="color: #4f97d7;">()</span>
+        <span style="color: #7590db;">dir_</span> = <span style="color: #2d9574;">'{}/{}'</span>.<span style="color: #4f97d7;">format</span><span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">self</span>.BASE_UPLOAD_DIR, user_dir<span style="color: #4f97d7;">)</span>
+        <span style="color: #4f97d7; font-weight: bold;">for</span> d <span style="color: #4f97d7; font-weight: bold;">in</span> dir_.split<span style="color: #4f97d7;">(</span><span style="color: #2d9574;">'/'</span><span style="color: #4f97d7;">)</span>:
+            <span style="color: #4f97d7; font-weight: bold;">self</span>.chdir<span style="color: #4f97d7;">(</span>f, d<span style="color: #4f97d7;">)</span>
+
+        <span style="color: #4f97d7; font-weight: bold;">try</span>:
+            f.storbinary<span style="color: #4f97d7;">(</span><span style="color: #2d9574;">'STOR {}'</span>.<span style="color: #4f97d7;">format</span><span style="color: #bc6ec5;">(</span>file_name<span style="color: #bc6ec5;">)</span>, <span style="color: #4f97d7;">file</span><span style="color: #4f97d7;">)</span>
+        <span style="color: #4f97d7; font-weight: bold;">except</span> <span style="color: #ce537a; font-weight: bold;">Exception</span>:
+            <span style="color: #4f97d7; font-weight: bold;">raise</span>
+        <span style="color: #4f97d7; font-weight: bold;">finally</span>:
+            f.close<span style="color: #4f97d7;">()</span>
+
+    <span style="color: #4f97d7; font-weight: bold;">def</span> <span style="color: #bc6ec5; font-weight: bold;">_check_file</span><span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">self</span>, filename<span style="color: #4f97d7;">)</span>:
+        <span style="color: #4f97d7; font-weight: bold;">if</span> <span style="color: #2d9574;">'.'</span> <span style="color: #4f97d7; font-weight: bold;">not</span> <span style="color: #4f97d7; font-weight: bold;">in</span> filename:
+            <span style="color: #4f97d7; font-weight: bold;">return</span>
+        <span style="color: #7590db;">type_</span> = filename.rsplit<span style="color: #4f97d7;">(</span><span style="color: #2d9574;">'.'</span>, 1<span style="color: #4f97d7;">)[</span>1<span style="color: #4f97d7;">]</span>.lower<span style="color: #4f97d7;">()</span>
+        <span style="color: #4f97d7; font-weight: bold;">if</span> type_ <span style="color: #4f97d7; font-weight: bold;">not</span> <span style="color: #4f97d7; font-weight: bold;">in</span> <span style="color: #4f97d7; font-weight: bold;">self</span>.ALLOWED_EXTENSIONS:
+            <span style="color: #4f97d7; font-weight: bold;">raise</span> <span style="color: #ce537a; font-weight: bold;">ValueError</span><span style="color: #4f97d7;">(</span><span style="color: #2d9574;">'unsupported file type'</span><span style="color: #4f97d7;">)</span>
+        <span style="color: #4f97d7; font-weight: bold;">return</span> type_
+
+    <span style="color: #ce537a; font-weight: bold;">@staticmethod</span>
+    <span style="color: #4f97d7; font-weight: bold;">def</span> <span style="color: #bc6ec5; font-weight: bold;">chdir</span><span style="color: #4f97d7;">(</span>ftp, dir_<span style="color: #4f97d7;">)</span>:
+        <span style="color: #4f97d7; font-weight: bold;">if</span> Ftp.directory_exists<span style="color: #4f97d7;">(</span>ftp, dir_<span style="color: #4f97d7;">)</span> <span style="color: #4f97d7; font-weight: bold;">is</span> <span style="color: #a45bad;">False</span>:
+            ftp.mkd<span style="color: #4f97d7;">(</span>dir_<span style="color: #4f97d7;">)</span>
+        ftp.cwd<span style="color: #4f97d7;">(</span>dir_<span style="color: #4f97d7;">)</span>
+
+    <span style="color: #ce537a; font-weight: bold;">@staticmethod</span>
+    <span style="color: #4f97d7; font-weight: bold;">def</span> <span style="color: #bc6ec5; font-weight: bold;">directory_exists</span><span style="color: #4f97d7;">(</span>ftp, <span style="color: #4f97d7;">dir</span><span style="color: #4f97d7;">)</span>:
+        <span style="color: #7590db;">filelist</span> = <span style="color: #4f97d7;">[]</span>
+        ftp.retrlines<span style="color: #4f97d7;">(</span><span style="color: #2d9574;">'LIST'</span>, filelist.append<span style="color: #4f97d7;">)</span>
+        <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #4f97d7;">any</span><span style="color: #4f97d7;">(</span>f.split<span style="color: #bc6ec5;">()[</span>-1<span style="color: #bc6ec5;">]</span> == <span style="color: #4f97d7;">dir</span> <span style="color: #4f97d7; font-weight: bold;">and</span> f.upper<span style="color: #bc6ec5;">()</span>.startswith<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">'D'</span><span style="color: #bc6ec5;">)</span> <span style="color: #4f97d7; font-weight: bold;">for</span> f <span style="color: #4f97d7; font-weight: bold;">in</span> filelist<span style="color: #4f97d7;">)</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
