@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>MySQL实战45讲</title>
-<!-- 2019-03-20 Wed 12:02 -->
+<!-- 2019-04-07 Sun 17:47 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="Justin" />
@@ -116,6 +116,7 @@ for the JavaScript code in this tag.
 </ul>
 </div>
 </div>
+
 <div id="outline-container-sec-1" class="outline-2">
 <h2 id="sec-1"><a id="ID-1DF0D6D2-C2C8-45A7-A877-581F747DBAD4" name="ID-1DF0D6D2-C2C8-45A7-A877-581F747DBAD4"></a>01 | 基础架构：一条SQL查询语句是如何执行的？</h2>
 <div class="outline-text-2" id="text-1">
@@ -193,8 +194,6 @@ MySQL通过关键字将 SQL语句解析，生成一课对应的“解析树”�
 </div>
 </div>
 </div>
-
-
 <div id="outline-container-sec-2" class="outline-2">
 <h2 id="sec-2"><a id="ID-94DE69B3-8F92-4548-8C43-FD985CA9E03E" name="ID-94DE69B3-8F92-4548-8C43-FD985CA9E03E"></a>02 | 日志系统：一条SQL更新语句是如何执行的？</h2>
 <div class="outline-text-2" id="text-2">
@@ -300,8 +299,6 @@ MySQL server 层提供 binlog 功能，用以归档，没有 <code>crash-safe</c
 </div>
 </div>
 </div>
-
-
 <div id="outline-container-sec-3" class="outline-2">
 <h2 id="sec-3"><a id="ID-2D93EE96-F0AB-4950-A13B-DD4486F8EEB7" name="ID-2D93EE96-F0AB-4950-A13B-DD4486F8EEB7"></a>03 | 事务隔离：为什么你改了我还看不见？</h2>
 <div class="outline-text-2" id="text-3">
@@ -540,7 +537,7 @@ sql 语句 <code>select * from T where k betwee 3 and 5</code> 执行时会先�
 </p>
 
 <p>
-<code>最左前缀可以是联合索引的最左 N 个字段，也可以是字符串索引的最左 M 个字符</code> 。所以在建立联合索引时，要考虑索引的顺序，尽可能的醉倒复用最大化。
+<code>最左前缀可以是联合索引的最左 N 个字段，也可以是字符串索引的最左 M 个字符</code> 。所以在建立联合索引时，要考虑索引的顺序，尽可能的做到复用最大化。
 </p>
 </div>
 </div>
