@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>数据结构与算法之美</title>
-<!-- 2019-07-02 Tue 19:20 -->
+<!-- 2019-10-26 Sat 22:49 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="Justin" />
@@ -72,6 +72,8 @@ for the JavaScript code in this tag.
 <li><a href="#sec-1">01 | 复杂度分析</a>
 <ul>
 <li><a href="#sec-1-1">时间复杂度</a></li>
+<li><a href="#sec-1-2">空间复杂度分析</a></li>
+<li><a href="#sec-1-3">总结</a></li>
 </ul>
 </li>
 </ul>
@@ -107,7 +109,7 @@ for the JavaScript code in this tag.
 </ul>
 
 <p>
-<b>集中常见时间复杂度分析：</b>
+<b>常见时间复杂度分析：</b>
 </p>
 
 
@@ -117,14 +119,15 @@ for the JavaScript code in this tag.
 </div>
 
 <p>
-其中 O(\({2^n}\)) 和 O(n!) 为非多项式量级，其他为多项式量级。
+其中 O(\({2^n}\)) 和 O(n!) 为非多项式量级，其他为多项式量级。非多项式量级算法会随着规模 n 的增大，执行时间急剧增加，是非常低效的算法，我们主要
+关注 <b>多项式时间复杂度</b> ：
 </p>
 
 <ul class="org-ul">
 <li><b>O(1)</b>
 
 <p>
-只要代码执行时间不随着 n 的增大而增长，时间复杂度即为 <code>O(1)</code> ，如果代码中不含有循环、递归等类型代码，上千上万行代码时间复杂度也是 <code>O(1)</code>
+只要代码执行时间不随着 n 的增大而增长，时间复杂度即为 <code>O(1)</code> ，如果代码中不含有循环、递归等类型代码，成千上万行代码的时间复杂度也是 <code>O(1)</code>
 </p>
 </li>
 
@@ -132,21 +135,75 @@ for the JavaScript code in this tag.
 
 <div class="org-src-container">
 
-<pre class="src src-python"><span style="color: #7590db;">i</span> = 1
-<span style="color: #4f97d7; font-weight: bold;">while</span> i &lt; n:
-    <span style="color: #7590db;">i</span> = i * 2
+<pre class="src src-python"><span style="color: #0AAEB3;">i</span> = 1
+<span style="color: #EF2F27;">while</span> i &lt; n:
+    <span style="color: #0AAEB3;">i</span> = i * 2
 </pre>
 </div>
 </li>
 </ul>
 
 <p>
-上面这个循环代码执行次数可以通过 2<sup>x</sup>=n, 求得 x=log<sub>2</sub>n
+上面这个循环代码执行次数可以通过 <code>2^x=n</code> , 求得 x=log<sub>2</sub>n ，则时间复杂度为 O(log<sub>2</sub>n) ,如果换成 <code>i * 3</code> ，那么时间复杂度为 O(log<sub>3</sub>n) ,
+因为对数之间是可以相互转换的，所以可以忽略对数的“底”，统一表示为 O(logn)。O(nlogn) 自然就是循环嵌套了，O(nlogn) 也是一种比较常见的算法时间复杂度，
+如归并排序、快速排序的时间复杂度都是 O(nlogn)。
 </p>
 
+<ul class="org-ul">
+<li>O(m+n)、O(m*n)
+</li>
+</ul>
+
 <p>
-上面这个循环代码执行次数可以通过 2<sup>y</sup>=n
+此类时间复杂度是由两个数据的规模决定的
 </p>
+
+<div class="org-src-container">
+
+<pre class="src src-python"><span style="color: #EF2F27;">def</span> <span style="color: #FBB829;">cal</span><span style="color: #FCE8C3;">(</span>m, n<span style="color: #FCE8C3;">)</span>:
+    <span style="color: #0AAEB3;">i</span> = <span style="color: #0AAEB3;">j</span> = 1
+    <span style="color: #0AAEB3;">sum1</span> = <span style="color: #0AAEB3;">sum2</span> = 0
+
+    <span style="color: #EF2F27;">while</span><span style="color: #FCE8C3;">(</span>i &lt; m<span style="color: #FCE8C3;">)</span>:
+        <span style="color: #0AAEB3;">sum1</span> += i
+        i++
+
+    <span style="color: #EF2F27;">while</span><span style="color: #FCE8C3;">(</span>j &lt; n<span style="color: #FCE8C3;">)</span>:
+        <span style="color: #0AAEB3;">sum2</span> += j
+        j++
+    <span style="color: #EF2F27;">return</span> sum1 + sum2
+</pre>
+</div>
+
+<p>
+我们无法估计 m 和 n 的量级谁大，就不能简单地使用加法规则，忽略掉其中一个，所以算法复杂度为 O(m+n)，如果是嵌套的，则乘法规则依然有效即时间复杂
+度为 O(m*n)。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2">空间复杂度分析</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+空间复杂度全称 <code>渐进空间复杂度(asymptotic space complexity)</code> ，表示算法的存储空间和数据规模之间的增长关系。
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3">总结</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+<b>可以粗略的估计，越高阶复杂度的算法，执行效率越低。</b> 常见的复杂度从低阶到高阶： O(1)、O(logn)、O(n)、O(nlogn)、O(n<sup>2</sup>)
+</p>
+
+
+<div class="figure">
+<p><img src="../img/DataStructuresandAlgorithms/complexity_order.png" alt="complexity_order.png" width="500" />
+</p>
+</div>
 </div>
 </div>
 </div>

@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>MySQL实战45讲</title>
-<!-- 2019-04-07 Sun 17:47 -->
+<!-- 2019-10-26 Sat 22:39 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="Justin" />
@@ -118,9 +118,8 @@ for the JavaScript code in this tag.
 </div>
 
 <div id="outline-container-sec-1" class="outline-2">
-<h2 id="sec-1"><a id="ID-1DF0D6D2-C2C8-45A7-A877-581F747DBAD4" name="ID-1DF0D6D2-C2C8-45A7-A877-581F747DBAD4"></a>01 | 基础架构：一条SQL查询语句是如何执行的？</h2>
+<h2 id="sec-1">01 | 基础架构：一条SQL查询语句是如何执行的？</h2>
 <div class="outline-text-2" id="text-1">
-
 
 <div class="figure">
 <p><img src=" ../img/mysql-45/mysql-architecture.png" alt="mysql-architecture.png" width="500" />
@@ -134,7 +133,7 @@ Mysql 大体分为 <code>Server</code> 层和 <code>存储引擎</code> 两部�
 </div>
 
 <div id="outline-container-sec-1-1" class="outline-3">
-<h3 id="sec-1-1"><a id="ID-8B16C177-D7CB-4F93-92EA-25D92F687049" name="ID-8B16C177-D7CB-4F93-92EA-25D92F687049"></a>连接器</h3>
+<h3 id="sec-1-1">连接器</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 经过经典的 TCP握手后，认证身份建立连接，建立连接后即使通过管理员修改用户权限，连接也不会断开，会在下一次连接生效。
@@ -149,15 +148,15 @@ Mysql 大体分为 <code>Server</code> 层和 <code>存储引擎</code> 两部�
 </ul>
 
 <p>
-连接的建立比较复杂，应尽量减少建立连接的动作，也就是使用长连接。但是 MySQL 在执行过程中临时使用的内存是管理在连接对象
-中的，在连接断开后，资源才会释放，所以要定期断开长连接，或者在执行比较大的操作后通过 <code>mysql_reset_connection</code> 重置连接，
-这个过程不需要重连和重新做权限验证，但是会将连接恢复到刚刚创创建完时的状态。
+连接的建立比较复杂，应尽量减少建立连接的动作，也就是使用长连接。但是 MySQL 在执行过程中临时使用的内存是管理在连接对象中的，在连接断开后，
+资源才会释放，所以要定期断开长连接，或者在执行比较大的操作后通过 <code>mysql_reset_connection</code> 重置连接，这个过程不需要重连和重新做权限验证，
+但是会将连接恢复到刚刚创创建完时的状态。
 </p>
 </div>
 </div>
 
 <div id="outline-container-sec-1-2" class="outline-3">
-<h3 id="sec-1-2"><a id="ID-2A54FEBE-C173-4364-A7C8-30362A27861A" name="ID-2A54FEBE-C173-4364-A7C8-30362A27861A"></a>查询缓存</h3>
+<h3 id="sec-1-2">查询缓存</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 建立连接后，执行语句前会先查询缓存，检查相同语句是否执行过，命中缓存则直接返回，否则继续执行。查询缓存失效非常频繁，表的任何
@@ -167,17 +166,17 @@ Mysql 大体分为 <code>Server</code> 层和 <code>存储引擎</code> 两部�
 </div>
 
 <div id="outline-container-sec-1-3" class="outline-3">
-<h3 id="sec-1-3"><a id="ID-6CE4354C-D34C-452A-BED8-6B00069EA8A7" name="ID-6CE4354C-D34C-452A-BED8-6B00069EA8A7"></a>分析器</h3>
+<h3 id="sec-1-3">分析器</h3>
 <div class="outline-text-3" id="text-1-3">
 <p>
-MySQL通过关键字将 SQL语句解析，生成一课对应的“解析树”， <code>MySQL 解析器</code> 使用 MySQL 语法规则，验证和解析查询，比如关键字是否正确、
+MySQL 通过关键字将 SQL 语句解析，生成一课对应的“解析树”， <code>MySQL 解析器</code> 使用 MySQL 语法规则，验证和解析查询，比如关键字是否正确、
 关键字顺序、前后匹配等。 <code>预处理器</code> 通过 MySQL 语法规则进一步检查语法树是否正确，比如表和数据列是否存在，名字和别名是否有歧义。
 </p>
 </div>
 </div>
 
 <div id="outline-container-sec-1-4" class="outline-3">
-<h3 id="sec-1-4"><a id="ID-4C565AD3-1E14-4977-94B9-F53CEF388FCA" name="ID-4C565AD3-1E14-4977-94B9-F53CEF388FCA"></a>优化器</h3>
+<h3 id="sec-1-4">优化器</h3>
 <div class="outline-text-3" id="text-1-4">
 <p>
 语法树合法后，会交由优化器转换为执行计划，一条查询有多种执行方式，结果都相同，但可能性能不一，比如索引的选择等，优化器就是要制定成本最低的执行计划。
@@ -186,21 +185,20 @@ MySQL通过关键字将 SQL语句解析，生成一课对应的“解析树”�
 </div>
 
 <div id="outline-container-sec-1-5" class="outline-3">
-<h3 id="sec-1-5"><a id="ID-E9E1AAB5-0BFF-4BF9-ABA3-FD1FBF11E57D" name="ID-E9E1AAB5-0BFF-4BF9-ABA3-FD1FBF11E57D"></a>执行器</h3>
+<h3 id="sec-1-5">执行器</h3>
 <div class="outline-text-3" id="text-1-5">
 <p>
-执行器根据优化器生成的执行计划调用存储引擎接口执行，执行计划是一个数据结构，并非字节码，MySQL只是简单的根据执行计划逐步执行指令。
+执行器根据优化器生成的执行计划调用存储引擎接口执行，执行计划是一个数据结构，并非字节码，MySQL 只是简单的根据执行计划逐步执行指令。
 </p>
 </div>
 </div>
 </div>
-<div id="outline-container-sec-2" class="outline-2">
-<h2 id="sec-2"><a id="ID-94DE69B3-8F92-4548-8C43-FD985CA9E03E" name="ID-94DE69B3-8F92-4548-8C43-FD985CA9E03E"></a>02 | 日志系统：一条SQL更新语句是如何执行的？</h2>
-<div class="outline-text-2" id="text-2">
-</div>
 
-<div id="outline-container-sec-2-1" class="outline-3">
-<h3 id="sec-2-1"><a id="ID-6BBC4D1A-C514-45FE-85BB-6BAC3E2880B7" name="ID-6BBC4D1A-C514-45FE-85BB-6BAC3E2880B7"></a>redo log</h3>
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2">02 | 日志系统：一条SQL更新语句是如何执行的？</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1">redo log</h3>
 <div class="outline-text-3" id="text-2-1">
 <p>
 如果每次更新操作都是直接写磁盘，IO 成本和查找成本都很高，所以 MySQL 采用 <code>WAL(Write-Ahead Logging)</code> 技术先写日志，并在系统比较空闲时再写磁盘。
@@ -214,14 +212,14 @@ MySQL通过关键字将 SQL语句解析，生成一课对应的“解析树”�
 
 <p>
 <code>write pos</code> 边写边后移，写到文件末尾后继续从头开始写； <code>checkpoint</code> 擦除记录，往后推移也是循环的，擦除之前需要更新数据到磁盘；
-<code>checkpoint</code> 追赶上 <code>write pos</code> 时，不能再执行新的更新操作，需要停下来擦除一些记录，因为 InnoDB redo log 是固定大小的。有了 redo log，InnoDB就
-可以保证在数据库异常重启时，保证数据不丢失，这个能力成为 <code>crash-safe</code> 。
+<code>checkpoint</code> 追赶上 <code>write pos</code> 时，不能再执行新的更新操作，需要停下来擦除一些记录，因为 InnoDB redo log 是固定大小的。有了 redo log，InnoDB 就
+可以在数据库异常重启时，保证数据不丢失，这个能力成为 <code>crash-safe</code> 。
 </p>
 </div>
 </div>
 
 <div id="outline-container-sec-2-2" class="outline-3">
-<h3 id="sec-2-2"><a id="ID-5A5BD0FC-168A-4C29-8A8D-DF501E06B14F" name="ID-5A5BD0FC-168A-4C29-8A8D-DF501E06B14F"></a>binlog</h3>
+<h3 id="sec-2-2">binlog</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>
 MySQL server 层提供 binlog 功能，用以归档，没有 <code>crash-safe</code> 功能。
@@ -234,10 +232,13 @@ MySQL server 层提供 binlog 功能，用以归档，没有 <code>crash-safe</c
 <ul class="org-ul">
 <li>redo log 是 InnoDB 引擎特有的，binlog 是 MySQL server层提供的；
 </li>
-<li>redo log 是物理日志，记录了“在数据页做了什么修改”；binlog 是逻辑日志，有两种模式， <code>statement</code> 模式记录sql语句， <code>row</code> 模式记录行的内容，记两条更新前和更新后。
+
+<li>redo log 是物理日志，记录了“在数据页做了什么修改”；binlog 是逻辑日志，有两种模式， <code>statement</code> 模式记录 sql 语句， <code>row</code> 模式记录行的内容，记两条，更新前和更新后。
 </li>
+
 <li>redo log 是循环写的，空间固定会用完；binlog 是追加写，文件写到一定大小后会切换下一个，不会覆盖之前的日志。
 </li>
+
 <li>redo log 和 binlog 通过事务 ID 关联。
 </li>
 </ul>
@@ -245,9 +246,8 @@ MySQL server 层提供 binlog 功能，用以归档，没有 <code>crash-safe</c
 </div>
 
 <div id="outline-container-sec-2-3" class="outline-3">
-<h3 id="sec-2-3"><a id="ID-68D39C8C-E4EC-4A4B-B978-C0BE930E5A01" name="ID-68D39C8C-E4EC-4A4B-B978-C0BE930E5A01"></a>update 语句执行流程</h3>
+<h3 id="sec-2-3">update 语句执行流程</h3>
 <div class="outline-text-3" id="text-2-3">
-
 <p>
 图中浅色框表示是在 InnoDB 内部执行的，深色框表示是在执行器中执行。
 </p>
@@ -263,12 +263,16 @@ MySQL server 层提供 binlog 功能，用以归档，没有 <code>crash-safe</c
 </p>
 
 <p>
-<code>1. redo log prepare 2. binlog 3. redo log commit</code> 
+<code>1. redo log prepare 2. binlog 3. redo log commit</code>
 </p>
 
-<p>
-如果在 <code>2</code> 之前异常，恢复备份时没有 binlog，数据一致；如果在 <code>3</code> 之前异常，恢复备份时虽然没有 commit，但是 prepare 和 binlog 完整，重启后自动 commit，数据一致。
-</p>
+<ul class="org-ul">
+<li>如果在 <code>2</code> 之前异常，恢复备份时没有 binlog，数据一致；
+</li>
+
+<li>如果在 <code>3</code> 之前异常，恢复备份时虽然没有 commit，但是 prepare 和 binlog 完整，重启后自动 commit，数据一致。
+</li>
+</ul>
 
 <p>
 <b>复习用-思考：</b>
@@ -281,7 +285,7 @@ MySQL server 层提供 binlog 功能，用以归档，没有 <code>crash-safe</c
 </li>
 <li>redo log 为什么可以保证crash safe机制
 </li>
-<li>binlog的概念是什么, 起到什么作用, 可以做crash safe吗? 
+<li>binlog的概念是什么, 起到什么作用, 可以做crash safe吗?
 </li>
 <li>binlog和redolog的不同点有哪些?
 </li>
@@ -299,15 +303,13 @@ MySQL server 层提供 binlog 功能，用以归档，没有 <code>crash-safe</c
 </div>
 </div>
 </div>
+
 <div id="outline-container-sec-3" class="outline-2">
-<h2 id="sec-3"><a id="ID-2D93EE96-F0AB-4950-A13B-DD4486F8EEB7" name="ID-2D93EE96-F0AB-4950-A13B-DD4486F8EEB7"></a>03 | 事务隔离：为什么你改了我还看不见？</h2>
+<h2 id="sec-3">03 | 事务隔离：为什么你改了我还看不见？</h2>
 <div class="outline-text-2" id="text-3">
-</div>
-
-<div id="outline-container-sec-3-1" class="outline-3">
-<h3 id="sec-3-1"><a id="ID-58A91664-B7C3-4E82-B345-16D205D7369F" name="ID-58A91664-B7C3-4E82-B345-16D205D7369F"></a>隔离级别</h3>
+</div><div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1">隔离级别</h3>
 <div class="outline-text-3" id="text-3-1">
-
 <p>
 SQL 标准隔离级别： <code>读未提交（read uncommited）</code> 、 <code>读提交（read commited）</code> 、 <code>可重复读（repeatable read）</code> 和 <code>串行化（serializable）</code> 。
 在实现上，数据库会创建一个视图，访问的时候以视图的逻辑结果为准。
@@ -331,15 +333,14 @@ SQL 标准隔离级别： <code>读未提交（read uncommited）</code> 、 <co
 </div>
 
 <p>
-<b>可通过此图，理解各个隔离级别下 <code>V1</code> 、 <code>V2</code> 、 <code>V3</code> 的值来加深理解。</b>
+<b>可通过上图，理解各个隔离级别下 <code>V1</code> 、 <code>V2</code> 、 <code>V3</code> 的值来加深理解。</b>
 </p>
 </div>
 </div>
 
 <div id="outline-container-sec-3-2" class="outline-3">
-<h3 id="sec-3-2"><a id="ID-0204D1D0-960A-4927-8E82-A03B8A1EBEA8" name="ID-0204D1D0-960A-4927-8E82-A03B8A1EBEA8"></a>事务隔离的实现</h3>
+<h3 id="sec-3-2">事务隔离的实现</h3>
 <div class="outline-text-3" id="text-3-2">
-
 
 <div class="figure">
 <p><img src=" ../img/mysql-45/read-view.png" alt="read-view.png" width="500" />
@@ -356,18 +357,18 @@ MySQL 中每条更新记录都会记录一条回滚操作，记录上的最新�
 <b>事务启动的方式：</b>
 </p>
 <ul class="org-ul">
-<li>显示启动： <code>begin</code> 或者 <code>start transaction</code>, 提交 <code>commit</code>, 回滚 <code>rollback</code> 。
+<li>显示启动： <code>begin</code> 或者 <code>start transaction</code>, 提交 <code>commit=，回滚 =rollback</code> 。
 </li>
 <li><code>set autocommit=1</code>
 </li>
 </ul>
 
 <p>
-查询持续时间超过60s的事务示例:
+查询持续时间超过 60s 的事务示例:
 </p>
 
 <p>
-<code>select * from information_schema.innodb_trx where TIME_TO_SEC(timediff(now(),trx_started))&gt;60</code>
+<code>select * from information_schema.innodb_trx where TIME_TO_SEC(timediff(now(),trx_started)) &gt; 60;</code>
 </p>
 
 <p>
@@ -375,7 +376,7 @@ MySQL 中每条更新记录都会记录一条回滚操作，记录上的最新�
 </p>
 
 <p>
-<code>commit work</code> 是用来控制事务结束后的行为，是 <code>chain</code> 还是 <code>release</code> ，可以通过参数 <code>completion_type</code> 来控制，默认为0(或者 NOCHAIN)，
+<code>commit work</code> 是用来控制事务结束后的行为，是 <code>chain</code> 还是 <code>release</code> ，可以通过参数 <code>completion_type</code> 来控制，默认为 0(或者 NOCHAIN)，
 等同于 <code>commit</code> 。 <code>completion_type=1</code> 时提交事务并自动开启下一个事务， <code>completion_type=2</code> 时等同于 <code>commit and release</code> ，提交事务并断开
 连接。
 </p>
@@ -413,42 +414,40 @@ MySQL 中每条更新记录都会记录一条回滚操作，记录上的最新�
 </div>
 
 <div id="outline-container-sec-4" class="outline-2">
-<h2 id="sec-4"><a id="ID-608DEA2A-D13C-4E1D-823A-174FC88663A2" name="ID-608DEA2A-D13C-4E1D-823A-174FC88663A2"></a>04 | 深入浅出索引（上）</h2>
+<h2 id="sec-4">04 | 深入浅出索引（上）</h2>
 <div class="outline-text-2" id="text-4">
-</div>
-<div id="outline-container-sec-4-1" class="outline-3">
-<h3 id="sec-4-1"><a id="ID-50C4F04D-E348-4087-8A3A-A10B1F384343" name="ID-50C4F04D-E348-4087-8A3A-A10B1F384343"></a>索引</h3>
+</div><div id="outline-container-sec-4-1" class="outline-3">
+<h3 id="sec-4-1">索引</h3>
 <div class="outline-text-3" id="text-4-1">
 <p>
-索引的作用是为了提高数据查询的效率，作用就像书的目录，更快地4.2找到目标数据。
+索引的作用是为了提高数据查询的效率，作用就像书的目录，更快地找到目标数据。
 </p>
 </div>
 
 <div id="outline-container-sec-4-1-1" class="outline-4">
-<h4 id="sec-4-1-1"><a id="ID-2A7CACD0-B4AD-4B68-88F0-C014E0247C48" name="ID-2A7CACD0-B4AD-4B68-88F0-C014E0247C48"></a>常见的索引模型</h4>
+<h4 id="sec-4-1-1">常见的索引模型</h4>
 <div class="outline-text-4" id="text-4-1-1">
 <ul class="org-ul">
-<li>哈希表
-以 <code>key-value</code> 形式存储数据结构，使用哈希函数把 <code>key</code> 换算成一个具体的位置，将 <code>value</code> 放到此位置上。
+<li><b>哈希表</b>
+以 <code>key-value</code> 形式存储数据结构，使用哈希函数把 <code>Key</code> 换算成一个具体的位置，将 <code>value</code> 放到此位置上。
 多个 <code>key</code> 会出现计算后值一样的情况，使用链表来处理这种情况。查询时首先更加 <code>key</code> 计算出位置，然后遍历链表顺序查找目标数据。链表数据是向后追加，所以是无序的，所以做区间查询就会很慢。
-所以，*哈希表适用于等值查询*， 如：Memcached 及其他一些 NoSQL 引擎。
+所以， <b>哈希表适用于等值查询</b> ， 如：Memcached 及其他一些 NoSQL 引擎。
 </li>
 
-<li>有序数组
-有序数组在*等值查询*和*范围查询*中性能都非常优秀，可以充分利用二分法。但是要维护数据的有序，在新增数据时，数据挪动成本较高。
-所以，*有序数组适用于静态存储引擎*。
+<li><b>有序数组</b>
+有序数组在 <b>等值查询</b> 和 <b>范围查询</b> 中性能都非常优秀，可以充分利用二分法。但是要维护数据的有序，在新增数据时，数据挪动成本较高。
+所以， <b>有序数组适用于静态存储引擎</b> 。
 </li>
 
-<li>二叉搜索树
-二叉搜索树的特点是：每个节点的左儿子小于父节点，父节点又小于右儿子。为了维持 O(log(N)) 的查询复杂度，需要保持这棵树是平衡二叉树，更新时间复杂度也为 O(log(N))，数据库存储实际上使用的不是二叉树，因为所以不仅存在内存中，
-还有写到磁盘上，如果平衡二叉树树高过高，从磁盘中读取数据次数过多，就会导致查询变慢，所以要使用 <code>N 叉树</code> ，N 叉树由于在读写上的性能优点，以及适配磁盘的访问模式，已经被广泛应用在数据库引擎中了，“N 叉”树中的“N”取决于数据块的大小。
+<li><b>二叉搜索树</b>
+  二叉搜索树的特点是：每个节点的左儿子小于父节点，父节点又小于右儿子。为了维持 <code>O(log(N))</code> 的查询复杂度，需要保持这棵树是平衡二叉树，更新时间复杂度也为 <code>O(log(N))</code> ，数据库存储实际上使用的不是二叉树，因为索引不仅存在内存中，还有写到磁盘上，如果平衡二叉树树高过高，从磁盘中读取数据次数过多，就会导致查询变慢，所以要使用 <code>N 叉树</code> ，N 叉树由于在读写上的性能优点，以及适配磁盘的访问模式，已经被广泛应用在数据库引擎中了， <code>N 叉树</code> 中的 <b>N</b> 取决于数据块的大小。
 </li>
 </ul>
 </div>
 </div>
 
 <div id="outline-container-sec-4-1-2" class="outline-4">
-<h4 id="sec-4-1-2"><a id="ID-CEC29D22-5AAB-4C55-8E8A-6C0E7E371E58" name="ID-CEC29D22-5AAB-4C55-8E8A-6C0E7E371E58"></a>InnoDB 索引模型</h4>
+<h4 id="sec-4-1-2">InnoDB 索引模型</h4>
 <div class="outline-text-4" id="text-4-1-2">
 <p>
 InnoDB 使用了 B+ 树索引模型，每一个索引对应一棵 B+ 树。
@@ -456,12 +455,12 @@ InnoDB 使用了 B+ 树索引模型，每一个索引对应一棵 B+ 树。
 
 <div class="org-src-container">
 
-<pre class="src src-sql">mysql&gt; <span style="color: #4f97d7; font-weight: bold;">create</span> <span style="color: #4f97d7; font-weight: bold;">table</span> T<span style="color: #4f97d7;">(</span>
-id <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #4f97d7; font-weight: bold;">primary</span> <span style="color: #4f97d7; font-weight: bold;">key</span>, 
-k <span style="color: #ce537a; font-weight: bold;">int</span> <span style="color: #4f97d7; font-weight: bold;">not</span> <span style="color: #4f97d7; font-weight: bold;">null</span>, 
-<span style="color: #4f97d7; font-weight: bold;">name</span> <span style="color: #ce537a; font-weight: bold;">varchar</span><span style="color: #bc6ec5;">(</span>16<span style="color: #bc6ec5;">)</span>,
-index <span style="color: #bc6ec5;">(</span>k<span style="color: #bc6ec5;">)</span>
-<span style="color: #4f97d7;">)</span>engine=InnoDB;
+<pre class="src src-sql">mysql&gt; <span style="color: #EF2F27;">create</span> <span style="color: #EF2F27;">table</span> T<span style="color: #FCE8C3;">(</span>
+id <span style="color: #68A8E4;">int</span> <span style="color: #EF2F27;">primary</span> <span style="color: #EF2F27;">key</span>, 
+k <span style="color: #68A8E4;">int</span> <span style="color: #EF2F27;">not</span> <span style="color: #EF2F27;">null</span>, 
+<span style="color: #EF2F27;">name</span> <span style="color: #68A8E4;">varchar</span><span style="color: #68A8E4;">(</span>16<span style="color: #68A8E4;">)</span>,
+index <span style="color: #68A8E4;">(</span>k<span style="color: #68A8E4;">)</span>
+<span style="color: #FCE8C3;">)</span>engine=InnoDB;
 </pre>
 </div>
 
@@ -645,7 +644,7 @@ session A 启动，加 MDL 读锁，session B 也需要读锁，正常运行。s
 </p>
 
 <ul class="org-ul">
-<li>事务不提交，就会一直占着 MDL 锁， 查询 MySQL 的information<sub>schema</sub> 库的 innodb<sub>trx，找到长事务，如果有，暂停</sub> DDL 或者 kill 掉长事务。
+<li>事务不提交，就会一直占着 MDL 锁， 查询 MySQL 的 <code>information_schema</code> 库的 <code>innodb_trx</code> ，找到长事务，如果有，暂停 DDL 或者 kill 掉长事务。
 </li>
 <li>热点表不适合 kill 的情况下，设定等待时间 <code>NOWAIT/WAIT n</code> 。
 </li>
@@ -657,18 +656,18 @@ session A 启动，加 MDL 读锁，session B 也需要读锁，正常运行。s
 
 <div class="org-src-container">
 
-<pre class="src src-sql">Q1:<span style="color: #4f97d7; font-weight: bold;">SET</span> <span style="color: #4f97d7; font-weight: bold;">SESSION</span> <span style="color: #4f97d7; font-weight: bold;">TRANSACTION</span> <span style="color: #4f97d7; font-weight: bold;">ISOLATION</span> <span style="color: #4f97d7; font-weight: bold;">LEVEL</span> <span style="color: #4f97d7; font-weight: bold;">REPEATABLE</span> <span style="color: #4f97d7; font-weight: bold;">READ</span>;
-Q2:<span style="color: #4f97d7; font-weight: bold;">START</span> <span style="color: #4f97d7; font-weight: bold;">TRANSACTION</span>  <span style="color: #4f97d7; font-weight: bold;">WITH</span> CONSISTENT SNAPSHOT&#65307;
-<span style="color: #2aa1ae; background-color: #292e34;">/* other tables */</span>
-Q3:<span style="color: #4f97d7; font-weight: bold;">SAVEPOINT</span> sp;
-<span style="color: #2aa1ae; background-color: #292e34;">/* &#26102;&#21051; 1 */</span>
-Q4:show <span style="color: #4f97d7; font-weight: bold;">create</span> <span style="color: #4f97d7; font-weight: bold;">table</span> `t1`;
-<span style="color: #2aa1ae; background-color: #292e34;">/* &#26102;&#21051; 2 */</span>
-Q5:<span style="color: #4f97d7; font-weight: bold;">SELECT</span> * <span style="color: #4f97d7; font-weight: bold;">FROM</span> `t1`;
-<span style="color: #2aa1ae; background-color: #292e34;">/* &#26102;&#21051; 3 */</span>
-Q6:<span style="color: #4f97d7; font-weight: bold;">ROLLBACK</span> <span style="color: #4f97d7; font-weight: bold;">TO</span> <span style="color: #4f97d7; font-weight: bold;">SAVEPOINT</span> sp;
-<span style="color: #2aa1ae; background-color: #292e34;">/* &#26102;&#21051; 4 */</span>
-<span style="color: #2aa1ae; background-color: #292e34;">/* other tables */</span>
+<pre class="src src-sql">Q1:<span style="color: #EF2F27;">SET</span> <span style="color: #EF2F27;">SESSION</span> <span style="color: #EF2F27;">TRANSACTION</span> <span style="color: #EF2F27;">ISOLATION</span> <span style="color: #EF2F27;">LEVEL</span> <span style="color: #EF2F27;">REPEATABLE</span> <span style="color: #EF2F27;">READ</span>;
+Q2:<span style="color: #EF2F27;">START</span> <span style="color: #EF2F27;">TRANSACTION</span>  <span style="color: #EF2F27;">WITH</span> CONSISTENT SNAPSHOT&#65307;
+<span style="color: #918175; font-style: italic;">/* other tables */</span>
+Q3:<span style="color: #EF2F27;">SAVEPOINT</span> sp;
+<span style="color: #918175; font-style: italic;">/* &#26102;&#21051; 1 */</span>
+Q4:show <span style="color: #EF2F27;">create</span> <span style="color: #EF2F27;">table</span> `t1`;
+<span style="color: #918175; font-style: italic;">/* &#26102;&#21051; 2 */</span>
+Q5:<span style="color: #EF2F27;">SELECT</span> * <span style="color: #EF2F27;">FROM</span> `t1`;
+<span style="color: #918175; font-style: italic;">/* &#26102;&#21051; 3 */</span>
+Q6:<span style="color: #EF2F27;">ROLLBACK</span> <span style="color: #EF2F27;">TO</span> <span style="color: #EF2F27;">SAVEPOINT</span> sp;
+<span style="color: #918175; font-style: italic;">/* &#26102;&#21051; 4 */</span>
+<span style="color: #918175; font-style: italic;">/* other tables */</span>
 </pre>
 </div>
 
