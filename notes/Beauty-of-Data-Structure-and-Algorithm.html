@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>数据结构与算法之美</title>
-<!-- 2019-11-13 Wed 22:31 -->
+<!-- 2019-11-29 Fri 12:02 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="Justin" />
@@ -278,7 +278,7 @@ for the JavaScript code in this tag.
 </ul>
 
 <div class="figure">
-<p><img src="../img/DataStructuresandAlgorithms/LineaList.jpg" alt="LineaList.jpg" width="500" />
+<p><img src="../img/DataStructuresandAlgorithms/LineaList.jpg" alt="LineaList.jpg" />
 </p>
 </div>
 
@@ -328,8 +328,8 @@ for the JavaScript code in this tag.
 <h4 id="sec-2-0-2">数组为什么要从 0 开始</h4>
 <div class="outline-text-4" id="text-2-0-2">
 <p>
-从数组的存储模型上来看，“下标”最确切的定义应该是“偏移(offset)”， <code>a[0]</code> 就是偏移为 0 的位置，a[k] 表示偏移 k 个 <code>type_size</code> ，
-所以 <code>a[k]_address = base_address + k * type_size</code> ，而如果数组从 1 开始，那么 <code>a[k]_address = base_address + (k-1) * type_size</code> ，
+从数组的存储模型上来看，“下标”最确切的定义应该是“偏移(offset)”， <code>a[0]</code> 就是偏移为 0 的位置，a[k] 表示偏移 k 个 <code>type_size，
+所以 =a[k]_address = base_address + k * type_size</code> ，而如果数组从 1 开始，那么 <code>a[k]_address = base_address + (k-1) * type_size</code> ，
 每次随机访问数组，多了一次减法运算，对 cpu 来说就多了一次减法指令，数组作为基础的数据结构，随机访问又是基础操作，所以效率的优化需要
 做到极致。当然也有可能是 C 语言使用 0 作为数组下标的开始，其他语言纷纷效仿。
 </p>
