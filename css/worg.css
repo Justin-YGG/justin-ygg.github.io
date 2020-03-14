@@ -28,6 +28,19 @@
     padding: 2em;
     /* box-shadow: 3px 3px 5px #888; */
     }
+
+    body #support {
+    position: fixed;
+    top:0;
+    display:block;
+    font-size: 12pt;
+    right:0pt;
+    text-align: right;
+    padding: .2em 1em;
+    background: #EEE;
+    border-radius: 10px;
+    }
+
     body .title {
     margin-left: 0px;
     font-size: 22pt;
