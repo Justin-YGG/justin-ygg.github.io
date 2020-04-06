@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>redis</title>
-<!-- 2020-04-01 Wed 13:02 -->
+<!-- 2020-04-07 Tue 07:45 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="Justin" />
@@ -68,13 +68,202 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#sec-1">redis 分布式锁在什么场景下使用？与 zookeeper 分布式锁的区别</a></li>
+<li><a href="#sec-1">Redis 常用数据结构</a>
+<ul>
+<li><a href="#sec-1-1">String</a></li>
+<li><a href="#sec-1-2">List</a></li>
+<li><a href="#sec-1-3">字典 hash</a></li>
+<li><a href="#sec-1-4">集合 set</a></li>
+<li><a href="#sec-1-5">有序列表 zset</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">redis 分布式锁在什么场景下使用？与 zookeeper 分布式锁的区别</a></li>
+<li><a href="#sec-3">redis缓存与mysql数据一致性方案</a>
+<ul>
+<li><a href="#sec-3-1">Cache Aside Pattern</a></li>
+</ul>
+</li>
+<li><a href="#sec-4">你有没有考虑过，如果你多个系统同时操作（并发）Redis带来的数据问题？</a></li>
 </ul>
 </div>
 </div>
 <div id="outline-container-sec-1" class="outline-2">
-<h2 id="sec-1">redis 分布式锁在什么场景下使用？与 zookeeper 分布式锁的区别</h2>
+<h2 id="sec-1">Redis 常用数据结构</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1">String</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+内部的实现结构是redis自己实现的 sds（simple dynamic string），其中包含了了 len、free、buf 三个属性，buf 是用来保存字符的数组，len 表示数组中存储的字符长度， free 表示数组中的可用空间；这个结构被用于存储 redis 中的键值、以及 value为字符串或者是列表中的元素是字符的存储，同时也在 AOF 缓冲区中使用；
+</p>
+
+<p>
+redis 对字符串的存储并没有使用传统的C语言字符串，有几个原因的考量：
+</p>
+
+<ul class="org-ul">
+<li>redis 有专门的属性，可以存储字符串的长度，避免了像C语言字符串那样，需要遍历才能获得长度，时间复杂度降为 O(1)
+</li>
+<li>可以杜绝缓存溢出，假设两个字符串是 s1s2 在内存中紧挨着，如果要在s1后拼接字符串的话，C语言字符串如果没有提前分配空间，有可能溢出到s2中q，但是 sds 在拼接之前可以通过判断自动调整buf空间避免出现溢出
+</li>
+<li>对于字符串的增长和缩短带来的频繁内存分配和释放，sds 通过空间预分配，在需要扩展空间时，会多扩展一部分来避免每次都频繁分配；字符串缩短需要释空间时，sds 通过惰性空间释放，通过更新 free 的值，保留内存空间，没有接着释放，这样下次在需要时可以实际使用，不用再重新分配
+</li>
+</ul>
 </div>
 </div>
+
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2">List</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+双向链表实现，支持 len 属性
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3">字典 hash</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+底层数据结构是redis实现的字段，由哈希表实现，字典中包含两个哈希表，其中一个是正常使用的，另外一个是在数组rehash的时候使用，还有一个trehashidx用来标记rehash是否完成。
+</p>
+
+<p>
+渐进式rehash：为了避免集中式的rehash迁移对服务器性能造成影响，redis采用分多次，渐进式的将ht<sup><a id="fnr.1" name="fnr.1" class="footref" href="#fn.1">1</a></sup> 中的键值对，rehash到 ht<sup><a id="fnr.2" name="fnr.2" class="footref" href="#fn.2">2</a></sup> 中
+</p>
+
+<ul class="org-ul">
+<li>为 ht<sup><a id="fnr.2.100" name="fnr.2.100" class="footref" href="#fn.2">2</a></sup> 分配空间
+</li>
+<li>将 trehashidx 置为 0 表示 rehash 开始
+</li>
+<li>每完成一部分 将 trehashidx 值+1
+</li>
+<li>彻底完成后讲 trehashidx 置为 -1 表示结束
+</li>
+<li>rehash 期间对数据的删查改 都在两个哈希表里查找，一个找不到，就去另外一个找；新增数据只加入到 ht<sup><a id="fnr.2.100" name="fnr.2.100" class="footref" href="#fn.2">2</a></sup> 中
+</li>
+</ul>
+
+<p>
+扩容时需要考虑是否在执行 bigsave 命令；缩容不需要考虑
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-4" class="outline-3">
+<h3 id="sec-1-4">集合 set</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+无需，唯一的集合，内部实现相当于一个特殊的字典，value 都为空
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-5" class="outline-3">
+<h3 id="sec-1-5">有序列表 zset</h3>
+<div class="outline-text-3" id="text-1-5">
+<ul class="org-ul">
+<li>元素少于128 所有成员长度小于64字节时，用ziplist 否则用 skiplist
+</li>
+</ul>
+
+<p>
+跳跃表是通过增加多级索引的方式的一种层次化链表结构，查找的平均时间复杂度为 o(logn)
+</p>
+
+<p>
+为什么不用红黑树或者平衡二叉树实现？
+</p>
+
+<ul class="org-ul">
+<li>跳跃表实现起来简单
+</li>
+<li>性能方面，树形结构需要不断rebalance树高
+</li>
+</ul>
+
+<p>
+上面每一层链表的节点个数，是下面一层的节点个数的一半，这样查找过程就非常类似于一个二分查找，使得查找的时间复杂度可以降低到 O(logn)
+</p>
+
+<p>
+如果要维持每次节点的比例数，可能会由于节点的增删，导致很多节点进行调整，所以redis根据幂等定律，从1到32直接随机出一个层数，所以插入只需要修改节点前后指针，不影响其他节点
+</p>
+
+<p>
+有序集合采用 skiplist 的时候，是字典和跳跃表结合实现的，字典中维护了从成员到分值的映射，可以在O(1) 时间复杂度内获取分值；而跳跃表提供了高效的范围查找的功能
+</p>
+
+<ul class="org-ul">
+<li>插入：找到插入位置，调整指针； 有一种极端的情况，就是跳跃表中的所有 score 值都是一样，zset 的查找性能会不会退化为 O(n) 呢？ zset 的排序元素不只是看 score 值，也会比较 value 值 （字符串比较）
+</li>
+<li>删除：找到删除位置，调整之争
+</li>
+<li>更新：没有这个value，直接插入；有的话，如果排序上没有变化，就直接更新score，如果有变化，直接删除，然后再插入
+</li>
+<li>排名实现：forward指针上维护了 span 属性，用来记录当前层从前一个节点到本节点的节点数量，沿着 &ldquo;搜索路径"，把所有经过节点的跨度 span 值进行累加就可以算出当前元素的最终 rank 值了
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2">redis 分布式锁在什么场景下使用？与 zookeeper 分布式锁的区别</h2>
+</div>
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3">redis缓存与mysql数据一致性方案</h2>
+<div class="outline-text-2" id="text-3">
+</div><div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1">Cache Aside Pattern</h3>
+<div class="outline-text-3" id="text-3-1">
+<ul class="org-ul">
+<li>先读缓存，命中返回；否则读数据库，成功后，放到缓存中
+</li>
+<li>更新时，先更新数据库，再失效缓存；为何不能先失效缓存，再更新数据库？如果两个并发操作，一个读，一个更新，更新操作失效缓存后，读操作没有命中缓存，就从数据库读到旧数据，塞到缓存中，然后更新操作完成，这样数据库与缓存中的数据就不一致了。
+</li>
+</ul>
+
+<p>
+一个查询，一个更新，并发操作，查询拿到的是老数据，但更新操作完成之后把缓存失效了，后续的查询操作会读取数据库，并更新缓存
+</p>
+
+<p>
+那么，是不是Cache Aside这个就不会有并发问题了？不是的，比如，一个是读操作，但是没有命中缓存，然后就到数据库中取数据，此时来了一个写操作，写完数据库后，让缓存失效，然后，之前的那个读操作再把老的数据放进去，所以，会造成脏数据。
+</p>
+
+<p>
+但，这个case理论上会出现，不过，实际上出现的概率可能非常低，因为这个条件需要发生在读缓存时缓存失效，而且并发着有一个写操作。而实际上数据库的写操作会比读操作慢得多，而且还要锁表，而读操作必需在写操作前进入数据库操作，而又要晚于写操作更新缓存，所有的这些条件都具备的概率基本并不大。
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4">你有没有考虑过，如果你多个系统同时操作（并发）Redis带来的数据问题？</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+系统A、B、C三个系统，分别去操作Redis的同一个Key，本来顺序是1，2，3是正常的，但是因为系统A网络突然抖动了一下，B，C在他前面操作了Redis，这样数据不就错了么。
+</p>
+
+<p>
+可以基于 zookeeper 实现分布式锁，确保同一时间，只能有一个系统实例操作某个 key，其他都不允许读写。
+</p>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" name="fn.1" class="footnum" href="#fnr.1">1</a></sup> <p>DEFINITION NOT FOUND.</p></div>
+
+<div class="footdef"><sup><a id="fn.2" name="fn.2" class="footnum" href="#fnr.2">2</a></sup> <p>DEFINITION NOT FOUND.</p></div>
+
+
+</div>
+</div></div>
 </body>
 </html>
