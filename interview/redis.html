@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>redis</title>
-<!-- 2020-04-07 Tue 07:45 -->
+<!-- 2020-04-17 Fri 21:29 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="Justin" />
@@ -68,31 +68,73 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#sec-1">Redis 常用数据结构</a>
+<li><a href="#sec-1">redis 和 memcache 的区别</a>
 <ul>
-<li><a href="#sec-1-1">String</a></li>
-<li><a href="#sec-1-2">List</a></li>
-<li><a href="#sec-1-3">字典 hash</a></li>
-<li><a href="#sec-1-4">集合 set</a></li>
-<li><a href="#sec-1-5">有序列表 zset</a></li>
+<li><a href="#sec-1-1">redis</a></li>
+<li><a href="#sec-1-2">memcache</a></li>
 </ul>
 </li>
-<li><a href="#sec-2">redis 分布式锁在什么场景下使用？与 zookeeper 分布式锁的区别</a></li>
-<li><a href="#sec-3">redis缓存与mysql数据一致性方案</a>
+<li><a href="#sec-2">Redis 常用数据结构</a>
 <ul>
-<li><a href="#sec-3-1">Cache Aside Pattern</a></li>
+<li><a href="#sec-2-1">String</a></li>
+<li><a href="#sec-2-2">List</a></li>
+<li><a href="#sec-2-3">字典 hash</a></li>
+<li><a href="#sec-2-4">集合 set</a></li>
+<li><a href="#sec-2-5">有序列表 zset</a></li>
 </ul>
 </li>
-<li><a href="#sec-4">你有没有考虑过，如果你多个系统同时操作（并发）Redis带来的数据问题？</a></li>
+<li><a href="#sec-3">redis 分布式锁在什么场景下使用？与 zookeeper 分布式锁的区别</a></li>
+<li><a href="#sec-4">redis缓存与mysql数据一致性方案</a>
+<ul>
+<li><a href="#sec-4-1">Cache Aside Pattern</a></li>
+</ul>
+</li>
+<li><a href="#sec-5">你有没有考虑过，如果你多个系统同时操作（并发）Redis带来的数据问题？</a></li>
+<li><a href="#sec-6">为什么redis采用单线程模型</a></li>
+<li><a href="#sec-7">Redis6.0引入了多线程，是为了解决网络的 IO 消耗？</a></li>
 </ul>
 </div>
 </div>
 <div id="outline-container-sec-1" class="outline-2">
-<h2 id="sec-1">Redis 常用数据结构</h2>
+<h2 id="sec-1">redis 和 memcache 的区别</h2>
 <div class="outline-text-2" id="text-1">
 </div><div id="outline-container-sec-1-1" class="outline-3">
-<h3 id="sec-1-1">String</h3>
+<h3 id="sec-1-1">redis</h3>
 <div class="outline-text-3" id="text-1-1">
+<ul class="org-ul">
+<li>支持更丰富的数据结构，列表、集合、有序集合等
+</li>
+<li>支持持久化
+</li>
+<li>天然高可用，支持集群
+</li>
+<li>可以存储比较大的value
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2">memcache</h3>
+<div class="outline-text-3" id="text-1-2">
+<ul class="org-ul">
+<li>纯kv结构存储
+</li>
+<li>使用内存预分配，redis使用临时分配，容易产生碎片
+</li>
+<li>memcache 数据都存储在物理内存上，redis用自己的VM机制，理论上能够存储更多的数据，数据超量时可能会触发swap，将冷数据刷到磁盘上
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2">Redis 常用数据结构</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1">String</h3>
+<div class="outline-text-3" id="text-2-1">
 <p>
 内部的实现结构是redis自己实现的 sds（simple dynamic string），其中包含了了 len、free、buf 三个属性，buf 是用来保存字符的数组，len 表示数组中存储的字符长度， free 表示数组中的可用空间；这个结构被用于存储 redis 中的键值、以及 value为字符串或者是列表中的元素是字符的存储，同时也在 AOF 缓冲区中使用；
 </p>
@@ -112,18 +154,18 @@ redis 对字符串的存储并没有使用传统的C语言字符串，有几个�
 </div>
 </div>
 
-<div id="outline-container-sec-1-2" class="outline-3">
-<h3 id="sec-1-2">List</h3>
-<div class="outline-text-3" id="text-1-2">
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2">List</h3>
+<div class="outline-text-3" id="text-2-2">
 <p>
 双向链表实现，支持 len 属性
 </p>
 </div>
 </div>
 
-<div id="outline-container-sec-1-3" class="outline-3">
-<h3 id="sec-1-3">字典 hash</h3>
-<div class="outline-text-3" id="text-1-3">
+<div id="outline-container-sec-2-3" class="outline-3">
+<h3 id="sec-2-3">字典 hash</h3>
+<div class="outline-text-3" id="text-2-3">
 <p>
 底层数据结构是redis实现的字段，由哈希表实现，字典中包含两个哈希表，其中一个是正常使用的，另外一个是在数组rehash的时候使用，还有一个trehashidx用来标记rehash是否完成。
 </p>
@@ -151,18 +193,18 @@ redis 对字符串的存储并没有使用传统的C语言字符串，有几个�
 </div>
 </div>
 
-<div id="outline-container-sec-1-4" class="outline-3">
-<h3 id="sec-1-4">集合 set</h3>
-<div class="outline-text-3" id="text-1-4">
+<div id="outline-container-sec-2-4" class="outline-3">
+<h3 id="sec-2-4">集合 set</h3>
+<div class="outline-text-3" id="text-2-4">
 <p>
 无需，唯一的集合，内部实现相当于一个特殊的字典，value 都为空
 </p>
 </div>
 </div>
 
-<div id="outline-container-sec-1-5" class="outline-3">
-<h3 id="sec-1-5">有序列表 zset</h3>
-<div class="outline-text-3" id="text-1-5">
+<div id="outline-container-sec-2-5" class="outline-3">
+<h3 id="sec-2-5">有序列表 zset</h3>
+<div class="outline-text-3" id="text-2-5">
 <ul class="org-ul">
 <li>元素少于128 所有成员长度小于64字节时，用ziplist 否则用 skiplist
 </li>
@@ -208,18 +250,15 @@ redis 对字符串的存储并没有使用传统的C语言字符串，有几个�
 </div>
 </div>
 </div>
-
-
-
-<div id="outline-container-sec-2" class="outline-2">
-<h2 id="sec-2">redis 分布式锁在什么场景下使用？与 zookeeper 分布式锁的区别</h2>
-</div>
 <div id="outline-container-sec-3" class="outline-2">
-<h2 id="sec-3">redis缓存与mysql数据一致性方案</h2>
-<div class="outline-text-2" id="text-3">
-</div><div id="outline-container-sec-3-1" class="outline-3">
-<h3 id="sec-3-1">Cache Aside Pattern</h3>
-<div class="outline-text-3" id="text-3-1">
+<h2 id="sec-3">redis 分布式锁在什么场景下使用？与 zookeeper 分布式锁的区别</h2>
+</div>
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4">redis缓存与mysql数据一致性方案</h2>
+<div class="outline-text-2" id="text-4">
+</div><div id="outline-container-sec-4-1" class="outline-3">
+<h3 id="sec-4-1">Cache Aside Pattern</h3>
+<div class="outline-text-3" id="text-4-1">
 <ul class="org-ul">
 <li>先读缓存，命中返回；否则读数据库，成功后，放到缓存中
 </li>
@@ -242,15 +281,62 @@ redis 对字符串的存储并没有使用传统的C语言字符串，有几个�
 </div>
 </div>
 
-<div id="outline-container-sec-4" class="outline-2">
-<h2 id="sec-4">你有没有考虑过，如果你多个系统同时操作（并发）Redis带来的数据问题？</h2>
-<div class="outline-text-2" id="text-4">
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5">你有没有考虑过，如果你多个系统同时操作（并发）Redis带来的数据问题？</h2>
+<div class="outline-text-2" id="text-5">
 <p>
 系统A、B、C三个系统，分别去操作Redis的同一个Key，本来顺序是1，2，3是正常的，但是因为系统A网络突然抖动了一下，B，C在他前面操作了Redis，这样数据不就错了么。
 </p>
 
 <p>
 可以基于 zookeeper 实现分布式锁，确保同一时间，只能有一个系统实例操作某个 key，其他都不允许读写。
+</p>
+</div>
+</div>
+
+
+
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6">为什么redis采用单线程模型</h2>
+<div class="outline-text-2" id="text-6">
+<ul class="org-ul">
+<li>使用单线程模型具有更好的可维护性
+</li>
+</ul>
+
+<p>
+如果采用多线程，必须要引入并发控制开保证多个线程同时访问数据的正确性
+</p>
+
+<ul class="org-ul">
+<li>使用单线程也能处理并发任务
+</li>
+</ul>
+
+<p>
+redis 通过使用 I/O 多路复用机制可以并发处理来自客户端的多个请求，系统不再需要额外创建和维护进程和线程来监听来自客户端的大量连接，减少了服务器的开发成本和维护成本
+</p>
+
+<ul class="org-ul">
+<li>Redis 并不是 CPU 密集型的服务
+</li>
+</ul>
+
+<p>
+多线程可以帮助我们充分利用 CPU 来并发执行多个不同的任务，但是 CPU 资源往往都不是 Redis 服务器的性能瓶颈，Redis 并不是 CPU 密集型的服务，如果不开启 AOF 备份，所有 Redis 的操作都会在内存中完成不会涉及任何的 I/O 操作，整个服务的瓶颈在于网络传输代理的延迟和等待客户端的传输，即 网路 I/O 上；多线程虽然能充分利用 CPU，但线程切换也会带来额外的开销：保存线程上下文。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-7" class="outline-2">
+<h2 id="sec-7">Redis6.0引入了多线程，是为了解决网络的 IO 消耗？</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+I/O 多路复用的主要作用是让我们可以使用一个线程来监控多个连接是否可读或者可写，但是从网络另一头发的数据包需要先解序列化成 Redis 内部其他模块可以理解的命令，这个过程就是 Redis 6.0 引入多线程来并发处理的。
+</p>
+
+<p>
+I/O 多路复用模块收到数据包之后将其丢给后面多个 I/O 线程进行解析，I/O 线程处理结束后，主线程会负责串行的执行这些命令，由于向客户端发回数据包的过程也是比较耗时的，所以执行之后的结果也会交给多个 I/O 线程发送回客户端
 </p>
 </div>
 </div>

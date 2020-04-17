@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>mysql</title>
-<!-- 2020-04-07 Tue 07:45 -->
+<!-- 2020-04-17 Fri 21:29 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="Justin" />
@@ -56,6 +56,7 @@ for the JavaScript code in this tag.
  }
 /*]]>*///-->
 </script>
+<script type="text/javascript" src="https://www.mxtsing.com/js/MathJax.js?config=TeX-AMS-MML_HTMLorMML,local/local"></script>
 </head>
 <body>
 <div id="org-div-home-and-up">
@@ -68,9 +69,14 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#sec-1">MyISAM 和 InnoDB</a></li>
+<li><a href="#sec-1">MyISAM 和 InnoDB 的区别</a></li>
 <li><a href="#sec-2">一条SQL语句执行得很慢的原因有哪些？</a></li>
-<li><a href="#sec-3">mysql 索引及原理</a></li>
+<li><a href="#sec-3">mysql 索引及原理</a>
+<ul>
+<li><a href="#sec-3-1">why not hash?</a></li>
+<li><a href="#sec-3-2">why not b tree?</a></li>
+</ul>
+</li>
 <li><a href="#sec-4">为何推荐自增id做主键？</a></li>
 <li><a href="#sec-5">覆盖索引</a></li>
 <li><a href="#sec-6">最左前缀原则</a></li>
@@ -91,12 +97,26 @@ for the JavaScript code in this tag.
 <li><a href="#sec-8-7">解决幻读</a></li>
 </ul>
 </li>
+<li><a href="#sec-9">more</a></li>
 </ul>
 </div>
 </div>
 <div id="outline-container-sec-1" class="outline-2">
-<h2 id="sec-1">MyISAM 和 InnoDB</h2>
+<h2 id="sec-1">MyISAM 和 InnoDB 的区别</h2>
+<div class="outline-text-2" id="text-1">
+<ul class="org-ul">
+<li>事务：innodb 支持事务，myisam 不支持事务
+</li>
+<li>物理存储：myisam 每个表有三个文件，表结构、索引、表数据; InnoDB 通过B+树的方式组织索引
+</li>
+<li>缓存：myisam 只缓存索引文件，不缓存数据；innodb 也会通过 buffer pool 缓存数据
+</li>
+<li>innodb 支持多版本的并发控制（MVCC）来获得高并发性
+</li>
+</ul>
 </div>
+</div>
+
 <div id="outline-container-sec-2" class="outline-2">
 <h2 id="sec-2">一条SQL语句执行得很慢的原因有哪些？</h2>
 <div class="outline-text-2" id="text-2">
@@ -125,6 +145,32 @@ for the JavaScript code in this tag.
 <p>
 索引一般分为聚簇索引和非聚簇索引，聚簇索引，又称为主键索引，非叶子节点上存储的都是主键，叶子节点上存储数据；非聚簇索引叶子节点上存储的是主键的值，定位到索引之后还需要通过主键id回表查询数据
 </p>
+</div>
+
+<div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1">why not hash?</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+哈希虽然能够提供 O(1) 的单数据行操作性能，但是对于范围查询和排序却无法很好地支持，最终导致全表扫描；
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-3-2" class="outline-3">
+<h3 id="sec-3-2">why not b tree?</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+B 树能够在非叶节点中存储数据，但是这也导致在查询连续数据时可能会带来更多的随机 I/O，而 B+ 树的所有叶节点可以通过指针相互连接，能够减少顺序遍历时产生的额外随机 I/O。
+</p>
+
+<p>
+计算机在读写文件时会以页为单位将数据加载到内存中，CPU 会发现当前数据位于磁盘而不是内存中，这时就会触发 I/O 操作将数据加载到内存中进行访问，数据的加载都是以页的维度进行加载的，然而将数据从磁盘读取到内存中所需要的成本是非常大的，普通磁盘（非 SSD）加载数据需要经过队列、寻道、旋转以及传输的这些过程，大概要花费 10ms 左右的时间。
+</p>
+
+<p>
+随机 I/O 对于 MySQL 的查询性能影响会非常大，而顺序读取磁盘中的数据时速度可以达到 40MB/s，这两者的性能差距有几个数量级，由此我们也应该尽量减少随机 I/O 的次数，这样才能提高性能
+</p>
+</div>
 </div>
 </div>
 
@@ -252,7 +298,11 @@ ReadView 中包含当前活跃的读写事务即begin之后还没commit的事务
 </ul>
 
 <p>
-读提交是在每次执行 select 时都会生成 ReadView；可重复读是在第一次 select 时生成 ReadView，之后重复使用
+读提交是在每次执行 select 时都会生成 ReadView；可重复读是在第一次 select 时生成 ReadView，之后重复使用。
+</p>
+
+<p>
+<code>快照读是基于 MVCC 和 undo log 来实现的，适用于简单 select 语句。避免了快照读下的幻读</code>
 </p>
 </div>
 </div>
@@ -277,7 +327,22 @@ ReadView 中包含当前活跃的读写事务即begin之后还没commit的事务
 <h3 id="sec-8-7">解决幻读</h3>
 <div class="outline-text-3" id="text-8-7">
 <p>
-MySQL 把行锁和间隙锁合在一起解决了幻读的问题，这个锁叫做 Next-Key 锁。
+当前读: 读取的是记录数据的最新版本，并且当前读返回的记录都会加上锁，保证其他事务不会再并发的修改这条记录
+</p>
+
+<p>
+在读提交和可重复读两种事务隔离级别下，使用“当前读”的操作包括：
+1、SELECT LOCK IN SHARE MODE
+2、SELECT FOR UPDATE
+3、DELETE\UPDATE\INSERT INTO\REPLACE INTO
+</p>
+
+<p>
+MySQL 把行锁和间隙锁合在一起解决了 <code>当前读</code> 下幻读的问题，这个锁叫做 Next-Key 锁。
+</p>
+
+<p>
+<code>当前读是基于 临键锁（行锁 + 间歇锁）来实现的，适用于 insert，update，delete， select ... for update， select ... lock in share mode 语句，以及加锁了的 select 语句。</code>
 </p>
 
 <p>
@@ -292,6 +357,20 @@ MySQL 把行锁和间隙锁合在一起解决了幻读的问题，这个锁叫�
 由于条件 where age = 10 ，数据库不仅在 age =10 的行上添加了行锁，而且在这条记录的两边，也就是(负无穷,10]、(10,30]这两个区间加了间隙锁，从而导致事务B插入操作无法完成，只能等待事务A提交。不仅插入 age = 10 的记录需要等待事务A提交，age&lt;10、10&lt;age&lt;30 的记录页无法完成。而大于等于30的记录则不受影响，这足以解决幻读问题了。
 </p>
 </div>
+</div>
+</div>
+
+<div id="outline-container-sec-9" class="outline-2">
+<h2 id="sec-9">more</h2>
+<div class="outline-text-2" id="text-9">
+<p>
+由于很多人(当然也包括本人), 容易搞混 不可重复读 和 幻读, 这两者确实非常相似。
+</p>
+
+<p>
+但 不可重复读 主要是说多次读取一条记录, 发现该记录中某些列值被修改过。
+而 幻读 主要是说多次读取一个范围内的记录(包括直接查询所有记录结果或者做聚合统计), 发现结果不一致(标准档案一般指记录增多, 记录的减少应该也算是幻读)
+</p>
 </div>
 </div>
 </div>
