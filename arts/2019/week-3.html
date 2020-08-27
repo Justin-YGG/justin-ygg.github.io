@@ -3,11 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<title>week-3</title>
-<!-- 2019-04-07 Sun 23:52 -->
-<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<meta  name="generator" content="Org-mode" />
-<meta  name="author" content="Justin" />
+<!-- 2020-08-28 Fri 00:16 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>&lrm;</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Justin" />
 <link rel="stylesheet" type="text/css" href="/css/worg.css"/>
 <link rel="icon" type="image/png" href="/img/icons/heckert.png">
 <script type="text/javascript">
@@ -15,7 +16,7 @@
 @licstart  The following is the entire license notice for the
 JavaScript code in this tag.
 
-Copyright (C) 2012-2013 Free Software Foundation, Inc.
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
 
 The JavaScript code in this tag is free software: you can
 redistribute it and/or modify it under the terms of the GNU
@@ -63,21 +64,20 @@ for the JavaScript code in this tag.
  |
  <a accesskey="H" href="../index.html"> HOME </a>
 </div><div id="content">
-<h1 class="title">week-3</h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#sec-1">Algorithm</a></li>
-<li><a href="#sec-2">Review</a></li>
-<li><a href="#sec-3">Tip</a></li>
-<li><a href="#sec-4">Share</a></li>
+<li><a href="#org2418e36">Algorithm</a></li>
+<li><a href="#orge8bbe73">Review</a></li>
+<li><a href="#orgc8a9eaa">Tip</a></li>
+<li><a href="#orge561662">Share</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-sec-1" class="outline-2">
-<h2 id="sec-1">Algorithm</h2>
-<div class="outline-text-2" id="text-1">
+<div id="outline-container-org2418e36" class="outline-2">
+<h2 id="org2418e36">Algorithm</h2>
+<div class="outline-text-2" id="text-org2418e36">
 <p>
 <a href="https://leetcode.com/problems/linked-list-cycle/">141. Linked List Cycle</a>
 </p>
@@ -87,34 +87,33 @@ for the JavaScript code in this tag.
 </p>
 
 <div class="org-src-container">
+<pre class="src src-python"># Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
 
-<pre class="src src-python"><span style="color: #2aa1ae; background-color: #292e34;"># </span><span style="color: #2aa1ae; background-color: #292e34;">Definition for singly-linked list.</span>
-<span style="color: #2aa1ae; background-color: #292e34;"># </span><span style="color: #2aa1ae; background-color: #292e34;">class ListNode(object):</span>
-<span style="color: #2aa1ae; background-color: #292e34;">#     </span><span style="color: #2aa1ae; background-color: #292e34;">def __init__(self, x):</span>
-<span style="color: #2aa1ae; background-color: #292e34;">#         </span><span style="color: #2aa1ae; background-color: #292e34;">self.val = x</span>
-<span style="color: #2aa1ae; background-color: #292e34;">#         </span><span style="color: #2aa1ae; background-color: #292e34;">self.next = None</span>
-
-<span style="color: #4f97d7; font-weight: bold;">class</span> <span style="color: #ce537a; font-weight: bold;">Solution</span><span style="color: #4f97d7;">(</span><span style="color: #4f97d7;">object</span><span style="color: #4f97d7;">)</span>:
-    <span style="color: #4f97d7; font-weight: bold;">def</span> <span style="color: #bc6ec5; font-weight: bold;">hasCycle</span><span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">self</span>, head<span style="color: #4f97d7;">)</span>:
-        <span style="color: #9f8766;">"""</span>
-<span style="color: #9f8766;">        :type head: ListNode</span>
-<span style="color: #9f8766;">        :rtype: bool</span>
-<span style="color: #9f8766;">        """</span>
-        <span style="color: #7590db;">fast</span> = <span style="color: #7590db;">slow</span> = head
-        <span style="color: #4f97d7; font-weight: bold;">while</span><span style="color: #4f97d7;">(</span>fast <span style="color: #4f97d7; font-weight: bold;">and</span> fast.<span style="color: #4f97d7;">next</span><span style="color: #4f97d7;">)</span>:
-            <span style="color: #7590db;">fast</span> = fast.<span style="color: #4f97d7;">next</span>.<span style="color: #4f97d7;">next</span>
-            <span style="color: #7590db;">slow</span> = slow.<span style="color: #4f97d7;">next</span>
-            <span style="color: #4f97d7; font-weight: bold;">if</span> fast == slow:
-                <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">True</span>
-        <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #a45bad;">False</span>
+class Solution(object):
+    def hasCycle(self, head):
+        """
+        :type head: ListNode
+        :rtype: bool
+        """
+        fast = slow = head
+        while(fast and fast.next):
+            fast = fast.next.next
+            slow = slow.next
+            if fast == slow:
+                return True
+        return False
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-sec-2" class="outline-2">
-<h2 id="sec-2">Review</h2>
-<div class="outline-text-2" id="text-2">
+<div id="outline-container-orge8bbe73" class="outline-2">
+<h2 id="orge8bbe73">Review</h2>
+<div class="outline-text-2" id="text-orge8bbe73">
 <p>
 <a href="https://www.python.org/download/releases/2.3/mro/">Python 中的 MRO(Method Resolution Order)</a>
 </p>
@@ -128,12 +127,9 @@ for the JavaScript code in this tag.
 </p>
 
 <ul class="org-ul">
-<li><code>C1 C2 ... CN</code> 代表类的列表 <code>[C1, C2, ... , CN]</code>
-</li>
-<li><code>head = C1</code> , <code>head</code> 代表列表的第一个元素，剩余的用 <code>tail = C2 ... CN</code> 表示
-</li>
-<li><code>C + (C1 C2 ... CN) = C C1 C2 ... CN</code> 代表列表相加 <code>[C] + [C1, C2, ... ,CN]</code>
-</li>
+<li><code>C1 C2 ... CN</code> 代表类的列表 <code>[C1, C2, ... , CN]</code></li>
+<li><code>head = C1</code> , <code>head</code> 代表列表的第一个元素，剩余的用 <code>tail = C2 ... CN</code> 表示</li>
+<li><code>C + (C1 C2 ... CN) = C C1 C2 ... CN</code> 代表列表相加 <code>[C] + [C1, C2, ... ,CN]</code></li>
 </ul>
 
 <p>
@@ -143,10 +139,8 @@ for the JavaScript code in this tag.
 </p>
 
 <ul class="org-ul">
-<li>先取第一个列表的 <code>head</code> 即 <code>L[B1][0]</code> ，如果 <code>head</code> 不在其他列表的 <code>tail</code> 中，那么就将其加到 <code>C 的线性化</code> 中，并从 <code>merge</code> 的列表中都移除，否则，跳过此列表，检查下一个列表。
-</li>
-<li>重复上一步骤，直到移除所有类或者抛错
-</li>
+<li>先取第一个列表的 <code>head</code> 即 <code>L[B1][0]</code> ，如果 <code>head</code> 不在其他列表的 <code>tail</code> 中，那么就将其加到 <code>C 的线性化</code> 中，并从 <code>merge</code> 的列表中都移除，否则，跳过此列表，检查下一个列表。</li>
+<li>重复上一步骤，直到移除所有类或者抛错</li>
 </ul>
 
 <p>
@@ -158,14 +152,13 @@ for the JavaScript code in this tag.
 </p>
 
 <div class="org-src-container">
-
-<pre class="src src-python">&gt;&gt;&gt; <span style="color: #7590db;">O</span> = <span style="color: #4f97d7;">object</span>
-&gt;&gt;&gt; <span style="color: #4f97d7; font-weight: bold;">class</span> <span style="color: #ce537a; font-weight: bold;">F</span><span style="color: #4f97d7;">(</span>O<span style="color: #4f97d7;">)</span>: <span style="color: #4f97d7; font-weight: bold;">pass</span>
-&gt;&gt;&gt; <span style="color: #4f97d7; font-weight: bold;">class</span> <span style="color: #ce537a; font-weight: bold;">E</span><span style="color: #4f97d7;">(</span>O<span style="color: #4f97d7;">)</span>: <span style="color: #4f97d7; font-weight: bold;">pass</span>
-&gt;&gt;&gt; <span style="color: #4f97d7; font-weight: bold;">class</span> <span style="color: #ce537a; font-weight: bold;">D</span><span style="color: #4f97d7;">(</span>O<span style="color: #4f97d7;">)</span>: <span style="color: #4f97d7; font-weight: bold;">pass</span>
-&gt;&gt;&gt; <span style="color: #4f97d7; font-weight: bold;">class</span> <span style="color: #ce537a; font-weight: bold;">C</span><span style="color: #4f97d7;">(</span>D,F<span style="color: #4f97d7;">)</span>: <span style="color: #4f97d7; font-weight: bold;">pass</span>
-&gt;&gt;&gt; <span style="color: #4f97d7; font-weight: bold;">class</span> <span style="color: #ce537a; font-weight: bold;">B</span><span style="color: #4f97d7;">(</span>D,E<span style="color: #4f97d7;">)</span>: <span style="color: #4f97d7; font-weight: bold;">pass</span>
-&gt;&gt;&gt; <span style="color: #4f97d7; font-weight: bold;">class</span> <span style="color: #ce537a; font-weight: bold;">A</span><span style="color: #4f97d7;">(</span>B,C<span style="color: #4f97d7;">)</span>: <span style="color: #4f97d7; font-weight: bold;">pass</span>
+<pre class="src src-python">&gt;&gt;&gt; O = object
+&gt;&gt;&gt; class F(O): pass
+&gt;&gt;&gt; class E(O): pass
+&gt;&gt;&gt; class D(O): pass
+&gt;&gt;&gt; class C(D,F): pass
+&gt;&gt;&gt; class B(D,E): pass
+&gt;&gt;&gt; class A(B,C): pass
 </pre>
 </div>
 
@@ -213,28 +206,25 @@ L[A] = A + merge(BDEO,CDFO,BC)
 </p>
 
 <div class="org-src-container">
-
-<pre class="src src-python">&gt;&gt;&gt; A.mro<span style="color: #4f97d7;">()</span>
-<span style="color: #4f97d7;">[</span>&lt;<span style="color: #4f97d7; font-weight: bold;">class</span> <span style="color: #2d9574;">'__main__.A'</span>&gt;, &lt;<span style="color: #4f97d7; font-weight: bold;">class</span> <span style="color: #2d9574;">'__main__.B'</span>&gt;, &lt;<span style="color: #4f97d7; font-weight: bold;">class</span> <span style="color: #2d9574;">'__main__.C'</span>&gt;, &lt;<span style="color: #4f97d7; font-weight: bold;">class</span> <span style="color: #2d9574;">'__main__.D'</span>&gt;, &lt;<span style="color: #4f97d7; font-weight: bold;">class</span> <span style="color: #2d9574;">'__main__.E'</span>&gt;, &lt;<span style="color: #4f97d7; font-weight: bold;">class</span> <span style="color: #2d9574;">'__main__.F'</span>&gt;, &lt;<span style="color: #4f97d7;">type</span> <span style="color: #2d9574;">'object'</span>&gt;<span style="color: #4f97d7;">]</span>
+<pre class="src src-python">&gt;&gt;&gt; A.mro()
+[&lt;class '__main__.A'&gt;, &lt;class '__main__.B'&gt;, &lt;class '__main__.C'&gt;, &lt;class '__main__.D'&gt;, &lt;class '__main__.E'&gt;, &lt;class '__main__.F'&gt;, &lt;type 'object'&gt;]
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-sec-3" class="outline-2">
-<h2 id="sec-3">Tip</h2>
-<div class="outline-text-2" id="text-3">
+<div id="outline-container-orgc8a9eaa" class="outline-2">
+<h2 id="orgc8a9eaa">Tip</h2>
+<div class="outline-text-2" id="text-orgc8a9eaa">
 <ul class="org-ul">
-<li>推荐一个录屏软件 <code>GIF Brewery</code> , 可以生成 gif，随意拖拽位置和调节大小，并可以压缩 gif 的大小，可以在写文章时对于一些动态过程使用 gif 记录
-</li>
-<li>org mode 插入引用 <code>&lt;q</code> + <code>tab</code> , 保留换行 <code>&lt;v</code> + <code>tab</code> ，文字居中 <code>&lt;c</code> + <code>tab</code>
-</li>
+<li>推荐一个录屏软件 <code>GIF Brewery</code> , 可以生成 gif，随意拖拽位置和调节大小，并可以压缩 gif 的大小，可以在写文章时对于一些动态过程使用 gif 记录</li>
+<li>org mode 插入引用 <code>&lt;q</code> + <code>tab</code> , 保留换行 <code>&lt;v</code> + <code>tab</code> ，文字居中 <code>&lt;c</code> + <code>tab</code></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-sec-4" class="outline-2">
-<h2 id="sec-4">Share</h2>
-<div class="outline-text-2" id="text-4">
+<div id="outline-container-orge561662" class="outline-2">
+<h2 id="orge561662">Share</h2>
+<div class="outline-text-2" id="text-orge561662">
 <p>
 本周想谈一下*做技术减法* 。
 </p>

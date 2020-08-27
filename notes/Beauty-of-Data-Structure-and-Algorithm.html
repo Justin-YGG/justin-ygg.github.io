@@ -3,11 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
+<!-- 2020-08-28 Fri 00:19 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>数据结构与算法之美</title>
-<!-- 2019-11-29 Fri 12:02 -->
-<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<meta  name="generator" content="Org-mode" />
-<meta  name="author" content="Justin" />
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Justin" />
 <link rel="stylesheet" type="text/css" href="/css/worg.css"/>
 <link rel="icon" type="image/png" href="/img/icons/heckert.png">
 <script type="text/javascript">
@@ -15,7 +16,7 @@
 @licstart  The following is the entire license notice for the
 JavaScript code in this tag.
 
-Copyright (C) 2012-2013 Free Software Foundation, Inc.
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
 
 The JavaScript code in this tag is free software: you can
 redistribute it and/or modify it under the terms of the GNU
@@ -69,42 +70,42 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#sec-1">01 | 复杂度分析</a>
+<li><a href="#org2407580">01 | 复杂度分析</a>
 <ul>
-<li><a href="#sec-1-1">时间复杂度</a></li>
-<li><a href="#sec-1-2">空间复杂度分析</a></li>
-<li><a href="#sec-1-3">最好、最坏、平均、均摊时间复杂度</a></li>
+<li><a href="#org4c7195c">时间复杂度</a></li>
+<li><a href="#org8375fa9">空间复杂度分析</a></li>
+<li><a href="#org9872238">最好、最坏、平均、均摊时间复杂度</a></li>
 </ul>
 </li>
-<li><a href="#sec-2">02 | 数组：为什么很多编程语言中数组都从0开始编号？</a>
+<li><a href="#org7004c18">02 | 数组：为什么很多编程语言中数组都从0开始编号？</a>
 <ul>
 <li>
 <ul>
-<li><a href="#sec-2-0-1">如何实现随机访问？</a></li>
-<li><a href="#sec-2-0-2">数组为什么要从 0 开始</a></li>
+<li><a href="#org7586c4b">如何实现随机访问？</a></li>
+<li><a href="#orga0d767c">数组为什么要从 0 开始</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#sec-3">03 | 链表</a>
+<li><a href="#org8dcd0b2">03 | 链表</a>
 <ul>
-<li><a href="#sec-3-1">链表和数组的区别</a></li>
-<li><a href="#sec-3-2">链表分类</a>
+<li><a href="#org5a67a10">链表和数组的区别</a></li>
+<li><a href="#org639fa1a">链表分类</a>
 <ul>
-<li><a href="#sec-3-2-1">单链表</a></li>
-<li><a href="#sec-3-2-2">循环链表</a></li>
-<li><a href="#sec-3-2-3">双向链表</a></li>
+<li><a href="#org35e511f">单链表</a></li>
+<li><a href="#orge31b949">循环链表</a></li>
+<li><a href="#orgeacf30a">双向链表</a></li>
 </ul>
 </li>
-<li><a href="#sec-3-3">如何基于链表实现 LRU 缓存淘汰算法？</a></li>
-<li><a href="#sec-3-4">如何轻松写出正确的链表代码？</a>
+<li><a href="#orge3e37a6">如何基于链表实现 LRU 缓存淘汰算法？</a></li>
+<li><a href="#org5b318c2">如何轻松写出正确的链表代码？</a>
 <ul>
-<li><a href="#sec-3-4-1">技巧一：理解指针或引用的含义</a></li>
-<li><a href="#sec-3-4-2">技巧二：警惕指针丢失和内存泄露</a></li>
-<li><a href="#sec-3-4-3">技巧三：利用哨兵简化实现难度</a></li>
-<li><a href="#sec-3-4-4">技巧四：重点留意边界条件</a></li>
-<li><a href="#sec-3-4-5">技巧五：举例画图，辅助思考</a></li>
-<li><a href="#sec-3-4-6">技巧六：多谢多练，没有捷径</a></li>
+<li><a href="#org4a6f98e">技巧一：理解指针或引用的含义</a></li>
+<li><a href="#orgca67a9c">技巧二：警惕指针丢失和内存泄露</a></li>
+<li><a href="#orgd2a53ea">技巧三：利用哨兵简化实现难度</a></li>
+<li><a href="#org945ce0e">技巧四：重点留意边界条件</a></li>
+<li><a href="#org1d044ad">技巧五：举例画图，辅助思考</a></li>
+<li><a href="#orgc74ae00">技巧六：多谢多练，没有捷径</a></li>
 </ul>
 </li>
 </ul>
@@ -113,12 +114,13 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-sec-1" class="outline-2">
-<h2 id="sec-1">01 | 复杂度分析</h2>
-<div class="outline-text-2" id="text-1">
-</div><div id="outline-container-sec-1-1" class="outline-3">
-<h3 id="sec-1-1">时间复杂度</h3>
-<div class="outline-text-3" id="text-1-1">
+<div id="outline-container-org2407580" class="outline-2">
+<h2 id="org2407580">01 | 复杂度分析</h2>
+<div class="outline-text-2" id="text-org2407580">
+</div>
+<div id="outline-container-org4c7195c" class="outline-3">
+<h3 id="org4c7195c">时间复杂度</h3>
+<div class="outline-text-3" id="text-org4c7195c">
 <p>
 大 <code>O</code> 时间复杂度表示法: <code>T(n)=O(f(n))</code>
 </p>
@@ -133,12 +135,9 @@ for the JavaScript code in this tag.
 </p>
 
 <ul class="org-ul">
-<li>只关注循环次数最多的一段代码
-</li>
-<li>加法法则：总复杂度等于量级最大的那段代码的复杂度
-</li>
-<li>乘法法则：嵌套代码的复杂度等于嵌套内外代码复杂度的乘积
-</li>
+<li>只关注循环次数最多的一段代码</li>
+<li>加法法则：总复杂度等于量级最大的那段代码的复杂度</li>
+<li>乘法法则：嵌套代码的复杂度等于嵌套内外代码复杂度的乘积</li>
 </ul>
 
 <p>
@@ -157,23 +156,24 @@ for the JavaScript code in this tag.
 </p>
 
 <ul class="org-ul">
-<li><b>O(1)</b>
+<li><p>
+<b>O(1)</b>
+</p>
 
 <p>
 只要代码执行时间不随着 n 的增大而增长，时间复杂度即为 <code>O(1)</code> ，如果代码中不含有循环、递归等类型代码，成千上万行代码的时间复杂度也是 <code>O(1)</code>
-</p>
-</li>
+</p></li>
 
-<li><b>O(logn)、O(nlogn)</b>
+<li><p>
+<b>O(logn)、O(nlogn)</b>
+</p>
 
 <div class="org-src-container">
-
-<pre class="src src-python"><span style="color: #0AAEB3;">i</span> = 1
-<span style="color: #EF2F27;">while</span> i &lt; n:
-    <span style="color: #0AAEB3;">i</span> = i * 2
+<pre class="src src-python">i = 1
+while i &lt; n:
+    i = i * 2
 </pre>
-</div>
-</li>
+</div></li>
 </ul>
 
 <p>
@@ -183,8 +183,7 @@ for the JavaScript code in this tag.
 </p>
 
 <ul class="org-ul">
-<li>O(m+n)、O(m*n)
-</li>
+<li>O(m+n)、O(m*n)</li>
 </ul>
 
 <p>
@@ -192,19 +191,18 @@ for the JavaScript code in this tag.
 </p>
 
 <div class="org-src-container">
+<pre class="src src-python">def cal(m, n):
+    i = j = 1
+    sum1 = sum2 = 0
 
-<pre class="src src-python"><span style="color: #EF2F27;">def</span> <span style="color: #FBB829;">cal</span><span style="color: #FCE8C3;">(</span>m, n<span style="color: #FCE8C3;">)</span>:
-    <span style="color: #0AAEB3;">i</span> = <span style="color: #0AAEB3;">j</span> = 1
-    <span style="color: #0AAEB3;">sum1</span> = <span style="color: #0AAEB3;">sum2</span> = 0
-
-    <span style="color: #EF2F27;">while</span><span style="color: #FCE8C3;">(</span>i &lt; m<span style="color: #FCE8C3;">)</span>:
-        <span style="color: #0AAEB3;">sum1</span> += i
+    while(i &lt; m):
+        sum1 += i
         i++
 
-    <span style="color: #EF2F27;">while</span><span style="color: #FCE8C3;">(</span>j &lt; n<span style="color: #FCE8C3;">)</span>:
-        <span style="color: #0AAEB3;">sum2</span> += j
+    while(j &lt; n):
+        sum2 += j
         j++
-    <span style="color: #EF2F27;">return</span> sum1 + sum2
+    return sum1 + sum2
 </pre>
 </div>
 
@@ -215,9 +213,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-sec-1-2" class="outline-3">
-<h3 id="sec-1-2">空间复杂度分析</h3>
-<div class="outline-text-3" id="text-1-2">
+<div id="outline-container-org8375fa9" class="outline-3">
+<h3 id="org8375fa9">空间复杂度分析</h3>
+<div class="outline-text-3" id="text-org8375fa9">
 <p>
 空间复杂度全称 <code>渐进空间复杂度(asymptotic space complexity)</code> ，表示算法的存储空间和数据规模之间的增长关系。
 </p>
@@ -234,21 +232,17 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-sec-1-3" class="outline-3">
-<h3 id="sec-1-3">最好、最坏、平均、均摊时间复杂度</h3>
-<div class="outline-text-3" id="text-1-3">
+<div id="outline-container-org9872238" class="outline-3">
+<h3 id="org9872238">最好、最坏、平均、均摊时间复杂度</h3>
+<div class="outline-text-3" id="text-org9872238">
 <ul class="org-ul">
-<li><b>最好情况时间复杂度（best case time complexity）</b> : 就是在最理想的情况下，执行代码的时间复杂度。
-</li>
+<li><b>最好情况时间复杂度（best case time complexity）</b> : 就是在最理想的情况下，执行代码的时间复杂度。</li>
 
-<li><b>最坏情况时间复杂度（worst case time complexity）</b> : 就是在最糟糕的情况下，执行代码的时间复杂度。
-</li>
+<li><b>最坏情况时间复杂度（worst case time complexity）</b> : 就是在最糟糕的情况下，执行代码的时间复杂度。</li>
 
-<li><b>平均情况时间复杂度</b> : 全称应该叫做 <b>加权平均时间复杂度</b> 或者 *期望时间复杂度*。
-</li>
+<li><b>平均情况时间复杂度</b> : 全称应该叫做 <b>加权平均时间复杂度</b> 或者 *期望时间复杂度*。</li>
 
-<li><b>均摊时间复杂度</b> ： 对一组数据结构连续操作时，大部分情况下时间复杂度都很低，只有个别情况下时间复杂度比较高，这些操作时间存在前后的时序关系，
-</li>
+<li><b>均摊时间复杂度</b> ： 对一组数据结构连续操作时，大部分情况下时间复杂度都很低，只有个别情况下时间复杂度比较高，这些操作时间存在前后的时序关系，</li>
 </ul>
 <p>
 这个时候可以尝试使用 <b>摊还分析</b> （平摊分析），看能否将较高时间复杂度的耗时平摊到时间复杂度较低的操作上；
@@ -258,12 +252,13 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-sec-2" class="outline-2">
-<h2 id="sec-2">02 | 数组：为什么很多编程语言中数组都从0开始编号？</h2>
-<div class="outline-text-2" id="text-2">
-</div><div id="outline-container-sec-2-0-1" class="outline-4">
-<h4 id="sec-2-0-1">如何实现随机访问？</h4>
-<div class="outline-text-4" id="text-2-0-1">
+<div id="outline-container-org7004c18" class="outline-2">
+<h2 id="org7004c18">02 | 数组：为什么很多编程语言中数组都从0开始编号？</h2>
+<div class="outline-text-2" id="text-org7004c18">
+</div>
+<div id="outline-container-org7586c4b" class="outline-4">
+<h4 id="org7586c4b">如何实现随机访问？</h4>
+<div class="outline-text-4" id="text-org7586c4b">
 <p>
 <b>数组（Array）是一种线性表数据结构，用一组连续的内存空间，来存储一组具有相同类型的数据</b> 。
 </p>
@@ -273,8 +268,7 @@ for the JavaScript code in this tag.
 </p>
 
 <ul class="org-ul">
-<li>线性表：数据排列像“线”一样的结构，只有前后两个方向，如数组、栈、队列、链表等
-</li>
+<li>线性表：数据排列像“线”一样的结构，只有前后两个方向，如数组、栈、队列、链表等</li>
 </ul>
 
 <div class="figure">
@@ -283,8 +277,7 @@ for the JavaScript code in this tag.
 </div>
 
 <ul class="org-ul">
-<li>非线性表: 数据之间不是简单的前后关系，如：树、堆、图等
-</li>
+<li>非线性表: 数据之间不是简单的前后关系，如：树、堆、图等</li>
 </ul>
 
 <div class="figure">
@@ -293,8 +286,7 @@ for the JavaScript code in this tag.
 </div>
 
 <ul class="org-ul">
-<li>连续的存储空间和相同的数据类型：正是因为这两点，数组才具备了“杀手锏”的特性：随机访问。
-</li>
+<li>连续的存储空间和相同的数据类型：正是因为这两点，数组才具备了“杀手锏”的特性：随机访问。</li>
 </ul>
 
 
@@ -324,9 +316,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-sec-2-0-2" class="outline-4">
-<h4 id="sec-2-0-2">数组为什么要从 0 开始</h4>
-<div class="outline-text-4" id="text-2-0-2">
+<div id="outline-container-orga0d767c" class="outline-4">
+<h4 id="orga0d767c">数组为什么要从 0 开始</h4>
+<div class="outline-text-4" id="text-orga0d767c">
 <p>
 从数组的存储模型上来看，“下标”最确切的定义应该是“偏移(offset)”， <code>a[0]</code> 就是偏移为 0 的位置，a[k] 表示偏移 k 个 <code>type_size，
 所以 =a[k]_address = base_address + k * type_size</code> ，而如果数组从 1 开始，那么 <code>a[k]_address = base_address + (k-1) * type_size</code> ，
@@ -336,12 +328,13 @@ for the JavaScript code in this tag.
 </div>
 </div>
 </div>
-<div id="outline-container-sec-3" class="outline-2">
-<h2 id="sec-3">03 | 链表</h2>
-<div class="outline-text-2" id="text-3">
-</div><div id="outline-container-sec-3-1" class="outline-3">
-<h3 id="sec-3-1">链表和数组的区别</h3>
-<div class="outline-text-3" id="text-3-1">
+<div id="outline-container-org8dcd0b2" class="outline-2">
+<h2 id="org8dcd0b2">03 | 链表</h2>
+<div class="outline-text-2" id="text-org8dcd0b2">
+</div>
+<div id="outline-container-org5a67a10" class="outline-3">
+<h3 id="org5a67a10">链表和数组的区别</h3>
+<div class="outline-text-3" id="text-org5a67a10">
 
 <div class="figure">
 <p><img src="../img/DataStructuresandAlgorithms/Diffence-bw-array-and-linkedlist.jpg" alt="Diffence-bw-array-and-linkedlist.jpg" width="500" />
@@ -354,12 +347,13 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-sec-3-2" class="outline-3">
-<h3 id="sec-3-2">链表分类</h3>
-<div class="outline-text-3" id="text-3-2">
-</div><div id="outline-container-sec-3-2-1" class="outline-4">
-<h4 id="sec-3-2-1">单链表</h4>
-<div class="outline-text-4" id="text-3-2-1">
+<div id="outline-container-org639fa1a" class="outline-3">
+<h3 id="org639fa1a">链表分类</h3>
+<div class="outline-text-3" id="text-org639fa1a">
+</div>
+<div id="outline-container-org35e511f" class="outline-4">
+<h4 id="org35e511f">单链表</h4>
+<div class="outline-text-4" id="text-org35e511f">
 
 <div class="figure">
 <p><img src="../img/DataStructuresandAlgorithms/linkedlist.jpg" alt="linkedlist.jpg" width="500" />
@@ -381,9 +375,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-sec-3-2-2" class="outline-4">
-<h4 id="sec-3-2-2">循环链表</h4>
-<div class="outline-text-4" id="text-3-2-2">
+<div id="outline-container-orge31b949" class="outline-4">
+<h4 id="orge31b949">循环链表</h4>
+<div class="outline-text-4" id="text-orge31b949">
 
 <div class="figure">
 <p><img src="../img/DataStructuresandAlgorithms/Circular-LinkedList.jpg" alt="Circular-LinkedList.jpg" width="500" />
@@ -396,9 +390,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-sec-3-2-3" class="outline-4">
-<h4 id="sec-3-2-3">双向链表</h4>
-<div class="outline-text-4" id="text-3-2-3">
+<div id="outline-container-orgeacf30a" class="outline-4">
+<h4 id="orgeacf30a">双向链表</h4>
+<div class="outline-text-4" id="text-orgeacf30a">
 
 <div class="figure">
 <p><img src="../img/DataStructuresandAlgorithms/double-linkedlist.jpg" alt="double-linkedlist.jpg" width="500" />
@@ -415,10 +409,8 @@ for the JavaScript code in this tag.
 </p>
 
 <ul class="org-ul">
-<li>1. 删除节点中“值等于给定值”的节点
-</li>
-<li>2. 删除给定指针指向的节点
-</li>
+<li>1. 删除节点中“值等于给定值”的节点</li>
+<li>2. 删除给定指针指向的节点</li>
 </ul>
 
 <p>
@@ -433,9 +425,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-sec-3-3" class="outline-3">
-<h3 id="sec-3-3">如何基于链表实现 LRU 缓存淘汰算法？</h3>
-<div class="outline-text-3" id="text-3-3">
+<div id="outline-container-orge3e37a6" class="outline-3">
+<h3 id="orge3e37a6">如何基于链表实现 LRU 缓存淘汰算法？</h3>
+<div class="outline-text-3" id="text-orge3e37a6">
 <p>
 我们可以维护一个有序的单链表，越早访问的节点越靠近尾部。
 </p>
@@ -453,10 +445,8 @@ for the JavaScript code in this tag.
 </p>
 
 <ul class="org-ul">
-<li>链表已满，需要删除最后一个节点，并将新节点插入到头部
-</li>
-<li>链表未满，直接将新节点插入到头部
-</li>
+<li>链表已满，需要删除最后一个节点，并将新节点插入到头部</li>
+<li>链表未满，直接将新节点插入到头部</li>
 </ul>
 
 <p>
@@ -465,12 +455,13 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-sec-3-4" class="outline-3">
-<h3 id="sec-3-4">如何轻松写出正确的链表代码？</h3>
-<div class="outline-text-3" id="text-3-4">
-</div><div id="outline-container-sec-3-4-1" class="outline-4">
-<h4 id="sec-3-4-1">技巧一：理解指针或引用的含义</h4>
-<div class="outline-text-4" id="text-3-4-1">
+<div id="outline-container-org5b318c2" class="outline-3">
+<h3 id="org5b318c2">如何轻松写出正确的链表代码？</h3>
+<div class="outline-text-3" id="text-org5b318c2">
+</div>
+<div id="outline-container-org4a6f98e" class="outline-4">
+<h4 id="org4a6f98e">技巧一：理解指针或引用的含义</h4>
+<div class="outline-text-4" id="text-org4a6f98e">
 <p>
 <b>不管指针还是引用，其实就是只存储数据的内存地址</b> 。
 </p>
@@ -493,9 +484,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-sec-3-4-2" class="outline-4">
-<h4 id="sec-3-4-2">技巧二：警惕指针丢失和内存泄露</h4>
-<div class="outline-text-4" id="text-3-4-2">
+<div id="outline-container-orgca67a9c" class="outline-4">
+<h4 id="orgca67a9c">技巧二：警惕指针丢失和内存泄露</h4>
+<div class="outline-text-4" id="text-orgca67a9c">
 
 <div class="figure">
 <p><img src="../img/DataStructuresandAlgorithms/insert-linkedlist.jpg" alt="insert-linkedlist.jpg" width="500" />
@@ -504,9 +495,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-sec-3-4-3" class="outline-4">
-<h4 id="sec-3-4-3">技巧三：利用哨兵简化实现难度</h4>
-<div class="outline-text-4" id="text-3-4-3">
+<div id="outline-container-orgd2a53ea" class="outline-4">
+<h4 id="orgd2a53ea">技巧三：利用哨兵简化实现难度</h4>
+<div class="outline-text-4" id="text-orgd2a53ea">
 
 <div class="figure">
 <p><img src="../img/DataStructuresandAlgorithms/sentry-linkedlist.jpg" alt="sentry-linkedlist.jpg" width="500" />
@@ -520,40 +511,33 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-sec-3-4-4" class="outline-4">
-<h4 id="sec-3-4-4">技巧四：重点留意边界条件</h4>
-<div class="outline-text-4" id="text-3-4-4">
+<div id="outline-container-org945ce0e" class="outline-4">
+<h4 id="org945ce0e">技巧四：重点留意边界条件</h4>
+<div class="outline-text-4" id="text-org945ce0e">
 <p>
 检查边界条件是否考虑全面，如：
 </p>
 
 <ul class="org-ul">
-<li>如果链表为空，是否能正常工作
-</li>
-<li>如果链表只包含一个节点或者两个节点，是否正常工作
-</li>
-<li>代码逻辑再处理头、尾节点时是否正常工作
-</li>
+<li>如果链表为空，是否能正常工作</li>
+<li>如果链表只包含一个节点或者两个节点，是否正常工作</li>
+<li>代码逻辑再处理头、尾节点时是否正常工作</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-sec-3-4-5" class="outline-4">
-<h4 id="sec-3-4-5">技巧五：举例画图，辅助思考</h4>
+<div id="outline-container-org1d044ad" class="outline-4">
+<h4 id="org1d044ad">技巧五：举例画图，辅助思考</h4>
 </div>
 
-<div id="outline-container-sec-3-4-6" class="outline-4">
-<h4 id="sec-3-4-6">技巧六：多谢多练，没有捷径</h4>
-<div class="outline-text-4" id="text-3-4-6">
+<div id="outline-container-orgc74ae00" class="outline-4">
+<h4 id="orgc74ae00">技巧六：多谢多练，没有捷径</h4>
+<div class="outline-text-4" id="text-orgc74ae00">
 <ul class="org-ul">
-<li>单链表翻转
-</li>
-<li>链表中环的检测
-</li>
-<li>删除链表倒数第n个节点
-</li>
-<li>求链表的中间节点
-</li>
+<li>单链表翻转</li>
+<li>链表中环的检测</li>
+<li>删除链表倒数第n个节点</li>
+<li>求链表的中间节点</li>
 </ul>
 </div>
 </div>

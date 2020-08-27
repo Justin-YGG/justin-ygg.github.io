@@ -3,11 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<title>redis</title>
-<!-- 2020-04-17 Fri 21:29 -->
-<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<meta  name="generator" content="Org-mode" />
-<meta  name="author" content="Justin" />
+<!-- 2020-08-28 Fri 00:19 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>&lrm;</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Justin" />
 <link rel="stylesheet" type="text/css" href="/css/worg.css"/>
 <link rel="icon" type="image/png" href="/img/icons/heckert.png">
 <script type="text/javascript">
@@ -15,7 +16,7 @@
 @licstart  The following is the entire license notice for the
 JavaScript code in this tag.
 
-Copyright (C) 2012-2013 Free Software Foundation, Inc.
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
 
 The JavaScript code in this tag is free software: you can
 redistribute it and/or modify it under the terms of the GNU
@@ -63,78 +64,72 @@ for the JavaScript code in this tag.
  |
  <a accesskey="H" href="../index.html"> HOME </a>
 </div><div id="content">
-<h1 class="title">redis</h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#sec-1">redis 和 memcache 的区别</a>
+<li><a href="#org2f3065e">redis 和 memcache 的区别</a>
 <ul>
-<li><a href="#sec-1-1">redis</a></li>
-<li><a href="#sec-1-2">memcache</a></li>
+<li><a href="#org2bd7dd6">redis</a></li>
+<li><a href="#orgf5b0711">memcache</a></li>
 </ul>
 </li>
-<li><a href="#sec-2">Redis 常用数据结构</a>
+<li><a href="#orga9eaa2e">Redis 常用数据结构</a>
 <ul>
-<li><a href="#sec-2-1">String</a></li>
-<li><a href="#sec-2-2">List</a></li>
-<li><a href="#sec-2-3">字典 hash</a></li>
-<li><a href="#sec-2-4">集合 set</a></li>
-<li><a href="#sec-2-5">有序列表 zset</a></li>
+<li><a href="#orgb60b6a3">String</a></li>
+<li><a href="#orgd6b0ee9">List</a></li>
+<li><a href="#org17e8d5c">字典 hash</a></li>
+<li><a href="#org7a7f125">集合 set</a></li>
+<li><a href="#org97f2b42">有序列表 zset</a></li>
 </ul>
 </li>
-<li><a href="#sec-3">redis 分布式锁在什么场景下使用？与 zookeeper 分布式锁的区别</a></li>
-<li><a href="#sec-4">redis缓存与mysql数据一致性方案</a>
+<li><a href="#org6d01899">redis 分布式锁在什么场景下使用？与 zookeeper 分布式锁的区别</a></li>
+<li><a href="#org1fd2fb7">redis缓存与mysql数据一致性方案</a>
 <ul>
-<li><a href="#sec-4-1">Cache Aside Pattern</a></li>
+<li><a href="#org9d55bcd">Cache Aside Pattern</a></li>
 </ul>
 </li>
-<li><a href="#sec-5">你有没有考虑过，如果你多个系统同时操作（并发）Redis带来的数据问题？</a></li>
-<li><a href="#sec-6">为什么redis采用单线程模型</a></li>
-<li><a href="#sec-7">Redis6.0引入了多线程，是为了解决网络的 IO 消耗？</a></li>
+<li><a href="#orga824ea0">你有没有考虑过，如果你多个系统同时操作（并发）Redis带来的数据问题？</a></li>
+<li><a href="#org8fa3869">为什么redis采用单线程模型</a></li>
+<li><a href="#org09fa9e9">Redis6.0引入了多线程，是为了解决网络的 IO 消耗？</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-sec-1" class="outline-2">
-<h2 id="sec-1">redis 和 memcache 的区别</h2>
-<div class="outline-text-2" id="text-1">
-</div><div id="outline-container-sec-1-1" class="outline-3">
-<h3 id="sec-1-1">redis</h3>
-<div class="outline-text-3" id="text-1-1">
+<div id="outline-container-org2f3065e" class="outline-2">
+<h2 id="org2f3065e">redis 和 memcache 的区别</h2>
+<div class="outline-text-2" id="text-org2f3065e">
+</div>
+<div id="outline-container-org2bd7dd6" class="outline-3">
+<h3 id="org2bd7dd6">redis</h3>
+<div class="outline-text-3" id="text-org2bd7dd6">
 <ul class="org-ul">
-<li>支持更丰富的数据结构，列表、集合、有序集合等
-</li>
-<li>支持持久化
-</li>
-<li>天然高可用，支持集群
-</li>
-<li>可以存储比较大的value
-</li>
+<li>支持更丰富的数据结构，列表、集合、有序集合等</li>
+<li>支持持久化</li>
+<li>天然高可用，支持集群</li>
+<li>可以存储比较大的value</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-sec-1-2" class="outline-3">
-<h3 id="sec-1-2">memcache</h3>
-<div class="outline-text-3" id="text-1-2">
+<div id="outline-container-orgf5b0711" class="outline-3">
+<h3 id="orgf5b0711">memcache</h3>
+<div class="outline-text-3" id="text-orgf5b0711">
 <ul class="org-ul">
-<li>纯kv结构存储
-</li>
-<li>使用内存预分配，redis使用临时分配，容易产生碎片
-</li>
-<li>memcache 数据都存储在物理内存上，redis用自己的VM机制，理论上能够存储更多的数据，数据超量时可能会触发swap，将冷数据刷到磁盘上
-</li>
+<li>纯kv结构存储</li>
+<li>使用内存预分配，redis使用临时分配，容易产生碎片</li>
+<li>memcache 数据都存储在物理内存上，redis用自己的VM机制，理论上能够存储更多的数据，数据超量时可能会触发swap，将冷数据刷到磁盘上</li>
 </ul>
 </div>
 </div>
 </div>
 
-<div id="outline-container-sec-2" class="outline-2">
-<h2 id="sec-2">Redis 常用数据结构</h2>
-<div class="outline-text-2" id="text-2">
-</div><div id="outline-container-sec-2-1" class="outline-3">
-<h3 id="sec-2-1">String</h3>
-<div class="outline-text-3" id="text-2-1">
+<div id="outline-container-orga9eaa2e" class="outline-2">
+<h2 id="orga9eaa2e">Redis 常用数据结构</h2>
+<div class="outline-text-2" id="text-orga9eaa2e">
+</div>
+<div id="outline-container-orgb60b6a3" class="outline-3">
+<h3 id="orgb60b6a3">String</h3>
+<div class="outline-text-3" id="text-orgb60b6a3">
 <p>
 内部的实现结构是redis自己实现的 sds（simple dynamic string），其中包含了了 len、free、buf 三个属性，buf 是用来保存字符的数组，len 表示数组中存储的字符长度， free 表示数组中的可用空间；这个结构被用于存储 redis 中的键值、以及 value为字符串或者是列表中的元素是字符的存储，同时也在 AOF 缓冲区中使用；
 </p>
@@ -144,47 +139,39 @@ redis 对字符串的存储并没有使用传统的C语言字符串，有几个�
 </p>
 
 <ul class="org-ul">
-<li>redis 有专门的属性，可以存储字符串的长度，避免了像C语言字符串那样，需要遍历才能获得长度，时间复杂度降为 O(1)
-</li>
-<li>可以杜绝缓存溢出，假设两个字符串是 s1s2 在内存中紧挨着，如果要在s1后拼接字符串的话，C语言字符串如果没有提前分配空间，有可能溢出到s2中q，但是 sds 在拼接之前可以通过判断自动调整buf空间避免出现溢出
-</li>
-<li>对于字符串的增长和缩短带来的频繁内存分配和释放，sds 通过空间预分配，在需要扩展空间时，会多扩展一部分来避免每次都频繁分配；字符串缩短需要释空间时，sds 通过惰性空间释放，通过更新 free 的值，保留内存空间，没有接着释放，这样下次在需要时可以实际使用，不用再重新分配
-</li>
+<li>redis 有专门的属性，可以存储字符串的长度，避免了像C语言字符串那样，需要遍历才能获得长度，时间复杂度降为 O(1)</li>
+<li>可以杜绝缓存溢出，假设两个字符串是 s1s2 在内存中紧挨着，如果要在s1后拼接字符串的话，C语言字符串如果没有提前分配空间，有可能溢出到s2中q，但是 sds 在拼接之前可以通过判断自动调整buf空间避免出现溢出</li>
+<li>对于字符串的增长和缩短带来的频繁内存分配和释放，sds 通过空间预分配，在需要扩展空间时，会多扩展一部分来避免每次都频繁分配；字符串缩短需要释空间时，sds 通过惰性空间释放，通过更新 free 的值，保留内存空间，没有接着释放，这样下次在需要时可以实际使用，不用再重新分配</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-sec-2-2" class="outline-3">
-<h3 id="sec-2-2">List</h3>
-<div class="outline-text-3" id="text-2-2">
+<div id="outline-container-orgd6b0ee9" class="outline-3">
+<h3 id="orgd6b0ee9">List</h3>
+<div class="outline-text-3" id="text-orgd6b0ee9">
 <p>
 双向链表实现，支持 len 属性
 </p>
 </div>
 </div>
 
-<div id="outline-container-sec-2-3" class="outline-3">
-<h3 id="sec-2-3">字典 hash</h3>
-<div class="outline-text-3" id="text-2-3">
+<div id="outline-container-org17e8d5c" class="outline-3">
+<h3 id="org17e8d5c">字典 hash</h3>
+<div class="outline-text-3" id="text-org17e8d5c">
 <p>
 底层数据结构是redis实现的字段，由哈希表实现，字典中包含两个哈希表，其中一个是正常使用的，另外一个是在数组rehash的时候使用，还有一个trehashidx用来标记rehash是否完成。
 </p>
 
 <p>
-渐进式rehash：为了避免集中式的rehash迁移对服务器性能造成影响，redis采用分多次，渐进式的将ht<sup><a id="fnr.1" name="fnr.1" class="footref" href="#fn.1">1</a></sup> 中的键值对，rehash到 ht<sup><a id="fnr.2" name="fnr.2" class="footref" href="#fn.2">2</a></sup> 中
+渐进式rehash：为了避免集中式的rehash迁移对服务器性能造成影响，redis采用分多次，渐进式的将ht[0] 中的键值对，rehash到 ht[1] 中
 </p>
 
 <ul class="org-ul">
-<li>为 ht<sup><a id="fnr.2.100" name="fnr.2.100" class="footref" href="#fn.2">2</a></sup> 分配空间
-</li>
-<li>将 trehashidx 置为 0 表示 rehash 开始
-</li>
-<li>每完成一部分 将 trehashidx 值+1
-</li>
-<li>彻底完成后讲 trehashidx 置为 -1 表示结束
-</li>
-<li>rehash 期间对数据的删查改 都在两个哈希表里查找，一个找不到，就去另外一个找；新增数据只加入到 ht<sup><a id="fnr.2.100" name="fnr.2.100" class="footref" href="#fn.2">2</a></sup> 中
-</li>
+<li>为 ht[1] 分配空间</li>
+<li>将 trehashidx 置为 0 表示 rehash 开始</li>
+<li>每完成一部分 将 trehashidx 值+1</li>
+<li>彻底完成后讲 trehashidx 置为 -1 表示结束</li>
+<li>rehash 期间对数据的删查改 都在两个哈希表里查找，一个找不到，就去另外一个找；新增数据只加入到 ht[1] 中</li>
 </ul>
 
 <p>
@@ -193,21 +180,20 @@ redis 对字符串的存储并没有使用传统的C语言字符串，有几个�
 </div>
 </div>
 
-<div id="outline-container-sec-2-4" class="outline-3">
-<h3 id="sec-2-4">集合 set</h3>
-<div class="outline-text-3" id="text-2-4">
+<div id="outline-container-org7a7f125" class="outline-3">
+<h3 id="org7a7f125">集合 set</h3>
+<div class="outline-text-3" id="text-org7a7f125">
 <p>
 无需，唯一的集合，内部实现相当于一个特殊的字典，value 都为空
 </p>
 </div>
 </div>
 
-<div id="outline-container-sec-2-5" class="outline-3">
-<h3 id="sec-2-5">有序列表 zset</h3>
-<div class="outline-text-3" id="text-2-5">
+<div id="outline-container-org97f2b42" class="outline-3">
+<h3 id="org97f2b42">有序列表 zset</h3>
+<div class="outline-text-3" id="text-org97f2b42">
 <ul class="org-ul">
-<li>元素少于128 所有成员长度小于64字节时，用ziplist 否则用 skiplist
-</li>
+<li>元素少于128 所有成员长度小于64字节时，用ziplist 否则用 skiplist</li>
 </ul>
 
 <p>
@@ -219,10 +205,8 @@ redis 对字符串的存储并没有使用传统的C语言字符串，有几个�
 </p>
 
 <ul class="org-ul">
-<li>跳跃表实现起来简单
-</li>
-<li>性能方面，树形结构需要不断rebalance树高
-</li>
+<li>跳跃表实现起来简单</li>
+<li>性能方面，树形结构需要不断rebalance树高</li>
 </ul>
 
 <p>
@@ -238,32 +222,27 @@ redis 对字符串的存储并没有使用传统的C语言字符串，有几个�
 </p>
 
 <ul class="org-ul">
-<li>插入：找到插入位置，调整指针； 有一种极端的情况，就是跳跃表中的所有 score 值都是一样，zset 的查找性能会不会退化为 O(n) 呢？ zset 的排序元素不只是看 score 值，也会比较 value 值 （字符串比较）
-</li>
-<li>删除：找到删除位置，调整之争
-</li>
-<li>更新：没有这个value，直接插入；有的话，如果排序上没有变化，就直接更新score，如果有变化，直接删除，然后再插入
-</li>
-<li>排名实现：forward指针上维护了 span 属性，用来记录当前层从前一个节点到本节点的节点数量，沿着 &ldquo;搜索路径"，把所有经过节点的跨度 span 值进行累加就可以算出当前元素的最终 rank 值了
-</li>
+<li>插入：找到插入位置，调整指针； 有一种极端的情况，就是跳跃表中的所有 score 值都是一样，zset 的查找性能会不会退化为 O(n) 呢？ zset 的排序元素不只是看 score 值，也会比较 value 值 （字符串比较）</li>
+<li>删除：找到删除位置，调整之争</li>
+<li>更新：没有这个value，直接插入；有的话，如果排序上没有变化，就直接更新score，如果有变化，直接删除，然后再插入</li>
+<li>排名实现：forward指针上维护了 span 属性，用来记录当前层从前一个节点到本节点的节点数量，沿着 &ldquo;搜索路径&rdquo;，把所有经过节点的跨度 span 值进行累加就可以算出当前元素的最终 rank 值了</li>
 </ul>
 </div>
 </div>
 </div>
-<div id="outline-container-sec-3" class="outline-2">
-<h2 id="sec-3">redis 分布式锁在什么场景下使用？与 zookeeper 分布式锁的区别</h2>
+<div id="outline-container-org6d01899" class="outline-2">
+<h2 id="org6d01899">redis 分布式锁在什么场景下使用？与 zookeeper 分布式锁的区别</h2>
 </div>
-<div id="outline-container-sec-4" class="outline-2">
-<h2 id="sec-4">redis缓存与mysql数据一致性方案</h2>
-<div class="outline-text-2" id="text-4">
-</div><div id="outline-container-sec-4-1" class="outline-3">
-<h3 id="sec-4-1">Cache Aside Pattern</h3>
-<div class="outline-text-3" id="text-4-1">
+<div id="outline-container-org1fd2fb7" class="outline-2">
+<h2 id="org1fd2fb7">redis缓存与mysql数据一致性方案</h2>
+<div class="outline-text-2" id="text-org1fd2fb7">
+</div>
+<div id="outline-container-org9d55bcd" class="outline-3">
+<h3 id="org9d55bcd">Cache Aside Pattern</h3>
+<div class="outline-text-3" id="text-org9d55bcd">
 <ul class="org-ul">
-<li>先读缓存，命中返回；否则读数据库，成功后，放到缓存中
-</li>
-<li>更新时，先更新数据库，再失效缓存；为何不能先失效缓存，再更新数据库？如果两个并发操作，一个读，一个更新，更新操作失效缓存后，读操作没有命中缓存，就从数据库读到旧数据，塞到缓存中，然后更新操作完成，这样数据库与缓存中的数据就不一致了。
-</li>
+<li>先读缓存，命中返回；否则读数据库，成功后，放到缓存中</li>
+<li>更新时，先更新数据库，再失效缓存；为何不能先失效缓存，再更新数据库？如果两个并发操作，一个读，一个更新，更新操作失效缓存后，读操作没有命中缓存，就从数据库读到旧数据，塞到缓存中，然后更新操作完成，这样数据库与缓存中的数据就不一致了。</li>
 </ul>
 
 <p>
@@ -281,9 +260,9 @@ redis 对字符串的存储并没有使用传统的C语言字符串，有几个�
 </div>
 </div>
 
-<div id="outline-container-sec-5" class="outline-2">
-<h2 id="sec-5">你有没有考虑过，如果你多个系统同时操作（并发）Redis带来的数据问题？</h2>
-<div class="outline-text-2" id="text-5">
+<div id="outline-container-orga824ea0" class="outline-2">
+<h2 id="orga824ea0">你有没有考虑过，如果你多个系统同时操作（并发）Redis带来的数据问题？</h2>
+<div class="outline-text-2" id="text-orga824ea0">
 <p>
 系统A、B、C三个系统，分别去操作Redis的同一个Key，本来顺序是1，2，3是正常的，但是因为系统A网络突然抖动了一下，B，C在他前面操作了Redis，这样数据不就错了么。
 </p>
@@ -296,12 +275,11 @@ redis 对字符串的存储并没有使用传统的C语言字符串，有几个�
 
 
 
-<div id="outline-container-sec-6" class="outline-2">
-<h2 id="sec-6">为什么redis采用单线程模型</h2>
-<div class="outline-text-2" id="text-6">
+<div id="outline-container-org8fa3869" class="outline-2">
+<h2 id="org8fa3869">为什么redis采用单线程模型</h2>
+<div class="outline-text-2" id="text-org8fa3869">
 <ul class="org-ul">
-<li>使用单线程模型具有更好的可维护性
-</li>
+<li>使用单线程模型具有更好的可维护性</li>
 </ul>
 
 <p>
@@ -309,8 +287,7 @@ redis 对字符串的存储并没有使用传统的C语言字符串，有几个�
 </p>
 
 <ul class="org-ul">
-<li>使用单线程也能处理并发任务
-</li>
+<li>使用单线程也能处理并发任务</li>
 </ul>
 
 <p>
@@ -318,8 +295,7 @@ redis 通过使用 I/O 多路复用机制可以并发处理来自客户端的多
 </p>
 
 <ul class="org-ul">
-<li>Redis 并不是 CPU 密集型的服务
-</li>
+<li>Redis 并不是 CPU 密集型的服务</li>
 </ul>
 
 <p>
@@ -328,9 +304,9 @@ redis 通过使用 I/O 多路复用机制可以并发处理来自客户端的多
 </div>
 </div>
 
-<div id="outline-container-sec-7" class="outline-2">
-<h2 id="sec-7">Redis6.0引入了多线程，是为了解决网络的 IO 消耗？</h2>
-<div class="outline-text-2" id="text-7">
+<div id="outline-container-org09fa9e9" class="outline-2">
+<h2 id="org09fa9e9">Redis6.0引入了多线程，是为了解决网络的 IO 消耗？</h2>
+<div class="outline-text-2" id="text-org09fa9e9">
 <p>
 I/O 多路复用的主要作用是让我们可以使用一个线程来监控多个连接是否可读或者可写，但是从网络另一头发的数据包需要先解序列化成 Redis 内部其他模块可以理解的命令，这个过程就是 Redis 6.0 引入多线程来并发处理的。
 </p>
@@ -340,16 +316,6 @@ I/O 多路复用模块收到数据包之后将其丢给后面多个 I/O 线程�
 </p>
 </div>
 </div>
-<div id="footnotes">
-<h2 class="footnotes">Footnotes: </h2>
-<div id="text-footnotes">
-
-<div class="footdef"><sup><a id="fn.1" name="fn.1" class="footnum" href="#fnr.1">1</a></sup> <p>DEFINITION NOT FOUND.</p></div>
-
-<div class="footdef"><sup><a id="fn.2" name="fn.2" class="footnum" href="#fnr.2">2</a></sup> <p>DEFINITION NOT FOUND.</p></div>
-
-
 </div>
-</div></div>
 </body>
 </html>
