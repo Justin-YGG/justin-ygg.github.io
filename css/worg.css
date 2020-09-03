@@ -72,7 +72,7 @@
     #table-of-contents h2 {
     font-size: 13pt;
     max-width: 9em;
-    border: 0;
+    border: 1px solid #DEDEDE;
     font-weight: normal;
     padding-left: 0.5em;
     padding-right: 0.5em;
@@ -182,15 +182,15 @@ content: "*** "
     }
 
     table {
-    border: none;
+    border: 1px solid #DEDEDE;
     }
 
     td {
-    border: none;
+    border: 1px solid #DEDEDE;
     }
 
     th {
-    border: none;
+    border: 1px solid #DEDEDE;
     }
 
     code {
