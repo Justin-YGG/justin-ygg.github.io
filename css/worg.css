@@ -72,7 +72,7 @@
     #table-of-contents h2 {
     font-size: 13pt;
     max-width: 9em;
-    border: 1px solid #DEDEDE;
+    border: none;
     font-weight: normal;
     padding-left: 0.5em;
     padding-right: 0.5em;
