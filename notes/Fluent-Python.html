@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-08-28 Fri 00:19 -->
+<!-- 2020-09-29 Tue 23:21 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
@@ -139,10 +139,10 @@ for the JavaScript code in this tag.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python">&gt;&gt;&gt; x = 'my precious'
-&gt;&gt;&gt; dummy = [x for x in 'ABC']
+<pre class="src src-python">&gt;&gt;&gt; <span style="color: #0AAEB3;">x</span> = <span style="color: #98BC37;">'my precious'</span>
+&gt;&gt;&gt; <span style="color: #0AAEB3;">dummy</span> = <span style="color: #FCE8C3;">[</span>x <span style="color: #EF2F27;">for</span> x <span style="color: #EF2F27;">in</span> <span style="color: #98BC37;">'ABC'</span><span style="color: #FCE8C3;">]</span>
 &gt;&gt;&gt; x
-'C'
+<span style="color: #98BC37;">'C'</span>
 </pre>
 </div>
 
@@ -204,13 +204,13 @@ for the JavaScript code in this tag.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python">&gt;&gt;&gt; weird_board = [['_'] * 3] * 3
+<pre class="src src-python">&gt;&gt;&gt; <span style="color: #0AAEB3;">weird_board</span> = <span style="color: #FCE8C3;">[</span><span style="color: #68A8E4;">[</span><span style="color: #98BC37;">'_'</span><span style="color: #68A8E4;">]</span> * 3<span style="color: #FCE8C3;">]</span> * 3
 &gt;&gt;&gt; weird_board
-[['_', '_', '_'], ['_', '_', '_'], ['_', '_', '_']]
+<span style="color: #FCE8C3;">[</span><span style="color: #68A8E4;">[</span><span style="color: #98BC37;">'_'</span>, <span style="color: #98BC37;">'_'</span>, <span style="color: #98BC37;">'_'</span><span style="color: #68A8E4;">]</span>, <span style="color: #68A8E4;">[</span><span style="color: #98BC37;">'_'</span>, <span style="color: #98BC37;">'_'</span>, <span style="color: #98BC37;">'_'</span><span style="color: #68A8E4;">]</span>, <span style="color: #68A8E4;">[</span><span style="color: #98BC37;">'_'</span>, <span style="color: #98BC37;">'_'</span>, <span style="color: #98BC37;">'_'</span><span style="color: #68A8E4;">]</span><span style="color: #FCE8C3;">]</span>
 
-&gt;&gt;&gt; weird_board[1][2] = 'O'
+&gt;&gt;&gt; weird_board<span style="color: #FCE8C3;">[</span>1<span style="color: #FCE8C3;">][</span>2<span style="color: #FCE8C3;">]</span> = <span style="color: #98BC37;">'O'</span>
 &gt;&gt;&gt; weird_board
-[['_', '_', 'O'], ['_', '_', 'O'], ['_', '_', 'O']]
+<span style="color: #FCE8C3;">[</span><span style="color: #68A8E4;">[</span><span style="color: #98BC37;">'_'</span>, <span style="color: #98BC37;">'_'</span>, <span style="color: #98BC37;">'O'</span><span style="color: #68A8E4;">]</span>, <span style="color: #68A8E4;">[</span><span style="color: #98BC37;">'_'</span>, <span style="color: #98BC37;">'_'</span>, <span style="color: #98BC37;">'O'</span><span style="color: #68A8E4;">]</span>, <span style="color: #68A8E4;">[</span><span style="color: #98BC37;">'_'</span>, <span style="color: #98BC37;">'_'</span>, <span style="color: #98BC37;">'O'</span><span style="color: #68A8E4;">]</span><span style="color: #FCE8C3;">]</span>
 </pre>
 </div>
 
@@ -241,13 +241,13 @@ for the JavaScript code in this tag.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python">&gt;&gt;&gt; t = (1, 2, [30, 40])
-&gt;&gt;&gt; t[2] += [50, 60]
-Traceback (most recent call last):
-  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
-TypeError: 'tuple' object does not support item assignment
+<pre class="src src-python">&gt;&gt;&gt; <span style="color: #0AAEB3;">t</span> = <span style="color: #FCE8C3;">(</span>1, 2, <span style="color: #68A8E4;">[</span>30, 40<span style="color: #68A8E4;">]</span><span style="color: #FCE8C3;">)</span>
+&gt;&gt;&gt; <span style="color: #0AAEB3;">t</span><span style="color: #FCE8C3;">[</span>2<span style="color: #FCE8C3;">]</span> += <span style="color: #FCE8C3;">[</span>50, 60<span style="color: #FCE8C3;">]</span>
+Traceback <span style="color: #FCE8C3;">(</span>most recent call last<span style="color: #FCE8C3;">)</span>:
+  File <span style="color: #98BC37;">"&lt;stdin&gt;"</span>, line 1, <span style="color: #EF2F27;">in</span> &lt;module&gt;
+<span style="color: #68A8E4;">TypeError</span>: <span style="color: #98BC37;">'tuple'</span> <span style="color: #2C78BF;">object</span> does <span style="color: #EF2F27;">not</span> support item assignment
 &gt;&gt;&gt; t
-(1, 2, [30, 40, 50, 60])
+<span style="color: #FCE8C3;">(</span>1, 2, <span style="color: #68A8E4;">[</span>30, 40, 50, 60<span style="color: #68A8E4;">]</span><span style="color: #FCE8C3;">)</span>
 </pre>
 </div>
 
@@ -274,9 +274,10 @@ TypeError: 'tuple' object does not support item assignment
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python">&gt;&gt;&gt; def grade(score, breakpoints=[60, 70, 80, 90], grades='FDCBA'):
-...     i = bisect.bisect(breakpoints, score)
-...     return grades[i]
+<pre class="src src-python">
+<span style="color: #EF2F27;">def</span> <span style="color: #FBB829;">grade</span><span style="color: #FCE8C3;">(</span>score, breakpoints=<span style="color: #68A8E4;">[</span>60, 70, 80, 90<span style="color: #68A8E4;">]</span>, grades=<span style="color: #98BC37;">'FDCBA'</span><span style="color: #FCE8C3;">)</span>:
+    <span style="color: #0AAEB3;">i</span> = bisect.bisect<span style="color: #FCE8C3;">(</span>breakpoints, score<span style="color: #FCE8C3;">)</span>
+    <span style="color: #EF2F27;">return</span> grades<span style="color: #FCE8C3;">[</span>i<span style="color: #FCE8C3;">]</span>
 
 </pre>
 </div>
