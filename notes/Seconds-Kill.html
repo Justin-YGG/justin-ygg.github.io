@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-08-28 Fri 00:19 -->
+<!-- 2022-03-06 Sun 15:15 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>如何设计一个秒杀系统</title>
@@ -69,82 +69,82 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgeb7a66b">01 | 设计秒杀系统时应该注意的5个架构原则</a>
+<li><a href="#org83fdbc8">01 | 设计秒杀系统时应该注意的5个架构原则</a>
 <ul>
-<li><a href="#org4394be3">架构原则：“4 要 1 不要”</a>
+<li><a href="#org6b6334d">架构原则：“4 要 1 不要”</a>
 <ul>
-<li><a href="#org3078535">1. 数据要尽量少</a></li>
-<li><a href="#org2f6c80a">请求数要尽量少</a></li>
-<li><a href="#orga3a73d2">3. 路径要尽量短</a></li>
-<li><a href="#orgdf49e7d">4. 依赖要尽量少</a></li>
-<li><a href="#orge4822a4">5. 不要有单点</a></li>
+<li><a href="#org7c87691">1. 数据要尽量少</a></li>
+<li><a href="#orgfb18e37">请求数要尽量少</a></li>
+<li><a href="#org62c76d1">3. 路径要尽量短</a></li>
+<li><a href="#orgdeceda8">4. 依赖要尽量少</a></li>
+<li><a href="#org239dec0">5. 不要有单点</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#orgfa20db0">02 | 如何才能做好动静分离？有哪些方案可选？</a>
+<li><a href="#org6b725d3">02 | 如何才能做好动静分离？有哪些方案可选？</a>
 <ul>
-<li><a href="#org4ea8ff0">何为动静数据</a>
+<li><a href="#org8d74a24">何为动静数据</a>
 <ul>
-<li><a href="#org47979c0">怎样对静态数据做缓存呢？</a></li>
+<li><a href="#orgb2b3db5">怎样对静态数据做缓存呢？</a></li>
 </ul>
 </li>
-<li><a href="#org535f349">如何做动静分离的改造</a>
+<li><a href="#orgac587a7">如何做动静分离的改造</a>
 <ul>
-<li><a href="#org14b4e93">静态内容</a></li>
-<li><a href="#org9308916">动态内容</a></li>
+<li><a href="#orga14f4af">静态内容</a></li>
+<li><a href="#org0f74a62">动态内容</a></li>
 </ul>
 </li>
-<li><a href="#orgf153ee8">动静分离的几种架构方案</a>
+<li><a href="#org26045b6">动静分离的几种架构方案</a>
 <ul>
-<li><a href="#org8f7415d">实体机单机部署</a></li>
-<li><a href="#org655fd1c">统一 Cache 层</a></li>
-<li><a href="#org5487ae7">上 CDN</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#org31306eb">03 | 二八原则：有针对性地处理好系统的“热点数据”</a>
-<ul>
-<li><a href="#orgf903ab8">为什么要关注热点</a></li>
-<li><a href="#org99d9350">什么是热点？</a></li>
-<li><a href="#orgddb7c10">发现热点数据</a>
-<ul>
-<li><a href="#org5845d32">发现静态热点数据</a></li>
-<li><a href="#org936ac74">发现动态热点数据</a></li>
-<li><a href="#orgbde8d66">处理热点数据</a></li>
+<li><a href="#org81c5669">实体机单机部署</a></li>
+<li><a href="#org79c5f69">统一 Cache 层</a></li>
+<li><a href="#org8a4e54c">上 CDN</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org561c940">04 | 流量削峰这事应该怎么做？</a>
+<li><a href="#org487b73c">03 | 二八原则：有针对性地处理好系统的“热点数据”</a>
 <ul>
-<li><a href="#orga9a8a9d">排队</a></li>
-<li><a href="#org1a309f4">答题</a></li>
-<li><a href="#org54c99c9">分层过滤</a></li>
+<li><a href="#org1fa30e8">为什么要关注热点</a></li>
+<li><a href="#orgd9fa57a">什么是热点？</a></li>
+<li><a href="#org0ce4cb3">发现热点数据</a>
+<ul>
+<li><a href="#org01621be">发现静态热点数据</a></li>
+<li><a href="#org0ba505c">发现动态热点数据</a></li>
+<li><a href="#org4930979">处理热点数据</a></li>
 </ul>
 </li>
-<li><a href="#org1cd651c">05 | 影响性能的因素有哪些？又该如何提高系统的性能？</a></li>
-<li><a href="#orgd2b5941">06 | 秒杀系统“减库存”设计的核心逻辑</a></li>
+</ul>
+</li>
+<li><a href="#org269575a">04 | 流量削峰这事应该怎么做？</a>
+<ul>
+<li><a href="#org5fb20ae">排队</a></li>
+<li><a href="#org2e023ed">答题</a></li>
+<li><a href="#org57fcde5">分层过滤</a></li>
+</ul>
+</li>
+<li><a href="#org7b9f4e8">05 | 影响性能的因素有哪些？又该如何提高系统的性能？</a></li>
+<li><a href="#org20138cb">06 | 秒杀系统“减库存”设计的核心逻辑</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgeb7a66b" class="outline-2">
-<h2 id="orgeb7a66b">01 | 设计秒杀系统时应该注意的5个架构原则</h2>
-<div class="outline-text-2" id="text-orgeb7a66b">
+<div id="outline-container-org83fdbc8" class="outline-2">
+<h2 id="org83fdbc8">01 | 设计秒杀系统时应该注意的5个架构原则</h2>
+<div class="outline-text-2" id="text-org83fdbc8">
 <p>
 秒杀系统本质上就是一个满足大并发、高性能和高可用的分布式系统。
 </p>
 </div>
 
-<div id="outline-container-org4394be3" class="outline-3">
-<h3 id="org4394be3">架构原则：“4 要 1 不要”</h3>
-<div class="outline-text-3" id="text-org4394be3">
+<div id="outline-container-org6b6334d" class="outline-3">
+<h3 id="org6b6334d">架构原则：“4 要 1 不要”</h3>
+<div class="outline-text-3" id="text-org6b6334d">
 </div>
-<div id="outline-container-org3078535" class="outline-4">
-<h4 id="org3078535">1. 数据要尽量少</h4>
-<div class="outline-text-4" id="text-org3078535">
+<div id="outline-container-org7c87691" class="outline-4">
+<h4 id="org7c87691">1. 数据要尽量少</h4>
+<div class="outline-text-4" id="text-org7c87691">
 <p>
 首先是指用户请求的数据能少就少。请求的数据包括上传给系统的数据和系统返回给用户的数据（通常就是网页）。请求数据和返回数据都需要服务器处理，写网络时通常需要压缩和字符编码，这些都非常消耗 CPU，所以要尽量简化页面。
 </p>
@@ -155,18 +155,18 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org2f6c80a" class="outline-4">
-<h4 id="org2f6c80a">请求数要尽量少</h4>
-<div class="outline-text-4" id="text-org2f6c80a">
+<div id="outline-container-orgfb18e37" class="outline-4">
+<h4 id="orgfb18e37">请求数要尽量少</h4>
+<div class="outline-text-4" id="text-orgfb18e37">
 <p>
 用户请求的页面返回后，浏览器渲染页面还有其他请求，如依赖的 CSS/JavaScript、图片，以及 Ajax 请求等，这些都会有消耗，建立连接要三次握手，有的还是串行连接，如果域名不同还涉及 DNS 解析，所以要尽量减少这些因素导致的资源消耗。
 </p>
 </div>
 </div>
 
-<div id="outline-container-orga3a73d2" class="outline-4">
-<h4 id="orga3a73d2">3. 路径要尽量短</h4>
-<div class="outline-text-4" id="text-orga3a73d2">
+<div id="outline-container-org62c76d1" class="outline-4">
+<h4 id="org62c76d1">3. 路径要尽量短</h4>
+<div class="outline-text-4" id="text-org62c76d1">
 <p>
 所谓“路径”，就是用户发出请求到返回数据这个过程中，需求经过的中间的节点数。
 </p>
@@ -177,18 +177,18 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-orgdf49e7d" class="outline-4">
-<h4 id="orgdf49e7d">4. 依赖要尽量少</h4>
-<div class="outline-text-4" id="text-orgdf49e7d">
+<div id="outline-container-orgdeceda8" class="outline-4">
+<h4 id="orgdeceda8">4. 依赖要尽量少</h4>
+<div class="outline-text-4" id="text-orgdeceda8">
 <p>
 所谓依赖，指的是要完成一次用户请求必须依赖的系统或者服务，这里的依赖指的是强依赖。要减少依赖，我们可以给系统进行分级，比如 0 级系统、1 级系统、2 级系统、3 级系统。注意，0 级系统要尽量减少对 1 级系统的强依赖，防止重要的系统被不重要的系统拖垮。
 </p>
 </div>
 </div>
 
-<div id="outline-container-orge4822a4" class="outline-4">
-<h4 id="orge4822a4">5. 不要有单点</h4>
-<div class="outline-text-4" id="text-orge4822a4">
+<div id="outline-container-org239dec0" class="outline-4">
+<h4 id="org239dec0">5. 不要有单点</h4>
+<div class="outline-text-4" id="text-org239dec0">
 <p>
 系统中的单点可以说是系统架构上的一个大忌，分布式系统设计的重要原则就是 <code>消除单点</code> 。
 </p>
@@ -215,9 +215,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-orgfa20db0" class="outline-2">
-<h2 id="orgfa20db0">02 | 如何才能做好动静分离？有哪些方案可选？</h2>
-<div class="outline-text-2" id="text-orgfa20db0">
+<div id="outline-container-org6b725d3" class="outline-2">
+<h2 id="org6b725d3">02 | 如何才能做好动静分离？有哪些方案可选？</h2>
+<div class="outline-text-2" id="text-org6b725d3">
 <p>
 <b>秒杀的场景中，对于系统的要求其实就三个字：快、准、稳。</b>
 </p>
@@ -227,9 +227,9 @@ for the JavaScript code in this tag.
 </p>
 </div>
 
-<div id="outline-container-org4ea8ff0" class="outline-3">
-<h3 id="org4ea8ff0">何为动静数据</h3>
-<div class="outline-text-3" id="text-org4ea8ff0">
+<div id="outline-container-org8d74a24" class="outline-3">
+<h3 id="org8d74a24">何为动静数据</h3>
+<div class="outline-text-3" id="text-org8d74a24">
 <p>
 “动态数据”和“静态数据”的主要区别就是看页面中输出的数据是否和 URL、浏览者、时间、地域相关，以及是否含有 Cookie 等私密数据。有一点要注意，就是页面中“不包含”，指的是“页面的 HTML 源码中不含有”，这一点务必要清楚。
 </p>
@@ -239,9 +239,9 @@ for the JavaScript code in this tag.
 </p>
 </div>
 
-<div id="outline-container-org47979c0" class="outline-4">
-<h4 id="org47979c0">怎样对静态数据做缓存呢？</h4>
-<div class="outline-text-4" id="text-org47979c0">
+<div id="outline-container-orgb2b3db5" class="outline-4">
+<h4 id="orgb2b3db5">怎样对静态数据做缓存呢？</h4>
+<div class="outline-text-4" id="text-orgb2b3db5">
 <ul class="org-ul">
 <li>把静态数据缓存到离用户最近的地方：用户浏览器里、CDN 上或者在服务端的 Cache 中</li>
 <li>静态化改造就是要直接缓存 HTTP 连接</li>
@@ -251,13 +251,13 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org535f349" class="outline-3">
-<h3 id="org535f349">如何做动静分离的改造</h3>
-<div class="outline-text-3" id="text-org535f349">
+<div id="outline-container-orgac587a7" class="outline-3">
+<h3 id="orgac587a7">如何做动静分离的改造</h3>
+<div class="outline-text-3" id="text-orgac587a7">
 </div>
-<div id="outline-container-org14b4e93" class="outline-4">
-<h4 id="org14b4e93">静态内容</h4>
-<div class="outline-text-4" id="text-org14b4e93">
+<div id="outline-container-orga14f4af" class="outline-4">
+<h4 id="orga14f4af">静态内容</h4>
+<div class="outline-text-4" id="text-orga14f4af">
 <ul class="org-ul">
 <li>URL 唯一化：要缓存整个 HTTP 连接，那么以什么作为 Key 呢？就以 URL 作为缓存的 Key</li>
 <li>分离浏览者相关的因素：浏览者相关的因素包括是否已登录，以及登录身份等，这些相关因素我们可以单独拆分出来，通过动态请求来获取</li>
@@ -268,9 +268,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org9308916" class="outline-4">
-<h4 id="org9308916">动态内容</h4>
-<div class="outline-text-4" id="text-org9308916">
+<div id="outline-container-org0f74a62" class="outline-4">
+<h4 id="org0f74a62">动态内容</h4>
+<div class="outline-text-4" id="text-org0f74a62">
 <p>
 动态内容的处理通常有两种方案：ESI（Edge Side Includes）方案和 CSI（Client Side Include）方案。
 </p>
@@ -283,9 +283,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-orgf153ee8" class="outline-3">
-<h3 id="orgf153ee8">动静分离的几种架构方案</h3>
-<div class="outline-text-3" id="text-orgf153ee8">
+<div id="outline-container-org26045b6" class="outline-3">
+<h3 id="org26045b6">动静分离的几种架构方案</h3>
+<div class="outline-text-3" id="text-org26045b6">
 <p>
 根据架构上的复杂度，有 3 种方案可选：
 </p>
@@ -297,15 +297,15 @@ for the JavaScript code in this tag.
 </ul>
 </div>
 
-<div id="outline-container-org8f7415d" class="outline-4">
-<h4 id="org8f7415d">实体机单机部署</h4>
+<div id="outline-container-org81c5669" class="outline-4">
+<h4 id="org81c5669">实体机单机部署</h4>
 </div>
-<div id="outline-container-org655fd1c" class="outline-4">
-<h4 id="org655fd1c">统一 Cache 层</h4>
+<div id="outline-container-org79c5f69" class="outline-4">
+<h4 id="org79c5f69">统一 Cache 层</h4>
 </div>
-<div id="outline-container-org5487ae7" class="outline-4">
-<h4 id="org5487ae7">上 CDN</h4>
-<div class="outline-text-4" id="text-org5487ae7">
+<div id="outline-container-org8a4e54c" class="outline-4">
+<h4 id="org8a4e54c">上 CDN</h4>
+<div class="outline-text-4" id="text-org8a4e54c">
 <p>
 将 Cache 进一步前移到 CDN 上，因为 CDN 离用户最近，效果会更好，但需要解决几个问题
 </p>
@@ -356,35 +356,35 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org31306eb" class="outline-2">
-<h2 id="org31306eb">03 | 二八原则：有针对性地处理好系统的“热点数据”</h2>
-<div class="outline-text-2" id="text-org31306eb">
+<div id="outline-container-org487b73c" class="outline-2">
+<h2 id="org487b73c">03 | 二八原则：有针对性地处理好系统的“热点数据”</h2>
+<div class="outline-text-2" id="text-org487b73c">
 </div>
-<div id="outline-container-orgf903ab8" class="outline-3">
-<h3 id="orgf903ab8">为什么要关注热点</h3>
-<div class="outline-text-3" id="text-orgf903ab8">
+<div id="outline-container-org1fa30e8" class="outline-3">
+<h3 id="org1fa30e8">为什么要关注热点</h3>
+<div class="outline-text-3" id="text-org1fa30e8">
 <p>
 热点请求会大量占用服务器处理资源，虽然这个热点可能只占请求总量的亿分之一，然而却可能抢占 90% 的服务器资源，果这个热点请求还是没有价值的无效请求，那么对系统资源来说完全是浪费。
 </p>
 </div>
 </div>
 
-<div id="outline-container-org99d9350" class="outline-3">
-<h3 id="org99d9350">什么是热点？</h3>
-<div class="outline-text-3" id="text-org99d9350">
+<div id="outline-container-orgd9fa57a" class="outline-3">
+<h3 id="orgd9fa57a">什么是热点？</h3>
+<div class="outline-text-3" id="text-orgd9fa57a">
 <p>
 热点分为 <b>热点操作</b> 和 <b>热点数据*。热点操作是用户刷新，加购物车等一系列操作；热点数据是指用户热点请求对应的数据，又分为 *静态热点数据</b> 和 *动态热点数据*，静态热点可以通过数据分析等来预测，动态热点数据不能提前预测。
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgddb7c10" class="outline-3">
-<h3 id="orgddb7c10">发现热点数据</h3>
-<div class="outline-text-3" id="text-orgddb7c10">
+<div id="outline-container-org0ce4cb3" class="outline-3">
+<h3 id="org0ce4cb3">发现热点数据</h3>
+<div class="outline-text-3" id="text-org0ce4cb3">
 </div>
-<div id="outline-container-org5845d32" class="outline-4">
-<h4 id="org5845d32">发现静态热点数据</h4>
-<div class="outline-text-4" id="text-org5845d32">
+<div id="outline-container-org01621be" class="outline-4">
+<h4 id="org01621be">发现静态热点数据</h4>
+<div class="outline-text-4" id="text-org01621be">
 <p>
 静态热点数据可以通过商业手段，例如强制让卖家通过报名参加的方式，然后通过一个后台系统对这些热点商品进行预处理，如提前进行缓存，但增加卖家的使用成本，而且实时性较差，也不太灵活。
 </p>
@@ -395,9 +395,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org936ac74" class="outline-4">
-<h4 id="org936ac74">发现动态热点数据</h4>
-<div class="outline-text-4" id="text-org936ac74">
+<div id="outline-container-org0ba505c" class="outline-4">
+<h4 id="org0ba505c">发现动态热点数据</h4>
+<div class="outline-text-4" id="text-org0ba505c">
 <ul class="org-ul">
 <li>构建一个异步的系统，它可以收集交易链路上各个环节中的中间件产品的热点 Key，如 Nginx、缓存、RPC 服务框架等这些中间件（一些中间件产品本身已经有热点统计模块）</li>
 <li>建立一个热点上报和可以按照需求订阅的热点服务的下发规范，主要目的是通过交易链路上各个系统（包括详情、购物车、交易、优惠、库存、物流等）访问的时间差，把上游已经发现的热点透传给下游系统，提前做好保护。比如，对于大促高峰期，详情系统是最早知道的，在统一接入层上 Nginx 模块统计的热点 URL</li>
@@ -422,9 +422,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-orgbde8d66" class="outline-4">
-<h4 id="orgbde8d66">处理热点数据</h4>
-<div class="outline-text-4" id="text-orgbde8d66">
+<div id="outline-container-org4930979" class="outline-4">
+<h4 id="org4930979">处理热点数据</h4>
+<div class="outline-text-4" id="text-org4930979">
 <p>
 <b>处理热点数据通常有几种思路：一是优化，二是限制，三是隔离。</b>
 </p>
@@ -451,9 +451,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org561c940" class="outline-2">
-<h2 id="org561c940">04 | 流量削峰这事应该怎么做？</h2>
-<div class="outline-text-2" id="text-org561c940">
+<div id="outline-container-org269575a" class="outline-2">
+<h2 id="org269575a">04 | 流量削峰这事应该怎么做？</h2>
+<div class="outline-text-2" id="text-org269575a">
 <p>
 削峰的存在，一是可以让服务端处理变得更加平稳，二是可以节省服务器的资源成本。针对秒杀这一场景，削峰从本质上来说就是更多地延缓用户请求的发出，以便减少和过滤掉一些无效请求，它遵从“请求数要尽量少”的原则。
 </p>
@@ -463,9 +463,9 @@ for the JavaScript code in this tag.
 </p>
 </div>
 
-<div id="outline-container-orga9a8a9d" class="outline-3">
-<h3 id="orga9a8a9d">排队</h3>
-<div class="outline-text-3" id="text-orga9a8a9d">
+<div id="outline-container-org5fb20ae" class="outline-3">
+<h3 id="org5fb20ae">排队</h3>
+<div class="outline-text-3" id="text-org5fb20ae">
 <p>
 用消息队列来缓冲瞬时流量，把同步的直接调用转换成异步的间接推送，中间通过一个队列在一端承接瞬时的流量洪峰，在另一端平滑地将消息推送出去，但是，如果流量峰值持续一段时间达到了消息队列的处理上限，例如本机的消息积压达到了存储空间的上限，消息队列同样也会被压垮。
 </p>
@@ -482,12 +482,12 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org1a309f4" class="outline-3">
-<h3 id="org1a309f4">答题</h3>
+<div id="outline-container-org2e023ed" class="outline-3">
+<h3 id="org2e023ed">答题</h3>
 </div>
-<div id="outline-container-org54c99c9" class="outline-3">
-<h3 id="org54c99c9">分层过滤</h3>
-<div class="outline-text-3" id="text-org54c99c9">
+<div id="outline-container-org57fcde5" class="outline-3">
+<h3 id="org57fcde5">分层过滤</h3>
+<div class="outline-text-3" id="text-org57fcde5">
 <p>
 前面介绍的排队和答题要么是少发请求，要么对发出来的请求进行缓冲，而针对秒杀场景还有一种方法，就是对请求进行分层过滤，从而过滤掉一些无效的请求。分层过滤其实就是采用“漏斗”式设计来处理请求的，如下图所示
 </p>
@@ -519,11 +519,11 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org1cd651c" class="outline-2">
-<h2 id="org1cd651c">05 | 影响性能的因素有哪些？又该如何提高系统的性能？</h2>
+<div id="outline-container-org7b9f4e8" class="outline-2">
+<h2 id="org7b9f4e8">05 | 影响性能的因素有哪些？又该如何提高系统的性能？</h2>
 </div>
-<div id="outline-container-orgd2b5941" class="outline-2">
-<h2 id="orgd2b5941">06 | 秒杀系统“减库存”设计的核心逻辑</h2>
+<div id="outline-container-org20138cb" class="outline-2">
+<h2 id="org20138cb">06 | 秒杀系统“减库存”设计的核心逻辑</h2>
 </div>
 </div>
 </body>

@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-09-29 Tue 23:21 -->
+<!-- 2022-03-06 Sun 15:15 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
@@ -68,45 +68,45 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgc937a7f">Chapter 2 序列构成的数组</a>
+<li><a href="#orge99e004">Chapter 2 序列构成的数组</a>
 <ul>
-<li><a href="#org2cbfcf7">列表</a>
+<li><a href="#orge25cd3e">列表</a>
 <ul>
-<li><a href="#org5795597">分类</a></li>
-<li><a href="#org5277dc6">列表推导</a></li>
+<li><a href="#org4d8d73f">分类</a></li>
+<li><a href="#orgd4b0260">列表推导</a></li>
 </ul>
 </li>
-<li><a href="#org5e2d84f">元组(tuple)</a>
+<li><a href="#org321fd2e">元组(tuple)</a>
 <ul>
-<li><a href="#org9ee229d">元组拆包或可迭代元素拆包（Iterable Unpacking）</a></li>
-<li><a href="#org4dad6da">namedtuple</a></li>
-<li><a href="#org0292a47">作为不可变列表</a></li>
+<li><a href="#orgcb0a3a2">元组拆包或可迭代元素拆包（Iterable Unpacking）</a></li>
+<li><a href="#orgd911e81">namedtuple</a></li>
+<li><a href="#org7ef7c3d">作为不可变列表</a></li>
 </ul>
 </li>
-<li><a href="#org50c5476">切片</a>
+<li><a href="#org17e20df">切片</a>
 <ul>
-<li><a href="#org928c278">对序列使用 + 和 *</a></li>
-<li><a href="#org811652a">序列的增量赋值</a></li>
-<li><a href="#orgb9ef795">bisect</a></li>
+<li><a href="#org9a90716">对序列使用 + 和 *</a></li>
+<li><a href="#org924aabc">序列的增量赋值</a></li>
+<li><a href="#orgf096916">bisect</a></li>
 </ul>
 </li>
-<li><a href="#org1636fa0">当列表不再是首选</a></li>
+<li><a href="#org56a0053">当列表不再是首选</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgc937a7f" class="outline-2">
-<h2 id="orgc937a7f">Chapter 2 序列构成的数组</h2>
-<div class="outline-text-2" id="text-orgc937a7f">
+<div id="outline-container-orge99e004" class="outline-2">
+<h2 id="orge99e004">Chapter 2 序列构成的数组</h2>
+<div class="outline-text-2" id="text-orge99e004">
 </div>
-<div id="outline-container-org2cbfcf7" class="outline-3">
-<h3 id="org2cbfcf7">列表</h3>
-<div class="outline-text-3" id="text-org2cbfcf7">
+<div id="outline-container-orge25cd3e" class="outline-3">
+<h3 id="orge25cd3e">列表</h3>
+<div class="outline-text-3" id="text-orge25cd3e">
 </div>
-<div id="outline-container-org5795597" class="outline-4">
-<h4 id="org5795597">分类</h4>
-<div class="outline-text-4" id="text-org5795597">
+<div id="outline-container-org4d8d73f" class="outline-4">
+<h4 id="org4d8d73f">分类</h4>
+<div class="outline-text-4" id="text-org4d8d73f">
 <p>
 从存放的数据类型可以分为：
 </p>
@@ -127,9 +127,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org5277dc6" class="outline-4">
-<h4 id="org5277dc6">列表推导</h4>
-<div class="outline-text-4" id="text-org5277dc6">
+<div id="outline-container-orgd4b0260" class="outline-4">
+<h4 id="orgd4b0260">列表推导</h4>
+<div class="outline-text-4" id="text-orgd4b0260">
 <p>
 通常的原则是，列表推导只用来创建新的列表，并保持简短，尽量避免滥用，如通过列表推导重复获取列表的副作用。
 </p>
@@ -153,13 +153,13 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org5e2d84f" class="outline-3">
-<h3 id="org5e2d84f">元组(tuple)</h3>
-<div class="outline-text-3" id="text-org5e2d84f">
+<div id="outline-container-org321fd2e" class="outline-3">
+<h3 id="org321fd2e">元组(tuple)</h3>
+<div class="outline-text-3" id="text-org321fd2e">
 </div>
-<div id="outline-container-org9ee229d" class="outline-4">
-<h4 id="org9ee229d">元组拆包或可迭代元素拆包（Iterable Unpacking）</h4>
-<div class="outline-text-4" id="text-org9ee229d">
+<div id="outline-container-orgcb0a3a2" class="outline-4">
+<h4 id="orgcb0a3a2">元组拆包或可迭代元素拆包（Iterable Unpacking）</h4>
+<div class="outline-text-4" id="text-orgcb0a3a2">
 <ul class="org-ul">
 <li>交换两个变量的值： <code>a, b = b, a</code></li>
 <li>用 * 运算符把一个可迭代对象拆开作为函数的参数： <code>test(*a_tuple)</code></li>
@@ -168,18 +168,18 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org4dad6da" class="outline-4">
-<h4 id="org4dad6da">namedtuple</h4>
-<div class="outline-text-4" id="text-org4dad6da">
+<div id="outline-container-orgd911e81" class="outline-4">
+<h4 id="orgd911e81">namedtuple</h4>
+<div class="outline-text-4" id="text-orgd911e81">
 <p>
 用 <code>namedtuple</code> 构建的类，内存消耗跟元组一样，比普通的对象实例消耗要小一些，常用方法or属性： <code>_fields</code> 、 <code>_make()</code> 、 <code>_asdict()</code> 。
 </p>
 </div>
 </div>
 
-<div id="outline-container-org0292a47" class="outline-4">
-<h4 id="org0292a47">作为不可变列表</h4>
-<div class="outline-text-4" id="text-org0292a47">
+<div id="outline-container-org7ef7c3d" class="outline-4">
+<h4 id="org7ef7c3d">作为不可变列表</h4>
+<div class="outline-text-4" id="text-org7ef7c3d">
 <p>
 除增减元素相关方法外，元素支持列表的其他所有方法，另外元组没有 <code>_reversed__</code> 方法，不过可以通过 <code>reverse(a_tup)</code> 替代。
 </p>
@@ -188,17 +188,17 @@ for the JavaScript code in this tag.
 </div>
 
 
-<div id="outline-container-org50c5476" class="outline-3">
-<h3 id="org50c5476">切片</h3>
-<div class="outline-text-3" id="text-org50c5476">
+<div id="outline-container-org17e20df" class="outline-3">
+<h3 id="org17e20df">切片</h3>
+<div class="outline-text-3" id="text-org17e20df">
 <p>
 如果赋值的对象是一个切片，那么赋值语句的右侧必须是个可迭代对象。即便只有单独 一个值，也要把它转换成可迭代的序列。
 </p>
 </div>
 
-<div id="outline-container-org928c278" class="outline-4">
-<h4 id="org928c278">对序列使用 + 和 *</h4>
-<div class="outline-text-4" id="text-org928c278">
+<div id="outline-container-org9a90716" class="outline-4">
+<h4 id="org9a90716">对序列使用 + 和 *</h4>
+<div class="outline-text-4" id="text-org9a90716">
 <p>
 对序列使用 + 和 *，都不会改变原有序列，而是重新创建新的序列。但如果序列中的元素是对象的引用，则需要注意下面这种情况：
 </p>
@@ -220,9 +220,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org811652a" class="outline-4">
-<h4 id="org811652a">序列的增量赋值</h4>
-<div class="outline-text-4" id="text-org811652a">
+<div id="outline-container-org924aabc" class="outline-4">
+<h4 id="org924aabc">序列的增量赋值</h4>
+<div class="outline-text-4" id="text-org924aabc">
 <p>
 增量赋值运算符 += 和 *= 的表现取决于它们的第一个操作对象。
 </p>
@@ -266,9 +266,9 @@ Traceback <span style="color: #FCE8C3;">(</span>most recent call last<span style
 </div>
 </div>
 
-<div id="outline-container-orgb9ef795" class="outline-4">
-<h4 id="orgb9ef795">bisect</h4>
-<div class="outline-text-4" id="text-orgb9ef795">
+<div id="outline-container-orgf096916" class="outline-4">
+<h4 id="orgf096916">bisect</h4>
+<div class="outline-text-4" id="text-orgf096916">
 <p>
 根据分数，找到对应传成绩等级
 </p>
@@ -285,9 +285,9 @@ Traceback <span style="color: #FCE8C3;">(</span>most recent call last<span style
 </div>
 </div>
 
-<div id="outline-container-org1636fa0" class="outline-3">
-<h3 id="org1636fa0">当列表不再是首选</h3>
-<div class="outline-text-3" id="text-org1636fa0">
+<div id="outline-container-org56a0053" class="outline-3">
+<h3 id="org56a0053">当列表不再是首选</h3>
+<div class="outline-text-3" id="text-org56a0053">
 <ul class="org-ul">
 <li>只处理数字列表时， <code>array.array</code> 比 <code>list</code> 更高效</li>
 <li>memoryview 是一个内置类，它能让用户在不复制内容的情况下操作同一个数组的不同切片</li>

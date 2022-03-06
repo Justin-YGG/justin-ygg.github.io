@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-08-28 Fri 00:19 -->
+<!-- 2022-03-06 Sun 15:15 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>探寻 Python 字典背后</title>
@@ -69,19 +69,19 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgeed7bd3">在列表中高效的搜索</a></li>
-<li><a href="#org9b2ee6c">哈希表的名字有何而来</a>
+<li><a href="#org552f067">在列表中高效的搜索</a></li>
+<li><a href="#org499a4f0">哈希表的名字有何而来</a>
 <ul>
-<li><a href="#org3564e6d">使用哈希函数来构建哈希表</a></li>
+<li><a href="#org37a3370">使用哈希函数来构建哈希表</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgeed7bd3" class="outline-2">
-<h2 id="orgeed7bd3">在列表中高效的搜索</h2>
-<div class="outline-text-2" id="text-orgeed7bd3">
+<div id="outline-container-org552f067" class="outline-2">
+<h2 id="org552f067">在列表中高效的搜索</h2>
+<div class="outline-text-2" id="text-org552f067">
 <p>
 在列表中查找某个元素时，需要线性扫描，时间复杂度为 O(n)，我们需要更快的方式来找到元素。
 </p>
@@ -94,15 +94,15 @@ for the JavaScript code in this tag.
 
 <div class="org-src-container">
 <pre class="src src-python">
-def build_insert_all(original_list):            
-    new_list = [None] * (2 * len(original_list))  
+<span style="color: #EF2F27;">def</span> <span style="color: #FBB829;">build_insert_all</span><span style="color: #FCE8C3;">(</span>original_list<span style="color: #FCE8C3;">)</span>:            
+    <span style="color: #0AAEB3;">new_list</span> = <span style="color: #FCE8C3;">[</span><span style="color: #FF5C8F;">None</span><span style="color: #FCE8C3;">]</span> * <span style="color: #FCE8C3;">(</span>2 * <span style="color: #2C78BF;">len</span><span style="color: #68A8E4;">(</span>original_list<span style="color: #68A8E4;">)</span><span style="color: #FCE8C3;">)</span>  
 
-    for number in original_list:                  
-        idx = number % len(new_list)             
-        while new_list[idx] is not None:         
-            idx = (idx + 1) % len(new_list)     
-        new_list[idx] = number                    
-    return new_list   
+    <span style="color: #EF2F27;">for</span> number <span style="color: #EF2F27;">in</span> original_list:                  
+        <span style="color: #0AAEB3;">idx</span> = number % <span style="color: #2C78BF;">len</span><span style="color: #FCE8C3;">(</span>new_list<span style="color: #FCE8C3;">)</span>             
+        <span style="color: #EF2F27;">while</span> new_list<span style="color: #FCE8C3;">[</span>idx<span style="color: #FCE8C3;">]</span> <span style="color: #EF2F27;">is</span> <span style="color: #EF2F27;">not</span> <span style="color: #FF5C8F;">None</span>:         
+            <span style="color: #0AAEB3;">idx</span> = <span style="color: #FCE8C3;">(</span>idx + 1<span style="color: #FCE8C3;">)</span> % <span style="color: #2C78BF;">len</span><span style="color: #FCE8C3;">(</span>new_list<span style="color: #FCE8C3;">)</span>     
+        <span style="color: #0AAEB3;">new_list</span><span style="color: #FCE8C3;">[</span>idx<span style="color: #FCE8C3;">]</span> = number                    
+    <span style="color: #EF2F27;">return</span> new_list   
 
 </pre>
 </div>
@@ -117,13 +117,13 @@ def build_insert_all(original_list):
 
 <div class="org-src-container">
 <pre class="src src-python">
-def has_number(new_list, number):      
-    idx = number % len(new_list)          
-    while new_list[idx] is not None:     
-        if new_list[idx] == number:    
-            return True                 
-        idx = (idx + 1) % len(new_list)
-    return False        
+<span style="color: #EF2F27;">def</span> <span style="color: #FBB829;">has_number</span><span style="color: #FCE8C3;">(</span>new_list, number<span style="color: #FCE8C3;">)</span>:      
+    <span style="color: #0AAEB3;">idx</span> = number % <span style="color: #2C78BF;">len</span><span style="color: #FCE8C3;">(</span>new_list<span style="color: #FCE8C3;">)</span>          
+    <span style="color: #EF2F27;">while</span> new_list<span style="color: #FCE8C3;">[</span>idx<span style="color: #FCE8C3;">]</span> <span style="color: #EF2F27;">is</span> <span style="color: #EF2F27;">not</span> <span style="color: #FF5C8F;">None</span>:     
+        <span style="color: #EF2F27;">if</span> new_list<span style="color: #FCE8C3;">[</span>idx<span style="color: #FCE8C3;">]</span> == number:    
+            <span style="color: #EF2F27;">return</span> <span style="color: #FF5C8F;">True</span>                 
+        <span style="color: #0AAEB3;">idx</span> = <span style="color: #FCE8C3;">(</span>idx + 1<span style="color: #FCE8C3;">)</span> % <span style="color: #2C78BF;">len</span><span style="color: #FCE8C3;">(</span>new_list<span style="color: #FCE8C3;">)</span>
+    <span style="color: #EF2F27;">return</span> <span style="color: #FF5C8F;">False</span>        
 
 </pre>
 </div>
@@ -134,26 +134,26 @@ def has_number(new_list, number):
 </div>
 </div>
 
-<div id="outline-container-org9b2ee6c" class="outline-2">
-<h2 id="org9b2ee6c">哈希表的名字有何而来</h2>
-<div class="outline-text-2" id="text-org9b2ee6c">
+<div id="outline-container-org499a4f0" class="outline-2">
+<h2 id="org499a4f0">哈希表的名字有何而来</h2>
+<div class="outline-text-2" id="text-org499a4f0">
 <p>
 我们可以通过哈希函数将对象转换为一个哈希值，Python 中比较小的整数等于自身，即 <code>hash(x)=x</code> , 这是 Python 核心开发者故意为之的。哈希函数永远不会返回 -1 ，因为 -1 被用作内部错误的表示，所以， hash(-1)=-2 。可变对象如列表是不可被哈希的。
 </p>
 </div>
 
-<div id="outline-container-org3564e6d" class="outline-3">
-<h3 id="org3564e6d">使用哈希函数来构建哈希表</h3>
-<div class="outline-text-3" id="text-org3564e6d">
+<div id="outline-container-org37a3370" class="outline-3">
+<h3 id="org37a3370">使用哈希函数来构建哈希表</h3>
+<div class="outline-text-3" id="text-org37a3370">
 <p>
 因为 <code>None</code> 也是可以哈希的，所以我们构建一个类来专门负责占位
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python">class EmptyValueClass(object):
-    pass
+<pre class="src src-python"><span style="color: #EF2F27;">class</span> <span style="color: #68A8E4;">EmptyValueClass</span><span style="color: #FCE8C3;">(</span><span style="color: #2C78BF;">object</span><span style="color: #FCE8C3;">)</span>:
+    <span style="color: #EF2F27;">pass</span>
 
-EMPTY = EmptyValueClass()
+<span style="color: #0AAEB3;">EMPTY</span> = EmptyValueClass<span style="color: #FCE8C3;">()</span>
 </pre>
 </div>
 </div>

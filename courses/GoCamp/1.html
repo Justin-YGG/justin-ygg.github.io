@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2021-02-05 Fri 23:37 -->
+<!-- 2022-03-06 Sun 15:15 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>微服务概览与治理</title>
@@ -69,41 +69,41 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org96d907d">微服务概览</a>
+<li><a href="#org5b95ae3">微服务概览</a>
 <ul>
-<li><a href="#orgfc2dde7">微服务定义</a></li>
-<li><a href="#org366ff19">微服务的不足</a></li>
-<li><a href="#org8f780d1">组件服务化</a></li>
-<li><a href="#orgd81eda0">按业务组织服务</a></li>
-<li><a href="#orga06e8a0">去中心化</a></li>
-<li><a href="#org43cd605">基础设施自动化</a></li>
-<li><a href="#org81784bf">可用性&amp;兼容性设计</a></li>
+<li><a href="#org5674945">微服务定义</a></li>
+<li><a href="#orgcbb73f4">微服务的不足</a></li>
+<li><a href="#org64e6617">组件服务化</a></li>
+<li><a href="#orgfd6564e">按业务组织服务</a></li>
+<li><a href="#orgc897242">去中心化</a></li>
+<li><a href="#orge1131fe">基础设施自动化</a></li>
+<li><a href="#orgac54d6e">可用性&amp;兼容性设计</a></li>
 </ul>
 </li>
-<li><a href="#orgae7bce4">微服务设计</a>
+<li><a href="#org41b58f2">微服务设计</a>
 <ul>
-<li><a href="#org152bd67">API Gateway</a></li>
-<li><a href="#orgcdbb30e">Microservice 划分</a></li>
-<li><a href="#org1761c78">Microservice 安全</a></li>
+<li><a href="#org92e973c">API Gateway</a></li>
+<li><a href="#orgd49c18b">Microservice 划分</a></li>
+<li><a href="#org6c77d87">Microservice 安全</a></li>
 </ul>
 </li>
-<li><a href="#org87d2b0f">gRPC &amp; 服务发现</a>
+<li><a href="#org96d405d">gRPC &amp; 服务发现</a>
 <ul>
-<li><a href="#orgabd38c8">gRPC</a>
+<li><a href="#org7f06245">gRPC</a>
 <ul>
-<li><a href="#orge012a24">gRPC - HealthCheck</a></li>
+<li><a href="#org5c215ad">gRPC - HealthCheck</a></li>
 </ul>
 </li>
-<li><a href="#orge37eafd">服务发现</a></li>
+<li><a href="#org936a38c">服务发现</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org96d907d" class="outline-2">
-<h2 id="org96d907d">微服务概览</h2>
-<div class="outline-text-2" id="text-org96d907d">
+<div id="outline-container-org5b95ae3" class="outline-2">
+<h2 id="org5b95ae3">微服务概览</h2>
+<div class="outline-text-2" id="text-org5b95ae3">
 <p>
 SOA（面向服务）的架构模式，可以把微服务想象成 SOA 的一种实践。
 </p>
@@ -116,63 +116,63 @@ SOA（面向服务）的架构模式，可以把微服务想象成 SOA 的一种
 </ul>
 </div>
 
-<div id="outline-container-orgfc2dde7" class="outline-3">
-<h3 id="orgfc2dde7">微服务定义</h3>
+<div id="outline-container-org5674945" class="outline-3">
+<h3 id="org5674945">微服务定义</h3>
 </div>
-<div id="outline-container-org366ff19" class="outline-3">
-<h3 id="org366ff19">微服务的不足</h3>
+<div id="outline-container-orgcbb73f4" class="outline-3">
+<h3 id="orgcbb73f4">微服务的不足</h3>
 </div>
-<div id="outline-container-org8f780d1" class="outline-3">
-<h3 id="org8f780d1">组件服务化</h3>
+<div id="outline-container-org64e6617" class="outline-3">
+<h3 id="org64e6617">组件服务化</h3>
 </div>
-<div id="outline-container-orgd81eda0" class="outline-3">
-<h3 id="orgd81eda0">按业务组织服务</h3>
+<div id="outline-container-orgfd6564e" class="outline-3">
+<h3 id="orgfd6564e">按业务组织服务</h3>
 </div>
-<div id="outline-container-orga06e8a0" class="outline-3">
-<h3 id="orga06e8a0">去中心化</h3>
+<div id="outline-container-orgc897242" class="outline-3">
+<h3 id="orgc897242">去中心化</h3>
 </div>
-<div id="outline-container-org43cd605" class="outline-3">
-<h3 id="org43cd605">基础设施自动化</h3>
+<div id="outline-container-orge1131fe" class="outline-3">
+<h3 id="orge1131fe">基础设施自动化</h3>
 </div>
-<div id="outline-container-org81784bf" class="outline-3">
-<h3 id="org81784bf">可用性&amp;兼容性设计</h3>
+<div id="outline-container-orgac54d6e" class="outline-3">
+<h3 id="orgac54d6e">可用性&amp;兼容性设计</h3>
 </div>
 </div>
 
-<div id="outline-container-orgae7bce4" class="outline-2">
-<h2 id="orgae7bce4">微服务设计</h2>
-<div class="outline-text-2" id="text-orgae7bce4">
+<div id="outline-container-org41b58f2" class="outline-2">
+<h2 id="org41b58f2">微服务设计</h2>
+<div class="outline-text-2" id="text-org41b58f2">
 </div>
-<div id="outline-container-org152bd67" class="outline-3">
-<h3 id="org152bd67">API Gateway</h3>
-<div class="outline-text-3" id="text-org152bd67">
+<div id="outline-container-org92e973c" class="outline-3">
+<h3 id="org92e973c">API Gateway</h3>
+<div class="outline-text-3" id="text-org92e973c">
 <p>
 todo：4/7层负载均衡,lvs/f5/nginx/nets
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgcdbb30e" class="outline-3">
-<h3 id="orgcdbb30e">Microservice 划分</h3>
-<div class="outline-text-3" id="text-orgcdbb30e">
+<div id="outline-container-orgd49c18b" class="outline-3">
+<h3 id="orgd49c18b">Microservice 划分</h3>
+<div class="outline-text-3" id="text-orgd49c18b">
 <p>
 CQRS(Command Query Responsibility Segregation)
 </p>
 </div>
 </div>
 
-<div id="outline-container-org1761c78" class="outline-3">
-<h3 id="org1761c78">Microservice 安全</h3>
+<div id="outline-container-org6c77d87" class="outline-3">
+<h3 id="org6c77d87">Microservice 安全</h3>
 </div>
 </div>
 
-<div id="outline-container-org87d2b0f" class="outline-2">
-<h2 id="org87d2b0f">gRPC &amp; 服务发现</h2>
-<div class="outline-text-2" id="text-org87d2b0f">
+<div id="outline-container-org96d405d" class="outline-2">
+<h2 id="org96d405d">gRPC &amp; 服务发现</h2>
+<div class="outline-text-2" id="text-org96d405d">
 </div>
-<div id="outline-container-orgabd38c8" class="outline-3">
-<h3 id="orgabd38c8">gRPC</h3>
-<div class="outline-text-3" id="text-orgabd38c8">
+<div id="outline-container-org7f06245" class="outline-3">
+<h3 id="org7f06245">gRPC</h3>
+<div class="outline-text-3" id="text-org7f06245">
 <ul class="org-ul">
 <li>多语言</li>
 <li>轻量级、高性能</li>
@@ -193,9 +193,9 @@ CQRS(Command Query Responsibility Segregation)
 </p>
 </div>
 
-<div id="outline-container-orge012a24" class="outline-4">
-<h4 id="orge012a24">gRPC - HealthCheck</h4>
-<div class="outline-text-4" id="text-orge012a24">
+<div id="outline-container-org5c215ad" class="outline-4">
+<h4 id="org5c215ad">gRPC - HealthCheck</h4>
+<div class="outline-text-4" id="text-org5c215ad">
 <ul class="org-ul">
 <li>异步心跳检测机制，发现直之间的链路问题</li>
 <li>平滑发布及下线</li>
@@ -204,8 +204,8 @@ CQRS(Command Query Responsibility Segregation)
 </div>
 </div>
 
-<div id="outline-container-orge37eafd" class="outline-3">
-<h3 id="orge37eafd">服务发现</h3>
+<div id="outline-container-org936a38c" class="outline-3">
+<h3 id="org936a38c">服务发现</h3>
 </div>
 </div>
 </div>

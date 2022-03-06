@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-08-28 Fri 00:16 -->
+<!-- 2022-03-06 Sun 15:15 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
@@ -68,16 +68,16 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org6a17e35">Algorithm</a></li>
-<li><a href="#org5b7b35f">Review</a></li>
-<li><a href="#org2a158ee">Tip</a></li>
-<li><a href="#orgb06cd8c">Share</a></li>
+<li><a href="#org5e72af2">Algorithm</a></li>
+<li><a href="#org5f95afd">Review</a></li>
+<li><a href="#orgc6f416a">Tip</a></li>
+<li><a href="#orgbb8d755">Share</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org6a17e35" class="outline-2">
-<h2 id="org6a17e35">Algorithm</h2>
-<div class="outline-text-2" id="text-org6a17e35">
+<div id="outline-container-org5e72af2" class="outline-2">
+<h2 id="org5e72af2">Algorithm</h2>
+<div class="outline-text-2" id="text-org5e72af2">
 <p>
 <a href="https://leetcode.com/problems/two-sum/">1.Two Sum</a>
 </p>
@@ -88,27 +88,27 @@ for the JavaScript code in this tag.
 </ul>
 
 <div class="org-src-container">
-<pre class="src src-python">class Solution(object):
-    def twoSum(self, nums, target):
-        """
-        :type nums: List[int]
-        :type target: int
-        :rtype: List[int]
-        """
-        nums_dict = {}
-        for index, num in enumerate(nums):
-            if target - num in nums_dict:
-                return sorted([index, nums_dict[target - num]])
-            nums_dict[num] = index
-        return []
+<pre class="src src-python"><span style="color: #EF2F27;">class</span> <span style="color: #68A8E4;">Solution</span><span style="color: #FCE8C3;">(</span><span style="color: #2C78BF;">object</span><span style="color: #FCE8C3;">)</span>:
+    <span style="color: #EF2F27;">def</span> <span style="color: #FBB829;">twoSum</span><span style="color: #FCE8C3;">(</span><span style="color: #EF2F27;">self</span>, nums, target<span style="color: #FCE8C3;">)</span>:
+        <span style="color: #519F50;">"""</span>
+<span style="color: #519F50;">        :type nums: List[int]</span>
+<span style="color: #519F50;">        :type target: int</span>
+<span style="color: #519F50;">        :rtype: List[int]</span>
+<span style="color: #519F50;">        """</span>
+        <span style="color: #0AAEB3;">nums_dict</span> = <span style="color: #FCE8C3;">{}</span>
+        <span style="color: #EF2F27;">for</span> index, num <span style="color: #EF2F27;">in</span> <span style="color: #2C78BF;">enumerate</span><span style="color: #FCE8C3;">(</span>nums<span style="color: #FCE8C3;">)</span>:
+            <span style="color: #EF2F27;">if</span> target - num <span style="color: #EF2F27;">in</span> nums_dict:
+                <span style="color: #EF2F27;">return</span> <span style="color: #2C78BF;">sorted</span><span style="color: #FCE8C3;">(</span><span style="color: #68A8E4;">[</span>index, nums_dict<span style="color: #FCE8C3;">[</span>target - num<span style="color: #FCE8C3;">]</span><span style="color: #68A8E4;">]</span><span style="color: #FCE8C3;">)</span>
+            <span style="color: #0AAEB3;">nums_dict</span><span style="color: #FCE8C3;">[</span>num<span style="color: #FCE8C3;">]</span> = index
+        <span style="color: #EF2F27;">return</span> <span style="color: #FCE8C3;">[]</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org5b7b35f" class="outline-2">
-<h2 id="org5b7b35f">Review</h2>
-<div class="outline-text-2" id="text-org5b7b35f">
+<div id="outline-container-org5f95afd" class="outline-2">
+<h2 id="org5f95afd">Review</h2>
+<div class="outline-text-2" id="text-org5f95afd">
 <p>
 本文来自 OpenAI 联合创始 Sam Altman 的博客，他分享了关于工作中提高效率的几个观点，<a href="http://blog.samaltman.com/productivity">原文戳此</a>。
 </p>
@@ -163,9 +163,9 @@ Altman 比较注重复利的力量，我在其另外一篇文章中也看到过�
 </p>
 </div>
 </div>
-<div id="outline-container-org2a158ee" class="outline-2">
-<h2 id="org2a158ee">Tip</h2>
-<div class="outline-text-2" id="text-org2a158ee">
+<div id="outline-container-orgc6f416a" class="outline-2">
+<h2 id="orgc6f416a">Tip</h2>
+<div class="outline-text-2" id="text-orgc6f416a">
 <p>
 分享两个 git 小技巧：
 </p>
@@ -177,9 +177,9 @@ Altman 比较注重复利的力量，我在其另外一篇文章中也看到过�
 </div>
 </div>
 
-<div id="outline-container-orgb06cd8c" class="outline-2">
-<h2 id="orgb06cd8c">Share</h2>
-<div class="outline-text-2" id="text-orgb06cd8c">
+<div id="outline-container-orgbb8d755" class="outline-2">
+<h2 id="orgbb8d755">Share</h2>
+<div class="outline-text-2" id="text-orgbb8d755">
 <p>
 <a href="http://blog.thefirehoseproject.com/posts/learn-to-code-and-be-self-reliant/">The Key To Accelerating Your Coding Skills</a>
 </p>

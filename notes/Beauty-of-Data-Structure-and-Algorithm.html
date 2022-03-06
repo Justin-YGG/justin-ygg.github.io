@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-08-28 Fri 00:19 -->
+<!-- 2022-03-06 Sun 15:15 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>数据结构与算法之美</title>
@@ -70,42 +70,42 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org2407580">01 | 复杂度分析</a>
+<li><a href="#org4d57da7">01 | 复杂度分析</a>
 <ul>
-<li><a href="#org4c7195c">时间复杂度</a></li>
-<li><a href="#org8375fa9">空间复杂度分析</a></li>
-<li><a href="#org9872238">最好、最坏、平均、均摊时间复杂度</a></li>
+<li><a href="#org39cdadd">时间复杂度</a></li>
+<li><a href="#org54543a6">空间复杂度分析</a></li>
+<li><a href="#orgbb1f80a">最好、最坏、平均、均摊时间复杂度</a></li>
 </ul>
 </li>
-<li><a href="#org7004c18">02 | 数组：为什么很多编程语言中数组都从0开始编号？</a>
+<li><a href="#org1a0b283">02 | 数组：为什么很多编程语言中数组都从0开始编号？</a>
 <ul>
 <li>
 <ul>
-<li><a href="#org7586c4b">如何实现随机访问？</a></li>
-<li><a href="#orga0d767c">数组为什么要从 0 开始</a></li>
+<li><a href="#org0cd5a43">如何实现随机访问？</a></li>
+<li><a href="#orgd8c5f90">数组为什么要从 0 开始</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org8dcd0b2">03 | 链表</a>
+<li><a href="#orgf2c201e">03 | 链表</a>
 <ul>
-<li><a href="#org5a67a10">链表和数组的区别</a></li>
-<li><a href="#org639fa1a">链表分类</a>
+<li><a href="#org58fbba4">链表和数组的区别</a></li>
+<li><a href="#orgbd64bc2">链表分类</a>
 <ul>
-<li><a href="#org35e511f">单链表</a></li>
-<li><a href="#orge31b949">循环链表</a></li>
-<li><a href="#orgeacf30a">双向链表</a></li>
+<li><a href="#orga1ddcbc">单链表</a></li>
+<li><a href="#orgd820080">循环链表</a></li>
+<li><a href="#org6e31040">双向链表</a></li>
 </ul>
 </li>
-<li><a href="#orge3e37a6">如何基于链表实现 LRU 缓存淘汰算法？</a></li>
-<li><a href="#org5b318c2">如何轻松写出正确的链表代码？</a>
+<li><a href="#org08299e2">如何基于链表实现 LRU 缓存淘汰算法？</a></li>
+<li><a href="#org20e24e3">如何轻松写出正确的链表代码？</a>
 <ul>
-<li><a href="#org4a6f98e">技巧一：理解指针或引用的含义</a></li>
-<li><a href="#orgca67a9c">技巧二：警惕指针丢失和内存泄露</a></li>
-<li><a href="#orgd2a53ea">技巧三：利用哨兵简化实现难度</a></li>
-<li><a href="#org945ce0e">技巧四：重点留意边界条件</a></li>
-<li><a href="#org1d044ad">技巧五：举例画图，辅助思考</a></li>
-<li><a href="#orgc74ae00">技巧六：多谢多练，没有捷径</a></li>
+<li><a href="#org5e45ec9">技巧一：理解指针或引用的含义</a></li>
+<li><a href="#orge710672">技巧二：警惕指针丢失和内存泄露</a></li>
+<li><a href="#org666664d">技巧三：利用哨兵简化实现难度</a></li>
+<li><a href="#org6da71dc">技巧四：重点留意边界条件</a></li>
+<li><a href="#org06c562c">技巧五：举例画图，辅助思考</a></li>
+<li><a href="#orgefe754e">技巧六：多谢多练，没有捷径</a></li>
 </ul>
 </li>
 </ul>
@@ -114,13 +114,13 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org2407580" class="outline-2">
-<h2 id="org2407580">01 | 复杂度分析</h2>
-<div class="outline-text-2" id="text-org2407580">
+<div id="outline-container-org4d57da7" class="outline-2">
+<h2 id="org4d57da7">01 | 复杂度分析</h2>
+<div class="outline-text-2" id="text-org4d57da7">
 </div>
-<div id="outline-container-org4c7195c" class="outline-3">
-<h3 id="org4c7195c">时间复杂度</h3>
-<div class="outline-text-3" id="text-org4c7195c">
+<div id="outline-container-org39cdadd" class="outline-3">
+<h3 id="org39cdadd">时间复杂度</h3>
+<div class="outline-text-3" id="text-org39cdadd">
 <p>
 大 <code>O</code> 时间复杂度表示法: <code>T(n)=O(f(n))</code>
 </p>
@@ -169,9 +169,9 @@ for the JavaScript code in this tag.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python">i = 1
-while i &lt; n:
-    i = i * 2
+<pre class="src src-python"><span style="color: #0AAEB3;">i</span> = 1
+<span style="color: #EF2F27;">while</span> i &lt; n:
+    <span style="color: #0AAEB3;">i</span> = i * 2
 </pre>
 </div></li>
 </ul>
@@ -191,18 +191,18 @@ while i &lt; n:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python">def cal(m, n):
-    i = j = 1
-    sum1 = sum2 = 0
+<pre class="src src-python"><span style="color: #EF2F27;">def</span> <span style="color: #FBB829;">cal</span><span style="color: #FCE8C3;">(</span>m, n<span style="color: #FCE8C3;">)</span>:
+    <span style="color: #0AAEB3;">i</span> = <span style="color: #0AAEB3;">j</span> = 1
+    <span style="color: #0AAEB3;">sum1</span> = <span style="color: #0AAEB3;">sum2</span> = 0
 
-    while(i &lt; m):
-        sum1 += i
+    <span style="color: #EF2F27;">while</span><span style="color: #FCE8C3;">(</span>i &lt; m<span style="color: #FCE8C3;">)</span>:
+        <span style="color: #0AAEB3;">sum1</span> += i
         i++
 
-    while(j &lt; n):
-        sum2 += j
+    <span style="color: #EF2F27;">while</span><span style="color: #FCE8C3;">(</span>j &lt; n<span style="color: #FCE8C3;">)</span>:
+        <span style="color: #0AAEB3;">sum2</span> += j
         j++
-    return sum1 + sum2
+    <span style="color: #EF2F27;">return</span> sum1 + sum2
 </pre>
 </div>
 
@@ -213,9 +213,9 @@ while i &lt; n:
 </div>
 </div>
 
-<div id="outline-container-org8375fa9" class="outline-3">
-<h3 id="org8375fa9">空间复杂度分析</h3>
-<div class="outline-text-3" id="text-org8375fa9">
+<div id="outline-container-org54543a6" class="outline-3">
+<h3 id="org54543a6">空间复杂度分析</h3>
+<div class="outline-text-3" id="text-org54543a6">
 <p>
 空间复杂度全称 <code>渐进空间复杂度(asymptotic space complexity)</code> ，表示算法的存储空间和数据规模之间的增长关系。
 </p>
@@ -232,9 +232,9 @@ while i &lt; n:
 </div>
 </div>
 
-<div id="outline-container-org9872238" class="outline-3">
-<h3 id="org9872238">最好、最坏、平均、均摊时间复杂度</h3>
-<div class="outline-text-3" id="text-org9872238">
+<div id="outline-container-orgbb1f80a" class="outline-3">
+<h3 id="orgbb1f80a">最好、最坏、平均、均摊时间复杂度</h3>
+<div class="outline-text-3" id="text-orgbb1f80a">
 <ul class="org-ul">
 <li><b>最好情况时间复杂度（best case time complexity）</b> : 就是在最理想的情况下，执行代码的时间复杂度。</li>
 
@@ -252,13 +252,13 @@ while i &lt; n:
 </div>
 </div>
 
-<div id="outline-container-org7004c18" class="outline-2">
-<h2 id="org7004c18">02 | 数组：为什么很多编程语言中数组都从0开始编号？</h2>
-<div class="outline-text-2" id="text-org7004c18">
+<div id="outline-container-org1a0b283" class="outline-2">
+<h2 id="org1a0b283">02 | 数组：为什么很多编程语言中数组都从0开始编号？</h2>
+<div class="outline-text-2" id="text-org1a0b283">
 </div>
-<div id="outline-container-org7586c4b" class="outline-4">
-<h4 id="org7586c4b">如何实现随机访问？</h4>
-<div class="outline-text-4" id="text-org7586c4b">
+<div id="outline-container-org0cd5a43" class="outline-4">
+<h4 id="org0cd5a43">如何实现随机访问？</h4>
+<div class="outline-text-4" id="text-org0cd5a43">
 <p>
 <b>数组（Array）是一种线性表数据结构，用一组连续的内存空间，来存储一组具有相同类型的数据</b> 。
 </p>
@@ -316,9 +316,9 @@ while i &lt; n:
 </div>
 </div>
 
-<div id="outline-container-orga0d767c" class="outline-4">
-<h4 id="orga0d767c">数组为什么要从 0 开始</h4>
-<div class="outline-text-4" id="text-orga0d767c">
+<div id="outline-container-orgd8c5f90" class="outline-4">
+<h4 id="orgd8c5f90">数组为什么要从 0 开始</h4>
+<div class="outline-text-4" id="text-orgd8c5f90">
 <p>
 从数组的存储模型上来看，“下标”最确切的定义应该是“偏移(offset)”， <code>a[0]</code> 就是偏移为 0 的位置，a[k] 表示偏移 k 个 <code>type_size，
 所以 =a[k]_address = base_address + k * type_size</code> ，而如果数组从 1 开始，那么 <code>a[k]_address = base_address + (k-1) * type_size</code> ，
@@ -328,13 +328,13 @@ while i &lt; n:
 </div>
 </div>
 </div>
-<div id="outline-container-org8dcd0b2" class="outline-2">
-<h2 id="org8dcd0b2">03 | 链表</h2>
-<div class="outline-text-2" id="text-org8dcd0b2">
+<div id="outline-container-orgf2c201e" class="outline-2">
+<h2 id="orgf2c201e">03 | 链表</h2>
+<div class="outline-text-2" id="text-orgf2c201e">
 </div>
-<div id="outline-container-org5a67a10" class="outline-3">
-<h3 id="org5a67a10">链表和数组的区别</h3>
-<div class="outline-text-3" id="text-org5a67a10">
+<div id="outline-container-org58fbba4" class="outline-3">
+<h3 id="org58fbba4">链表和数组的区别</h3>
+<div class="outline-text-3" id="text-org58fbba4">
 
 <div class="figure">
 <p><img src="../img/DataStructuresandAlgorithms/Diffence-bw-array-and-linkedlist.jpg" alt="Diffence-bw-array-and-linkedlist.jpg" width="500" />
@@ -347,13 +347,13 @@ while i &lt; n:
 </div>
 </div>
 
-<div id="outline-container-org639fa1a" class="outline-3">
-<h3 id="org639fa1a">链表分类</h3>
-<div class="outline-text-3" id="text-org639fa1a">
+<div id="outline-container-orgbd64bc2" class="outline-3">
+<h3 id="orgbd64bc2">链表分类</h3>
+<div class="outline-text-3" id="text-orgbd64bc2">
 </div>
-<div id="outline-container-org35e511f" class="outline-4">
-<h4 id="org35e511f">单链表</h4>
-<div class="outline-text-4" id="text-org35e511f">
+<div id="outline-container-orga1ddcbc" class="outline-4">
+<h4 id="orga1ddcbc">单链表</h4>
+<div class="outline-text-4" id="text-orga1ddcbc">
 
 <div class="figure">
 <p><img src="../img/DataStructuresandAlgorithms/linkedlist.jpg" alt="linkedlist.jpg" width="500" />
@@ -375,9 +375,9 @@ while i &lt; n:
 </div>
 </div>
 
-<div id="outline-container-orge31b949" class="outline-4">
-<h4 id="orge31b949">循环链表</h4>
-<div class="outline-text-4" id="text-orge31b949">
+<div id="outline-container-orgd820080" class="outline-4">
+<h4 id="orgd820080">循环链表</h4>
+<div class="outline-text-4" id="text-orgd820080">
 
 <div class="figure">
 <p><img src="../img/DataStructuresandAlgorithms/Circular-LinkedList.jpg" alt="Circular-LinkedList.jpg" width="500" />
@@ -390,9 +390,9 @@ while i &lt; n:
 </div>
 </div>
 
-<div id="outline-container-orgeacf30a" class="outline-4">
-<h4 id="orgeacf30a">双向链表</h4>
-<div class="outline-text-4" id="text-orgeacf30a">
+<div id="outline-container-org6e31040" class="outline-4">
+<h4 id="org6e31040">双向链表</h4>
+<div class="outline-text-4" id="text-org6e31040">
 
 <div class="figure">
 <p><img src="../img/DataStructuresandAlgorithms/double-linkedlist.jpg" alt="double-linkedlist.jpg" width="500" />
@@ -425,9 +425,9 @@ while i &lt; n:
 </div>
 </div>
 
-<div id="outline-container-orge3e37a6" class="outline-3">
-<h3 id="orge3e37a6">如何基于链表实现 LRU 缓存淘汰算法？</h3>
-<div class="outline-text-3" id="text-orge3e37a6">
+<div id="outline-container-org08299e2" class="outline-3">
+<h3 id="org08299e2">如何基于链表实现 LRU 缓存淘汰算法？</h3>
+<div class="outline-text-3" id="text-org08299e2">
 <p>
 我们可以维护一个有序的单链表，越早访问的节点越靠近尾部。
 </p>
@@ -455,13 +455,13 @@ while i &lt; n:
 </div>
 </div>
 
-<div id="outline-container-org5b318c2" class="outline-3">
-<h3 id="org5b318c2">如何轻松写出正确的链表代码？</h3>
-<div class="outline-text-3" id="text-org5b318c2">
+<div id="outline-container-org20e24e3" class="outline-3">
+<h3 id="org20e24e3">如何轻松写出正确的链表代码？</h3>
+<div class="outline-text-3" id="text-org20e24e3">
 </div>
-<div id="outline-container-org4a6f98e" class="outline-4">
-<h4 id="org4a6f98e">技巧一：理解指针或引用的含义</h4>
-<div class="outline-text-4" id="text-org4a6f98e">
+<div id="outline-container-org5e45ec9" class="outline-4">
+<h4 id="org5e45ec9">技巧一：理解指针或引用的含义</h4>
+<div class="outline-text-4" id="text-org5e45ec9">
 <p>
 <b>不管指针还是引用，其实就是只存储数据的内存地址</b> 。
 </p>
@@ -484,9 +484,9 @@ while i &lt; n:
 </div>
 </div>
 
-<div id="outline-container-orgca67a9c" class="outline-4">
-<h4 id="orgca67a9c">技巧二：警惕指针丢失和内存泄露</h4>
-<div class="outline-text-4" id="text-orgca67a9c">
+<div id="outline-container-orge710672" class="outline-4">
+<h4 id="orge710672">技巧二：警惕指针丢失和内存泄露</h4>
+<div class="outline-text-4" id="text-orge710672">
 
 <div class="figure">
 <p><img src="../img/DataStructuresandAlgorithms/insert-linkedlist.jpg" alt="insert-linkedlist.jpg" width="500" />
@@ -495,9 +495,9 @@ while i &lt; n:
 </div>
 </div>
 
-<div id="outline-container-orgd2a53ea" class="outline-4">
-<h4 id="orgd2a53ea">技巧三：利用哨兵简化实现难度</h4>
-<div class="outline-text-4" id="text-orgd2a53ea">
+<div id="outline-container-org666664d" class="outline-4">
+<h4 id="org666664d">技巧三：利用哨兵简化实现难度</h4>
+<div class="outline-text-4" id="text-org666664d">
 
 <div class="figure">
 <p><img src="../img/DataStructuresandAlgorithms/sentry-linkedlist.jpg" alt="sentry-linkedlist.jpg" width="500" />
@@ -511,9 +511,9 @@ while i &lt; n:
 </div>
 </div>
 
-<div id="outline-container-org945ce0e" class="outline-4">
-<h4 id="org945ce0e">技巧四：重点留意边界条件</h4>
-<div class="outline-text-4" id="text-org945ce0e">
+<div id="outline-container-org6da71dc" class="outline-4">
+<h4 id="org6da71dc">技巧四：重点留意边界条件</h4>
+<div class="outline-text-4" id="text-org6da71dc">
 <p>
 检查边界条件是否考虑全面，如：
 </p>
@@ -526,13 +526,13 @@ while i &lt; n:
 </div>
 </div>
 
-<div id="outline-container-org1d044ad" class="outline-4">
-<h4 id="org1d044ad">技巧五：举例画图，辅助思考</h4>
+<div id="outline-container-org06c562c" class="outline-4">
+<h4 id="org06c562c">技巧五：举例画图，辅助思考</h4>
 </div>
 
-<div id="outline-container-orgc74ae00" class="outline-4">
-<h4 id="orgc74ae00">技巧六：多谢多练，没有捷径</h4>
-<div class="outline-text-4" id="text-orgc74ae00">
+<div id="outline-container-orgefe754e" class="outline-4">
+<h4 id="orgefe754e">技巧六：多谢多练，没有捷径</h4>
+<div class="outline-text-4" id="text-orgefe754e">
 <ul class="org-ul">
 <li>单链表翻转</li>
 <li>链表中环的检测</li>
