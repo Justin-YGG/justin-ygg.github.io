@@ -3,59 +3,33 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-03-06 Sun 15:19 -->
+<!-- 2022-11-24 Thu 00:46 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>好好吃饭，好好 commit</title>
-<meta name="generator" content="Org mode" />
 <meta name="author" content="Justin" />
+<meta name="generator" content="Org Mode" />
 <link rel="stylesheet" type="text/css" href="/css/worg.css"/>
 <link rel="icon" type="image/png" href="/img/icons/heckert.png">
-<script type="text/javascript">
-/*
-@licstart  The following is the entire license notice for the
-JavaScript code in this tag.
-
-Copyright (C) 2012-2020 Free Software Foundation, Inc.
-
-The JavaScript code in this tag is free software: you can
-redistribute it and/or modify it under the terms of the GNU
-General Public License (GNU GPL) as published by the Free Software
-Foundation, either version 3 of the License, or (at your option)
-any later version.  The code is distributed WITHOUT ANY WARRANTY;
-without even the implied warranty of MERCHANTABILITY or FITNESS
-FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
-
-As additional permission under GNU GPL version 3 section 7, you
-may distribute non-source (e.g., minimized or compacted) forms of
-that code without the copy of the GNU GPL normally required by
-section 4, provided you include this license notice and a URL
-through which recipients can access the Corresponding Source.
-
-
-@licend  The above is the entire license notice
-for the JavaScript code in this tag.
-*/
-<!--/*--><![CDATA[/*><!--*/
- function CodeHighlightOn(elem, id)
- {
-   var target = document.getElementById(id);
-   if(null != target) {
-     elem.cacheClassElem = elem.className;
-     elem.cacheClassTarget = target.className;
-     target.className = "code-highlighted";
-     elem.className   = "code-highlighted";
-   }
- }
- function CodeHighlightOff(elem, id)
- {
-   var target = document.getElementById(id);
-   if(elem.cacheClassElem)
-     elem.className = elem.cacheClassElem;
-   if(elem.cacheClassTarget)
-     target.className = elem.cacheClassTarget;
- }
-/*]]>*///-->
+<script>
+// @license magnet:?xt=urn:btih:1f739d935676111cfff4b4693e3816e664797050&amp;dn=gpl-3.0.txt GPL-v3-or-Later
+     function CodeHighlightOn(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.add("code-highlighted");
+         target.classList.add("code-highlighted");
+       }
+     }
+     function CodeHighlightOff(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.remove("code-highlighted");
+         target.classList.remove("code-highlighted");
+       }
+     }
+// @license-end
 </script>
 </head>
 <body>
@@ -63,21 +37,21 @@ for the JavaScript code in this tag.
  <a accesskey="h" href="index.html"> UP </a>
  |
  <a accesskey="H" href="../index.html"> HOME </a>
-</div><div id="content">
+</div><div id="content" class="content">
 <h1 class="title">好好吃饭，好好 commit</h1>
-<div id="table-of-contents">
+<div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
-<div id="text-table-of-contents">
+<div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org8bb2619">为什么要好好写 commit message？</a></li>
-<li><a href="#orgcefc1ea">如何写出好的 commit message？</a>
+<li><a href="#orgdd97a54">为什么要好好写 commit message？</a></li>
+<li><a href="#org6deb0cc">如何写出好的 commit message？</a>
 <ul>
-<li><a href="#org93cd064">格式</a></li>
-<li><a href="#orgfb7635a">注意事项</a></li>
+<li><a href="#org1cf4559">格式</a></li>
+<li><a href="#orgae656a7">注意事项</a></li>
 </ul>
 </li>
-<li><a href="#org9140f39">哪有时间写那么详细的 commit message，还干活吗？</a></li>
-<li><a href="#org82edb0d">reference</a></li>
+<li><a href="#orgac90d12">哪有时间写那么详细的 commit message，还干活吗？</a></li>
+<li><a href="#org00c845f">reference</a></li>
 </ul>
 </div>
 </div>
@@ -88,11 +62,11 @@ for the JavaScript code in this tag.
 <code>fix bug</code> 、 <code>update</code> 、 <code>修复订单bug</code> 等, 这种无法准确传达意图的描述，往往会在问题排查，代码阅读等场景下给我们造成困扰，所以，编写规范统一的 commit message 其实是非常重要的，而很多时候这一点往往被忽视了。
 </p>
 
-<div id="outline-container-org8bb2619" class="outline-2">
-<h2 id="org8bb2619">为什么要好好写 commit message？</h2>
-<div class="outline-text-2" id="text-org8bb2619">
+<div id="outline-container-orgdd97a54" class="outline-2">
+<h2 id="orgdd97a54">为什么要好好写 commit message？</h2>
+<div class="outline-text-2" id="text-orgdd97a54">
 <p>
-任何一个项目或者软件都是需要协作的项目，最少也会包含两个开发者：原作者和“几周或者几个月之后的原作者”，或许下面的场景在你身上也发生过，排查问题或者优化代码时，发现代码写的很垃圾，刚要骂*的时候【脾气急的同学可能已经骂完了（逃&#x2026;】，一查提交历史发现是自己过去一段时间所写的。所以，协作过程中写好 commit  message，基于以下几点原因:
+任何一个项目或者软件都是需要协作的项目，最少也会包含两个开发者，原作者和几周或者几个月之后的原作者，或许下面的场景在你身上也发生过，排查问题或者优化代码时，发现代码写的很垃圾，刚要骂*的时候【脾气急的同学可能已经骂完了（逃&#x2026;】，一查提交历史发现是自己过去一段时间所写的。所以，协作过程中写好 commit  message，基于以下几点原因:
 </p>
 
 <ul class="org-ul">
@@ -104,9 +78,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-orgcefc1ea" class="outline-2">
-<h2 id="orgcefc1ea">如何写出好的 commit message？</h2>
-<div class="outline-text-2" id="text-orgcefc1ea">
+<div id="outline-container-org6deb0cc" class="outline-2">
+<h2 id="org6deb0cc">如何写出好的 commit message？</h2>
+<div class="outline-text-2" id="text-org6deb0cc">
 <p>
 一条好的 commit message  需要回答三个问题：
 </p>
@@ -118,15 +92,15 @@ for the JavaScript code in this tag.
 </ul>
 </div>
 
-<div id="outline-container-org93cd064" class="outline-3">
-<h3 id="org93cd064">格式</h3>
-<div class="outline-text-3" id="text-org93cd064">
+<div id="outline-container-org1cf4559" class="outline-3">
+<h3 id="org1cf4559">格式</h3>
+<div class="outline-text-3" id="text-org1cf4559">
 <p>
 commit message 的格式我们可以参考业界比较优秀的一些例子，比如 AngularJS 的 Commit Message Guidelines
 </p>
 
 
-<div class="figure">
+<div id="orgd02381c" class="figure">
 <p><img src=" ../../img/articles/2020/commit-message.png" alt="commit-message.png" width="400" />
 </p>
 </div>
@@ -182,9 +156,9 @@ Closes #17067
 </div>
 
 
-<div id="outline-container-orgfb7635a" class="outline-3">
-<h3 id="orgfb7635a">注意事项</h3>
-<div class="outline-text-3" id="text-orgfb7635a">
+<div id="outline-container-orgae656a7" class="outline-3">
+<h3 id="orgae656a7">注意事项</h3>
+<div class="outline-text-3" id="text-orgae656a7">
 <ul class="org-ul">
 <li>不要将不同的修改合并在一次 commit 中提交</li>
 <li>适当折叠 commit，安装 <code>brew install nvie/tap/git-toolbelt</code> ，使用 <code>git fixup</code> ，替代 <code>git commit --amend</code></li>
@@ -195,9 +169,11 @@ Closes #17067
 </div>
 </div>
 </div>
-<div id="outline-container-org9140f39" class="outline-2">
-<h2 id="org9140f39">哪有时间写那么详细的 commit message，还干活吗？</h2>
-<div class="outline-text-2" id="text-org9140f39">
+
+
+<div id="outline-container-orgac90d12" class="outline-2">
+<h2 id="orgac90d12">哪有时间写那么详细的 commit message，还干活吗？</h2>
+<div class="outline-text-2" id="text-orgac90d12">
 <p>
 在项目的整个生命周期内，我们书写的每一个行代码都在构建项目的历史，而 commit message 在一定程度是历史的缩影，就像历史书籍中的目录，完整的历史脉络可以帮助后人更好的理解历史，代码亦是如此；我们在思考编写 commit message 的时候，其实更是一次自我检验的机会，书写过程中我们可以思考本次commit是 <b>否有一些可以优化的点</b> 、*是否有未完成的todo* 、*是否掺杂了无关的代码* 等。不要将编写清晰明确的 commit message 当做是一种负担，这是一名合作的协作者应该具备的能力，也应该是一个享受的过程。
 </p>
@@ -208,9 +184,9 @@ Closes #17067
 </div>
 </div>
 
-<div id="outline-container-org82edb0d" class="outline-2">
-<h2 id="org82edb0d">reference</h2>
-<div class="outline-text-2" id="text-org82edb0d">
+<div id="outline-container-org00c845f" class="outline-2">
+<h2 id="org00c845f">reference</h2>
+<div class="outline-text-2" id="text-org00c845f">
 <ul class="org-ul">
 <li><a href="https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#commits">https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#commits</a></li>
 <li><a href="http://www.ruanyifeng.com/blog/2016/01/commit_message_change_log.html">http://www.ruanyifeng.com/blog/2016/01/commit_message_change_log.html</a></li>

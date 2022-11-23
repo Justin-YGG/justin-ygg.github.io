@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2022-03-06 Sun 15:15 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>探寻 Python 字典背后</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Justin" />
+<link rel="stylesheet" type="text/css" href="/css/worg.css"/>
+<link rel="icon" type="image/png" href="/img/icons/heckert.png">
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="index.html"> UP </a>
+ |
+ <a accesskey="H" href="../index.html"> HOME </a>
+</div><div id="content">
+<h1 class="title">探寻 Python 字典背后</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org552f067">在列表中高效的搜索</a></li>
+<li><a href="#org499a4f0">哈希表的名字有何而来</a>
+<ul>
+<li><a href="#org37a3370">使用哈希函数来构建哈希表</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org552f067" class="outline-2">
+<h2 id="org552f067">在列表中高效的搜索</h2>
+<div class="outline-text-2" id="text-org552f067">
+<p>
+在列表中查找某个元素时，需要线性扫描，时间复杂度为 O(n)，我们需要更快的方式来找到元素。
+</p>
+
+<p>
+我们可以初始化一个用来存放原列表中元素的新列表，初始化元素为 None ，然后通过取余的方式计算每个元素在新列表中的位置，并存入新列表，
+但这样同一个位置肯定会有冲突，当冲突发生时，我们计算冲突位置的 <code>下一个计算位置</code> 是否可用，如果可用就放入，否则继续计算，直到
+找到可用位置，称之为 <code>线性探测</code> ，反应到代码上 <code>(idx + 1) % len(simple_list)</code> 。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python">
+<span style="color: #EF2F27;">def</span> <span style="color: #FBB829;">build_insert_all</span><span style="color: #FCE8C3;">(</span>original_list<span style="color: #FCE8C3;">)</span>:            
+    <span style="color: #0AAEB3;">new_list</span> = <span style="color: #FCE8C3;">[</span><span style="color: #FF5C8F;">None</span><span style="color: #FCE8C3;">]</span> * <span style="color: #FCE8C3;">(</span>2 * <span style="color: #2C78BF;">len</span><span style="color: #68A8E4;">(</span>original_list<span style="color: #68A8E4;">)</span><span style="color: #FCE8C3;">)</span>  
+
+    <span style="color: #EF2F27;">for</span> number <span style="color: #EF2F27;">in</span> original_list:                  
+        <span style="color: #0AAEB3;">idx</span> = number % <span style="color: #2C78BF;">len</span><span style="color: #FCE8C3;">(</span>new_list<span style="color: #FCE8C3;">)</span>             
+        <span style="color: #EF2F27;">while</span> new_list<span style="color: #FCE8C3;">[</span>idx<span style="color: #FCE8C3;">]</span> <span style="color: #EF2F27;">is</span> <span style="color: #EF2F27;">not</span> <span style="color: #FF5C8F;">None</span>:         
+            <span style="color: #0AAEB3;">idx</span> = <span style="color: #FCE8C3;">(</span>idx + 1<span style="color: #FCE8C3;">)</span> % <span style="color: #2C78BF;">len</span><span style="color: #FCE8C3;">(</span>new_list<span style="color: #FCE8C3;">)</span>     
+        <span style="color: #0AAEB3;">new_list</span><span style="color: #FCE8C3;">[</span>idx<span style="color: #FCE8C3;">]</span> = number                    
+    <span style="color: #EF2F27;">return</span> new_list   
+
+</pre>
+</div>
+
+<p>
+如果新列表的大小和原列表一样，冲突会很频繁，如果比原列表达太多，又会造成浪费，新列表是原列表大小的 2 倍比较合适。
+</p>
+
+<p>
+查找元素基本和构建新列表一样，需要计算该元素在新列表中的位置，如果该位置是 <code>None</code> 说明没有该元素，否则判断该位置元素是否和要查找的元素相等，相等则找到改元素，否则继续计算下一个可能的位置。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python">
+<span style="color: #EF2F27;">def</span> <span style="color: #FBB829;">has_number</span><span style="color: #FCE8C3;">(</span>new_list, number<span style="color: #FCE8C3;">)</span>:      
+    <span style="color: #0AAEB3;">idx</span> = number % <span style="color: #2C78BF;">len</span><span style="color: #FCE8C3;">(</span>new_list<span style="color: #FCE8C3;">)</span>          
+    <span style="color: #EF2F27;">while</span> new_list<span style="color: #FCE8C3;">[</span>idx<span style="color: #FCE8C3;">]</span> <span style="color: #EF2F27;">is</span> <span style="color: #EF2F27;">not</span> <span style="color: #FF5C8F;">None</span>:     
+        <span style="color: #EF2F27;">if</span> new_list<span style="color: #FCE8C3;">[</span>idx<span style="color: #FCE8C3;">]</span> == number:    
+            <span style="color: #EF2F27;">return</span> <span style="color: #FF5C8F;">True</span>                 
+        <span style="color: #0AAEB3;">idx</span> = <span style="color: #FCE8C3;">(</span>idx + 1<span style="color: #FCE8C3;">)</span> % <span style="color: #2C78BF;">len</span><span style="color: #FCE8C3;">(</span>new_list<span style="color: #FCE8C3;">)</span>
+    <span style="color: #EF2F27;">return</span> <span style="color: #FF5C8F;">False</span>        
+
+</pre>
+</div>
+
+<p>
+基于元素的值构建索引，并解决冲突，实现了一个建议的 <code>哈希表</code> 。
+</p>
+</div>
+</div>
+
+<div id="outline-container-org499a4f0" class="outline-2">
+<h2 id="org499a4f0">哈希表的名字有何而来</h2>
+<div class="outline-text-2" id="text-org499a4f0">
+<p>
+我们可以通过哈希函数将对象转换为一个哈希值，Python 中比较小的整数等于自身，即 <code>hash(x)=x</code> , 这是 Python 核心开发者故意为之的。哈希函数永远不会返回 -1 ，因为 -1 被用作内部错误的表示，所以， hash(-1)=-2 。可变对象如列表是不可被哈希的。
+</p>
+</div>
+
+<div id="outline-container-org37a3370" class="outline-3">
+<h3 id="org37a3370">使用哈希函数来构建哈希表</h3>
+<div class="outline-text-3" id="text-org37a3370">
+<p>
+因为 <code>None</code> 也是可以哈希的，所以我们构建一个类来专门负责占位
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #EF2F27;">class</span> <span style="color: #68A8E4;">EmptyValueClass</span><span style="color: #FCE8C3;">(</span><span style="color: #2C78BF;">object</span><span style="color: #FCE8C3;">)</span>:
+    <span style="color: #EF2F27;">pass</span>
+
+<span style="color: #0AAEB3;">EMPTY</span> = EmptyValueClass<span style="color: #FCE8C3;">()</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

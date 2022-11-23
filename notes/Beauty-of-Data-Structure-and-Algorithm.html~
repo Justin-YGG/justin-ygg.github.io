@@ -1,0 +1,548 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2022-03-06 Sun 15:15 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>数据结构与算法之美</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Justin" />
+<link rel="stylesheet" type="text/css" href="/css/worg.css"/>
+<link rel="icon" type="image/png" href="/img/icons/heckert.png">
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/javascript" src="https://www.mxtsing.com/js/MathJax.js?config=TeX-AMS-MML_HTMLorMML,local/local"></script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="index.html"> UP </a>
+ |
+ <a accesskey="H" href="../index.html"> HOME </a>
+</div><div id="content">
+<h1 class="title">数据结构与算法之美</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org4d57da7">01 | 复杂度分析</a>
+<ul>
+<li><a href="#org39cdadd">时间复杂度</a></li>
+<li><a href="#org54543a6">空间复杂度分析</a></li>
+<li><a href="#orgbb1f80a">最好、最坏、平均、均摊时间复杂度</a></li>
+</ul>
+</li>
+<li><a href="#org1a0b283">02 | 数组：为什么很多编程语言中数组都从0开始编号？</a>
+<ul>
+<li>
+<ul>
+<li><a href="#org0cd5a43">如何实现随机访问？</a></li>
+<li><a href="#orgd8c5f90">数组为什么要从 0 开始</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgf2c201e">03 | 链表</a>
+<ul>
+<li><a href="#org58fbba4">链表和数组的区别</a></li>
+<li><a href="#orgbd64bc2">链表分类</a>
+<ul>
+<li><a href="#orga1ddcbc">单链表</a></li>
+<li><a href="#orgd820080">循环链表</a></li>
+<li><a href="#org6e31040">双向链表</a></li>
+</ul>
+</li>
+<li><a href="#org08299e2">如何基于链表实现 LRU 缓存淘汰算法？</a></li>
+<li><a href="#org20e24e3">如何轻松写出正确的链表代码？</a>
+<ul>
+<li><a href="#org5e45ec9">技巧一：理解指针或引用的含义</a></li>
+<li><a href="#orge710672">技巧二：警惕指针丢失和内存泄露</a></li>
+<li><a href="#org666664d">技巧三：利用哨兵简化实现难度</a></li>
+<li><a href="#org6da71dc">技巧四：重点留意边界条件</a></li>
+<li><a href="#org06c562c">技巧五：举例画图，辅助思考</a></li>
+<li><a href="#orgefe754e">技巧六：多谢多练，没有捷径</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org4d57da7" class="outline-2">
+<h2 id="org4d57da7">01 | 复杂度分析</h2>
+<div class="outline-text-2" id="text-org4d57da7">
+</div>
+<div id="outline-container-org39cdadd" class="outline-3">
+<h3 id="org39cdadd">时间复杂度</h3>
+<div class="outline-text-3" id="text-org39cdadd">
+<p>
+大 <code>O</code> 时间复杂度表示法: <code>T(n)=O(f(n))</code>
+</p>
+
+<p>
+<code>n</code> 表示数据规模， <code>T(n)</code> 表示代码运行的耗时， <code>f(n)</code> 表示每行代码执行次数的总和，是一个公式， <code>O</code> 代表 <code>T(n)</code> 和 <code>f(n)</code> 成正比。
+大 <code>O</code> 时间复杂度表示代码随规模增长的变化趋势，并不是真正的执行时间，所以叫 <code>渐进时间复杂度（asymptotic time complexity）</code> ，简称 <code>时间复杂度</code> 。
+</p>
+
+<p>
+<b>分析方法：</b>
+</p>
+
+<ul class="org-ul">
+<li>只关注循环次数最多的一段代码</li>
+<li>加法法则：总复杂度等于量级最大的那段代码的复杂度</li>
+<li>乘法法则：嵌套代码的复杂度等于嵌套内外代码复杂度的乘积</li>
+</ul>
+
+<p>
+<b>常见时间复杂度分析：</b>
+</p>
+
+
+<div class="figure">
+<p><img src=" ../img/DataStructuresandAlgorithms/complexity.png" alt="complexity.png" width="500" />
+</p>
+</div>
+
+<p>
+其中 O(\({2^n}\)) 和 O(n!) 为非多项式量级，其他为多项式量级。非多项式量级算法会随着规模 n 的增大，执行时间急剧增加，是非常低效的算法，我们主要
+关注 <b>多项式时间复杂度</b> ：
+</p>
+
+<ul class="org-ul">
+<li><p>
+<b>O(1)</b>
+</p>
+
+<p>
+只要代码执行时间不随着 n 的增大而增长，时间复杂度即为 <code>O(1)</code> ，如果代码中不含有循环、递归等类型代码，成千上万行代码的时间复杂度也是 <code>O(1)</code>
+</p></li>
+
+<li><p>
+<b>O(logn)、O(nlogn)</b>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #0AAEB3;">i</span> = 1
+<span style="color: #EF2F27;">while</span> i &lt; n:
+    <span style="color: #0AAEB3;">i</span> = i * 2
+</pre>
+</div></li>
+</ul>
+
+<p>
+上面这个循环代码执行次数可以通过 <code>2^x=n</code> , 求得 x=log<sub>2</sub>n ，则时间复杂度为 O(log<sub>2</sub>n) ,如果换成 <code>i * 3</code> ，那么时间复杂度为 O(log<sub>3</sub>n) ,
+因为对数之间是可以相互转换的，所以可以忽略对数的“底”，统一表示为 O(logn)。O(nlogn) 自然就是循环嵌套了，O(nlogn) 也是一种比较常见的算法时间复杂度，
+如归并排序、快速排序的时间复杂度都是 O(nlogn)。
+</p>
+
+<ul class="org-ul">
+<li>O(m+n)、O(m*n)</li>
+</ul>
+
+<p>
+此类时间复杂度是由两个数据的规模决定的
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #EF2F27;">def</span> <span style="color: #FBB829;">cal</span><span style="color: #FCE8C3;">(</span>m, n<span style="color: #FCE8C3;">)</span>:
+    <span style="color: #0AAEB3;">i</span> = <span style="color: #0AAEB3;">j</span> = 1
+    <span style="color: #0AAEB3;">sum1</span> = <span style="color: #0AAEB3;">sum2</span> = 0
+
+    <span style="color: #EF2F27;">while</span><span style="color: #FCE8C3;">(</span>i &lt; m<span style="color: #FCE8C3;">)</span>:
+        <span style="color: #0AAEB3;">sum1</span> += i
+        i++
+
+    <span style="color: #EF2F27;">while</span><span style="color: #FCE8C3;">(</span>j &lt; n<span style="color: #FCE8C3;">)</span>:
+        <span style="color: #0AAEB3;">sum2</span> += j
+        j++
+    <span style="color: #EF2F27;">return</span> sum1 + sum2
+</pre>
+</div>
+
+<p>
+我们无法估计 m 和 n 的量级谁大，就不能简单地使用加法规则，忽略掉其中一个，所以算法复杂度为 O(m+n)，如果是嵌套的，则乘法规则依然有效即时间复杂
+度为 O(m*n)。
+</p>
+</div>
+</div>
+
+<div id="outline-container-org54543a6" class="outline-3">
+<h3 id="org54543a6">空间复杂度分析</h3>
+<div class="outline-text-3" id="text-org54543a6">
+<p>
+空间复杂度全称 <code>渐进空间复杂度(asymptotic space complexity)</code> ，表示算法的存储空间和数据规模之间的增长关系。
+</p>
+
+<p>
+<b>可以粗略的估计，越高阶复杂度的算法，执行效率越低。</b> 常见的复杂度从低阶到高阶： O(1)、O(logn)、O(n)、O(nlogn)、O(n<sup>2</sup>)
+</p>
+
+
+<div class="figure">
+<p><img src="../img/DataStructuresandAlgorithms/complexity_order.png" alt="complexity_order.png" width="500" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgbb1f80a" class="outline-3">
+<h3 id="orgbb1f80a">最好、最坏、平均、均摊时间复杂度</h3>
+<div class="outline-text-3" id="text-orgbb1f80a">
+<ul class="org-ul">
+<li><b>最好情况时间复杂度（best case time complexity）</b> : 就是在最理想的情况下，执行代码的时间复杂度。</li>
+
+<li><b>最坏情况时间复杂度（worst case time complexity）</b> : 就是在最糟糕的情况下，执行代码的时间复杂度。</li>
+
+<li><b>平均情况时间复杂度</b> : 全称应该叫做 <b>加权平均时间复杂度</b> 或者 *期望时间复杂度*。</li>
+
+<li><b>均摊时间复杂度</b> ： 对一组数据结构连续操作时，大部分情况下时间复杂度都很低，只有个别情况下时间复杂度比较高，这些操作时间存在前后的时序关系，</li>
+</ul>
+<p>
+这个时候可以尝试使用 <b>摊还分析</b> （平摊分析），看能否将较高时间复杂度的耗时平摊到时间复杂度较低的操作上；
+*一般是可以使用均摊复杂度分析的场合，均摊时间复杂度=最好情况时间复杂度*。
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org1a0b283" class="outline-2">
+<h2 id="org1a0b283">02 | 数组：为什么很多编程语言中数组都从0开始编号？</h2>
+<div class="outline-text-2" id="text-org1a0b283">
+</div>
+<div id="outline-container-org0cd5a43" class="outline-4">
+<h4 id="org0cd5a43">如何实现随机访问？</h4>
+<div class="outline-text-4" id="text-org0cd5a43">
+<p>
+<b>数组（Array）是一种线性表数据结构，用一组连续的内存空间，来存储一组具有相同类型的数据</b> 。
+</p>
+
+<p>
+定义中的几个概念：
+</p>
+
+<ul class="org-ul">
+<li>线性表：数据排列像“线”一样的结构，只有前后两个方向，如数组、栈、队列、链表等</li>
+</ul>
+
+<div class="figure">
+<p><img src="../img/DataStructuresandAlgorithms/LineaList.jpg" alt="LineaList.jpg" />
+</p>
+</div>
+
+<ul class="org-ul">
+<li>非线性表: 数据之间不是简单的前后关系，如：树、堆、图等</li>
+</ul>
+
+<div class="figure">
+<p><img src="../img/DataStructuresandAlgorithms/Non-LinerList.jpg" alt="Non-LinerList.jpg" width="500" />
+</p>
+</div>
+
+<ul class="org-ul">
+<li>连续的存储空间和相同的数据类型：正是因为这两点，数组才具备了“杀手锏”的特性：随机访问。</li>
+</ul>
+
+
+<p>
+以长度为10的数组为例 <code>int[] a = new int[10]</code> ，内存块的首地址为 <code>base_address=1000</code>
+</p>
+
+<div class="figure">
+<p><img src="../img/DataStructuresandAlgorithms/random_access.jpg" alt="random_access.jpg" width="500" />
+</p>
+</div>
+
+<p>
+计算机会给每个内存单元分配地址，通过地址来访问内存中的数据，寻址公式： <code>a[i]_address = base_address + i * data_type_size</code> 。
+</p>
+
+<p>
+数组适合查找操作，但时间复杂度不是 O(1)，即使是排好序的数据，使用二分查找，时间复杂度也是 O(logn)，所以，准确的表述应该是：
+*数组支持随机访问，根据下标随机访问的时间复杂度为 O(1)*。
+</p>
+
+<p>
+数组的插入和删除，最好情况时间复杂度为 O(1) 即从末尾插入或删除元素；最坏时间复杂度为 O(n) 即从开头插入或删除元素，平均时间复杂度为 O(n)，
+所以 <code>a[k]_address = base_address + k * type_size</code> ，而如果数组从 1 开始，那么 <code>a[k]_address = base_address + (k-1) * type_size</code>
+有大量的搬移操作。
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgd8c5f90" class="outline-4">
+<h4 id="orgd8c5f90">数组为什么要从 0 开始</h4>
+<div class="outline-text-4" id="text-orgd8c5f90">
+<p>
+从数组的存储模型上来看，“下标”最确切的定义应该是“偏移(offset)”， <code>a[0]</code> 就是偏移为 0 的位置，a[k] 表示偏移 k 个 <code>type_size，
+所以 =a[k]_address = base_address + k * type_size</code> ，而如果数组从 1 开始，那么 <code>a[k]_address = base_address + (k-1) * type_size</code> ，
+每次随机访问数组，多了一次减法运算，对 cpu 来说就多了一次减法指令，数组作为基础的数据结构，随机访问又是基础操作，所以效率的优化需要
+做到极致。当然也有可能是 C 语言使用 0 作为数组下标的开始，其他语言纷纷效仿。
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgf2c201e" class="outline-2">
+<h2 id="orgf2c201e">03 | 链表</h2>
+<div class="outline-text-2" id="text-orgf2c201e">
+</div>
+<div id="outline-container-org58fbba4" class="outline-3">
+<h3 id="org58fbba4">链表和数组的区别</h3>
+<div class="outline-text-3" id="text-org58fbba4">
+
+<div class="figure">
+<p><img src="../img/DataStructuresandAlgorithms/Diffence-bw-array-and-linkedlist.jpg" alt="Diffence-bw-array-and-linkedlist.jpg" width="500" />
+</p>
+</div>
+
+<p>
+数据分配的存储空间需要是连续的，而链表则不需要连续。
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgbd64bc2" class="outline-3">
+<h3 id="orgbd64bc2">链表分类</h3>
+<div class="outline-text-3" id="text-orgbd64bc2">
+</div>
+<div id="outline-container-orga1ddcbc" class="outline-4">
+<h4 id="orga1ddcbc">单链表</h4>
+<div class="outline-text-4" id="text-orga1ddcbc">
+
+<div class="figure">
+<p><img src="../img/DataStructuresandAlgorithms/linkedlist.jpg" alt="linkedlist.jpg" width="500" />
+</p>
+</div>
+
+<p>
+链表的节点除了要存储数据之外还要记录下一个节点的地址，我们称之为后继指针 <code>next</code> 。第一个节点称为 <b>头节点</b> ， 记录链接的开始地址，最后一个节点称为 <b>尾结点</b> ，尾结点的下个地址指向空地址 NULL。
+</p>
+
+<p>
+链表的插入和删除*操作*时间复杂度为 O(1)，但查询需要遍历整个链表，所以时间复杂度为 O(n)。
+</p>
+
+<div class="figure">
+<p><img src="../img/DataStructuresandAlgorithms/operation-of-linkedlist.jpg" alt="operation-of-linkedlist.jpg" width="500" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgd820080" class="outline-4">
+<h4 id="orgd820080">循环链表</h4>
+<div class="outline-text-4" id="text-orgd820080">
+
+<div class="figure">
+<p><img src="../img/DataStructuresandAlgorithms/Circular-LinkedList.jpg" alt="Circular-LinkedList.jpg" width="500" />
+</p>
+</div>
+
+<p>
+循环链表，首尾相连，是和处理具有环形结构特点的数据
+</p>
+</div>
+</div>
+
+<div id="outline-container-org6e31040" class="outline-4">
+<h4 id="org6e31040">双向链表</h4>
+<div class="outline-text-4" id="text-org6e31040">
+
+<div class="figure">
+<p><img src="../img/DataStructuresandAlgorithms/double-linkedlist.jpg" alt="double-linkedlist.jpg" width="500" />
+</p>
+</div>
+
+<p>
+单链表只有一个方向，双向链表存储后继指针 next 的同时，还有一个前驱指针 prev ，所以数据相同时，双向链表会消耗更多的存储空间。
+但双向链表支持双向遍历，在特定情况下，双向链表的插入、删除操作比单链表更高效。
+</p>
+
+<p>
+以删除操作举例：
+</p>
+
+<ul class="org-ul">
+<li>1. 删除节点中“值等于给定值”的节点</li>
+<li>2. 删除给定指针指向的节点</li>
+</ul>
+
+<p>
+对于第一种情况，单链表和双向链表都需要遍历整个链表，找到对应节点进行删除，尽管 <code>删除</code> 操作本身的时间复杂度为 O(1)，但遍历查找的时间复杂度为 O(n)，
+所以时间复杂度为 O(n);
+</p>
+
+<p>
+对于第二种情况，因为双向链表存储了前驱指针，所以可以直接删除，时间复杂度为 O(1)。但单链表还需要遍历，直到 <code>p-next = q</code> ，说明p是q的前驱节点，才能删除，所以时间复杂度仍为 O(n)。
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org08299e2" class="outline-3">
+<h3 id="org08299e2">如何基于链表实现 LRU 缓存淘汰算法？</h3>
+<div class="outline-text-3" id="text-org08299e2">
+<p>
+我们可以维护一个有序的单链表，越早访问的节点越靠近尾部。
+</p>
+
+<p>
+当有一个新数据访问时，遍历单链表，
+</p>
+
+<p>
+如果命中，把对应节点从原位置中删除，再重新插入到链表头部。
+</p>
+
+<p>
+如果没有命中，将节点插入到链表头部，需要区分两种情况：
+</p>
+
+<ul class="org-ul">
+<li>链表已满，需要删除最后一个节点，并将新节点插入到头部</li>
+<li>链表未满，直接将新节点插入到头部</li>
+</ul>
+
+<p>
+无论链表满没满，都需要遍历链表，所以时间复杂度为 O(n)。
+</p>
+</div>
+</div>
+
+<div id="outline-container-org20e24e3" class="outline-3">
+<h3 id="org20e24e3">如何轻松写出正确的链表代码？</h3>
+<div class="outline-text-3" id="text-org20e24e3">
+</div>
+<div id="outline-container-org5e45ec9" class="outline-4">
+<h4 id="org5e45ec9">技巧一：理解指针或引用的含义</h4>
+<div class="outline-text-4" id="text-org5e45ec9">
+<p>
+<b>不管指针还是引用，其实就是只存储数据的内存地址</b> 。
+</p>
+
+<p>
+将某个变量赋值给指针，实际上是将这个变量的地址赋值给指针，或者说，指针存储了这个变量的内存地址，通过指针可以找到这个变量。
+</p>
+
+<p>
+如：
+</p>
+
+<p>
+<code>p-&gt;next = q</code> ，是指 p 节点中的 next 指针存储了 q 的地址
+</p>
+
+<p>
+<code>p-next = p-&gt;next-&gt;next</code> , 是指 p 节点的 next 指针存储了 p 节点下下个节点地址
+</p>
+</div>
+</div>
+
+<div id="outline-container-orge710672" class="outline-4">
+<h4 id="orge710672">技巧二：警惕指针丢失和内存泄露</h4>
+<div class="outline-text-4" id="text-orge710672">
+
+<div class="figure">
+<p><img src="../img/DataStructuresandAlgorithms/insert-linkedlist.jpg" alt="insert-linkedlist.jpg" width="500" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org666664d" class="outline-4">
+<h4 id="org666664d">技巧三：利用哨兵简化实现难度</h4>
+<div class="outline-text-4" id="text-org666664d">
+
+<div class="figure">
+<p><img src="../img/DataStructuresandAlgorithms/sentry-linkedlist.jpg" alt="sentry-linkedlist.jpg" width="500" />
+</p>
+</div>
+
+<p>
+针对链表的插入、删除操作，需要对第一个节点的插入和最后一个节点的删除进行特殊处理，可以引入*哨兵节点*，不管链表是否为空，head指针会一直指向哨兵节点，
+带哨兵节点的链表称作带头链表。
+</p>
+</div>
+</div>
+
+<div id="outline-container-org6da71dc" class="outline-4">
+<h4 id="org6da71dc">技巧四：重点留意边界条件</h4>
+<div class="outline-text-4" id="text-org6da71dc">
+<p>
+检查边界条件是否考虑全面，如：
+</p>
+
+<ul class="org-ul">
+<li>如果链表为空，是否能正常工作</li>
+<li>如果链表只包含一个节点或者两个节点，是否正常工作</li>
+<li>代码逻辑再处理头、尾节点时是否正常工作</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org06c562c" class="outline-4">
+<h4 id="org06c562c">技巧五：举例画图，辅助思考</h4>
+</div>
+
+<div id="outline-container-orgefe754e" class="outline-4">
+<h4 id="orgefe754e">技巧六：多谢多练，没有捷径</h4>
+<div class="outline-text-4" id="text-orgefe754e">
+<ul class="org-ul">
+<li>单链表翻转</li>
+<li>链表中环的检测</li>
+<li>删除链表倒数第n个节点</li>
+<li>求链表的中间节点</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

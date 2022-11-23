@@ -3,59 +3,33 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-03-06 Sun 15:15 -->
+<!-- 2022-11-24 Thu 00:46 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ARTS</title>
-<meta name="generator" content="Org mode" />
 <meta name="author" content="Justin" />
+<meta name="generator" content="Org Mode" />
 <link rel="stylesheet" type="text/css" href="/css/worg.css"/>
 <link rel="icon" type="image/png" href="/img/icons/heckert.png">
-<script type="text/javascript">
-/*
-@licstart  The following is the entire license notice for the
-JavaScript code in this tag.
-
-Copyright (C) 2012-2020 Free Software Foundation, Inc.
-
-The JavaScript code in this tag is free software: you can
-redistribute it and/or modify it under the terms of the GNU
-General Public License (GNU GPL) as published by the Free Software
-Foundation, either version 3 of the License, or (at your option)
-any later version.  The code is distributed WITHOUT ANY WARRANTY;
-without even the implied warranty of MERCHANTABILITY or FITNESS
-FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
-
-As additional permission under GNU GPL version 3 section 7, you
-may distribute non-source (e.g., minimized or compacted) forms of
-that code without the copy of the GNU GPL normally required by
-section 4, provided you include this license notice and a URL
-through which recipients can access the Corresponding Source.
-
-
-@licend  The above is the entire license notice
-for the JavaScript code in this tag.
-*/
-<!--/*--><![CDATA[/*><!--*/
- function CodeHighlightOn(elem, id)
- {
-   var target = document.getElementById(id);
-   if(null != target) {
-     elem.cacheClassElem = elem.className;
-     elem.cacheClassTarget = target.className;
-     target.className = "code-highlighted";
-     elem.className   = "code-highlighted";
-   }
- }
- function CodeHighlightOff(elem, id)
- {
-   var target = document.getElementById(id);
-   if(elem.cacheClassElem)
-     elem.className = elem.cacheClassElem;
-   if(elem.cacheClassTarget)
-     target.className = elem.cacheClassTarget;
- }
-/*]]>*///-->
+<script>
+// @license magnet:?xt=urn:btih:1f739d935676111cfff4b4693e3816e664797050&amp;dn=gpl-3.0.txt GPL-v3-or-Later
+     function CodeHighlightOn(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.add("code-highlighted");
+         target.classList.add("code-highlighted");
+       }
+     }
+     function CodeHighlightOff(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.remove("code-highlighted");
+         target.classList.remove("code-highlighted");
+       }
+     }
+// @license-end
 </script>
 </head>
 <body>
@@ -63,15 +37,15 @@ for the JavaScript code in this tag.
  <a accesskey="h" href="index.html"> UP </a>
  |
  <a accesskey="H" href="../index.html"> HOME </a>
-</div><div id="content">
+</div><div id="content" class="content">
 <h1 class="title">ARTS</h1>
-<div id="table-of-contents">
+<div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
-<div id="text-table-of-contents">
+<div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org3f30553">发起 ARTS 的原因</a></li>
-<li><a href="#org72d332a">ARTS 的初衷</a></li>
-<li><a href="#org237d7b4">Timeline</a></li>
+<li><a href="#orgea3c7b5">发起 ARTS 的原因</a></li>
+<li><a href="#org0d9b2f2">ARTS 的初衷</a></li>
+<li><a href="#org7d52809">Timeline</a></li>
 </ul>
 </div>
 </div>
@@ -79,9 +53,9 @@ for the JavaScript code in this tag.
 本计划为<a href="leftear.html">左耳听风</a>发起的 ARTS 计划。
 </p>
 
-<div id="outline-container-org3f30553" class="outline-2">
-<h2 id="org3f30553">发起 ARTS 的原因</h2>
-<div class="outline-text-2" id="text-org3f30553">
+<div id="outline-container-orgea3c7b5" class="outline-2">
+<h2 id="orgea3c7b5">发起 ARTS 的原因</h2>
+<div class="outline-text-2" id="text-orgea3c7b5">
 <p>
 我们整个世界进入了前所未有的信息爆炸时代，人们担忧的不再是无知识可学，而是有学不完的知识。而且时代的节奏变得越来越快，你可能再也不像 20 年前，
 可以沉着优雅平和地泡上一杯茶，坐在一个远离喧嚣的环境下，认认真真地看本书。这个时代，你再也不会有大块大块的时间，你的时间都被打成碎片了，不知不觉你也成为了快餐文化的拥趸……
@@ -104,9 +78,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org72d332a" class="outline-2">
-<h2 id="org72d332a">ARTS 的初衷</h2>
-<div class="outline-text-2" id="text-org72d332a">
+<div id="outline-container-org0d9b2f2" class="outline-2">
+<h2 id="org0d9b2f2">ARTS 的初衷</h2>
+<div class="outline-text-2" id="text-org0d9b2f2">
 <ul class="org-ul">
 <li>Algorithm：主要是为了编程训练和学习。每周至少做一个 leetcode 的算法题（先从Easy开始，然后再Medium，最后才Hard）进行编程训练，如果不训练你看再多的算法书，你依然不会做算法题，看完书后，你需要训练。</li>
 
@@ -123,9 +97,9 @@ for the JavaScript code in this tag.
 </p>
 </div>
 </div>
-<div id="outline-container-org237d7b4" class="outline-2">
-<h2 id="org237d7b4">Timeline</h2>
-<div class="outline-text-2" id="text-org237d7b4">
+<div id="outline-container-org7d52809" class="outline-2">
+<h2 id="org7d52809">Timeline</h2>
+<div class="outline-text-2" id="text-org7d52809">
 <p>
 <a href=" ./2019/index.html">- 2019</a>
 </p>

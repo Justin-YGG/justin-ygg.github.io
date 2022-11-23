@@ -3,59 +3,33 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-03-06 Sun 15:15 -->
+<!-- 2022-11-24 Thu 00:46 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
-<meta name="generator" content="Org mode" />
 <meta name="author" content="Justin" />
+<meta name="generator" content="Org Mode" />
 <link rel="stylesheet" type="text/css" href="/css/worg.css"/>
 <link rel="icon" type="image/png" href="/img/icons/heckert.png">
-<script type="text/javascript">
-/*
-@licstart  The following is the entire license notice for the
-JavaScript code in this tag.
-
-Copyright (C) 2012-2020 Free Software Foundation, Inc.
-
-The JavaScript code in this tag is free software: you can
-redistribute it and/or modify it under the terms of the GNU
-General Public License (GNU GPL) as published by the Free Software
-Foundation, either version 3 of the License, or (at your option)
-any later version.  The code is distributed WITHOUT ANY WARRANTY;
-without even the implied warranty of MERCHANTABILITY or FITNESS
-FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
-
-As additional permission under GNU GPL version 3 section 7, you
-may distribute non-source (e.g., minimized or compacted) forms of
-that code without the copy of the GNU GPL normally required by
-section 4, provided you include this license notice and a URL
-through which recipients can access the Corresponding Source.
-
-
-@licend  The above is the entire license notice
-for the JavaScript code in this tag.
-*/
-<!--/*--><![CDATA[/*><!--*/
- function CodeHighlightOn(elem, id)
- {
-   var target = document.getElementById(id);
-   if(null != target) {
-     elem.cacheClassElem = elem.className;
-     elem.cacheClassTarget = target.className;
-     target.className = "code-highlighted";
-     elem.className   = "code-highlighted";
-   }
- }
- function CodeHighlightOff(elem, id)
- {
-   var target = document.getElementById(id);
-   if(elem.cacheClassElem)
-     elem.className = elem.cacheClassElem;
-   if(elem.cacheClassTarget)
-     target.className = elem.cacheClassTarget;
- }
-/*]]>*///-->
+<script>
+// @license magnet:?xt=urn:btih:1f739d935676111cfff4b4693e3816e664797050&amp;dn=gpl-3.0.txt GPL-v3-or-Later
+     function CodeHighlightOn(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.add("code-highlighted");
+         target.classList.add("code-highlighted");
+       }
+     }
+     function CodeHighlightOff(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.remove("code-highlighted");
+         target.classList.remove("code-highlighted");
+       }
+     }
+// @license-end
 </script>
 </head>
 <body>
@@ -63,45 +37,45 @@ for the JavaScript code in this tag.
  <a accesskey="h" href="index.html"> UP </a>
  |
  <a accesskey="H" href="../index.html"> HOME </a>
-</div><div id="content">
-<div id="table-of-contents">
+</div><div id="content" class="content">
+<div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
-<div id="text-table-of-contents">
+<div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org1536a28">redis 和 memcache 的区别</a>
+<li><a href="#orgf9ce16b">redis 和 memcache 的区别</a>
 <ul>
-<li><a href="#org62dac38">redis</a></li>
-<li><a href="#org3028474">memcache</a></li>
+<li><a href="#orgfd2bda2">redis</a></li>
+<li><a href="#org2393558">memcache</a></li>
 </ul>
 </li>
-<li><a href="#org1869f14">Redis 常用数据结构</a>
+<li><a href="#orgef7ce1f">Redis 常用数据结构</a>
 <ul>
-<li><a href="#orgdc2c86b">String</a></li>
-<li><a href="#org3c020e1">List</a></li>
-<li><a href="#org699b3ce">字典 hash</a></li>
-<li><a href="#org1cf13de">集合 set</a></li>
-<li><a href="#org8534705">有序列表 zset</a></li>
+<li><a href="#orgad3de47">String</a></li>
+<li><a href="#orgfcb1c8f">List</a></li>
+<li><a href="#orgf372b53">字典 hash</a></li>
+<li><a href="#org4848ac3">集合 set</a></li>
+<li><a href="#org9212f03">有序列表 zset</a></li>
 </ul>
 </li>
-<li><a href="#orgd9463d7">redis 分布式锁在什么场景下使用？与 zookeeper 分布式锁的区别</a></li>
-<li><a href="#orgdd3ecdb">redis缓存与mysql数据一致性方案</a>
+<li><a href="#org6b01cd5">redis 分布式锁在什么场景下使用？与 zookeeper 分布式锁的区别</a></li>
+<li><a href="#org9c38a1b">redis缓存与mysql数据一致性方案</a>
 <ul>
-<li><a href="#org8a59d85">Cache Aside Pattern</a></li>
+<li><a href="#orgd7ae4f9">Cache Aside Pattern</a></li>
 </ul>
 </li>
-<li><a href="#org1426cbb">你有没有考虑过，如果你多个系统同时操作（并发）Redis带来的数据问题？</a></li>
-<li><a href="#orgbb9a76f">为什么redis采用单线程模型</a></li>
-<li><a href="#org9a52660">Redis6.0引入了多线程，是为了解决网络的 IO 消耗？</a></li>
+<li><a href="#org84738a9">你有没有考虑过，如果你多个系统同时操作（并发）Redis带来的数据问题？</a></li>
+<li><a href="#org3e752d8">为什么redis采用单线程模型</a></li>
+<li><a href="#org0308a62">Redis6.0引入了多线程，是为了解决网络的 IO 消耗？</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org1536a28" class="outline-2">
-<h2 id="org1536a28">redis 和 memcache 的区别</h2>
-<div class="outline-text-2" id="text-org1536a28">
+<div id="outline-container-orgf9ce16b" class="outline-2">
+<h2 id="orgf9ce16b">redis 和 memcache 的区别</h2>
+<div class="outline-text-2" id="text-orgf9ce16b">
 </div>
-<div id="outline-container-org62dac38" class="outline-3">
-<h3 id="org62dac38">redis</h3>
-<div class="outline-text-3" id="text-org62dac38">
+<div id="outline-container-orgfd2bda2" class="outline-3">
+<h3 id="orgfd2bda2">redis</h3>
+<div class="outline-text-3" id="text-orgfd2bda2">
 <ul class="org-ul">
 <li>支持更丰富的数据结构，列表、集合、有序集合等</li>
 <li>支持持久化</li>
@@ -111,9 +85,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org3028474" class="outline-3">
-<h3 id="org3028474">memcache</h3>
-<div class="outline-text-3" id="text-org3028474">
+<div id="outline-container-org2393558" class="outline-3">
+<h3 id="org2393558">memcache</h3>
+<div class="outline-text-3" id="text-org2393558">
 <ul class="org-ul">
 <li>纯kv结构存储</li>
 <li>使用内存预分配，redis使用临时分配，容易产生碎片</li>
@@ -123,13 +97,13 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org1869f14" class="outline-2">
-<h2 id="org1869f14">Redis 常用数据结构</h2>
-<div class="outline-text-2" id="text-org1869f14">
+<div id="outline-container-orgef7ce1f" class="outline-2">
+<h2 id="orgef7ce1f">Redis 常用数据结构</h2>
+<div class="outline-text-2" id="text-orgef7ce1f">
 </div>
-<div id="outline-container-orgdc2c86b" class="outline-3">
-<h3 id="orgdc2c86b">String</h3>
-<div class="outline-text-3" id="text-orgdc2c86b">
+<div id="outline-container-orgad3de47" class="outline-3">
+<h3 id="orgad3de47">String</h3>
+<div class="outline-text-3" id="text-orgad3de47">
 <p>
 内部的实现结构是redis自己实现的 sds（simple dynamic string），其中包含了了 len、free、buf 三个属性，buf 是用来保存字符的数组，len 表示数组中存储的字符长度， free 表示数组中的可用空间；这个结构被用于存储 redis 中的键值、以及 value为字符串或者是列表中的元素是字符的存储，同时也在 AOF 缓冲区中使用；
 </p>
@@ -146,18 +120,18 @@ redis 对字符串的存储并没有使用传统的C语言字符串，有几个�
 </div>
 </div>
 
-<div id="outline-container-org3c020e1" class="outline-3">
-<h3 id="org3c020e1">List</h3>
-<div class="outline-text-3" id="text-org3c020e1">
+<div id="outline-container-orgfcb1c8f" class="outline-3">
+<h3 id="orgfcb1c8f">List</h3>
+<div class="outline-text-3" id="text-orgfcb1c8f">
 <p>
 双向链表实现，支持 len 属性
 </p>
 </div>
 </div>
 
-<div id="outline-container-org699b3ce" class="outline-3">
-<h3 id="org699b3ce">字典 hash</h3>
-<div class="outline-text-3" id="text-org699b3ce">
+<div id="outline-container-orgf372b53" class="outline-3">
+<h3 id="orgf372b53">字典 hash</h3>
+<div class="outline-text-3" id="text-orgf372b53">
 <p>
 底层数据结构是redis实现的字段，由哈希表实现，字典中包含两个哈希表，其中一个是正常使用的，另外一个是在数组rehash的时候使用，还有一个trehashidx用来标记rehash是否完成。
 </p>
@@ -180,18 +154,18 @@ redis 对字符串的存储并没有使用传统的C语言字符串，有几个�
 </div>
 </div>
 
-<div id="outline-container-org1cf13de" class="outline-3">
-<h3 id="org1cf13de">集合 set</h3>
-<div class="outline-text-3" id="text-org1cf13de">
+<div id="outline-container-org4848ac3" class="outline-3">
+<h3 id="org4848ac3">集合 set</h3>
+<div class="outline-text-3" id="text-org4848ac3">
 <p>
 无需，唯一的集合，内部实现相当于一个特殊的字典，value 都为空
 </p>
 </div>
 </div>
 
-<div id="outline-container-org8534705" class="outline-3">
-<h3 id="org8534705">有序列表 zset</h3>
-<div class="outline-text-3" id="text-org8534705">
+<div id="outline-container-org9212f03" class="outline-3">
+<h3 id="org9212f03">有序列表 zset</h3>
+<div class="outline-text-3" id="text-org9212f03">
 <ul class="org-ul">
 <li>元素少于128 所有成员长度小于64字节时，用ziplist 否则用 skiplist</li>
 </ul>
@@ -230,16 +204,16 @@ redis 对字符串的存储并没有使用传统的C语言字符串，有几个�
 </div>
 </div>
 </div>
-<div id="outline-container-orgd9463d7" class="outline-2">
-<h2 id="orgd9463d7">redis 分布式锁在什么场景下使用？与 zookeeper 分布式锁的区别</h2>
+<div id="outline-container-org6b01cd5" class="outline-2">
+<h2 id="org6b01cd5">redis 分布式锁在什么场景下使用？与 zookeeper 分布式锁的区别</h2>
 </div>
-<div id="outline-container-orgdd3ecdb" class="outline-2">
-<h2 id="orgdd3ecdb">redis缓存与mysql数据一致性方案</h2>
-<div class="outline-text-2" id="text-orgdd3ecdb">
+<div id="outline-container-org9c38a1b" class="outline-2">
+<h2 id="org9c38a1b">redis缓存与mysql数据一致性方案</h2>
+<div class="outline-text-2" id="text-org9c38a1b">
 </div>
-<div id="outline-container-org8a59d85" class="outline-3">
-<h3 id="org8a59d85">Cache Aside Pattern</h3>
-<div class="outline-text-3" id="text-org8a59d85">
+<div id="outline-container-orgd7ae4f9" class="outline-3">
+<h3 id="orgd7ae4f9">Cache Aside Pattern</h3>
+<div class="outline-text-3" id="text-orgd7ae4f9">
 <ul class="org-ul">
 <li>先读缓存，命中返回；否则读数据库，成功后，放到缓存中</li>
 <li>更新时，先更新数据库，再失效缓存；为何不能先失效缓存，再更新数据库？如果两个并发操作，一个读，一个更新，更新操作失效缓存后，读操作没有命中缓存，就从数据库读到旧数据，塞到缓存中，然后更新操作完成，这样数据库与缓存中的数据就不一致了。</li>
@@ -260,9 +234,9 @@ redis 对字符串的存储并没有使用传统的C语言字符串，有几个�
 </div>
 </div>
 
-<div id="outline-container-org1426cbb" class="outline-2">
-<h2 id="org1426cbb">你有没有考虑过，如果你多个系统同时操作（并发）Redis带来的数据问题？</h2>
-<div class="outline-text-2" id="text-org1426cbb">
+<div id="outline-container-org84738a9" class="outline-2">
+<h2 id="org84738a9">你有没有考虑过，如果你多个系统同时操作（并发）Redis带来的数据问题？</h2>
+<div class="outline-text-2" id="text-org84738a9">
 <p>
 系统A、B、C三个系统，分别去操作Redis的同一个Key，本来顺序是1，2，3是正常的，但是因为系统A网络突然抖动了一下，B，C在他前面操作了Redis，这样数据不就错了么。
 </p>
@@ -275,9 +249,9 @@ redis 对字符串的存储并没有使用传统的C语言字符串，有几个�
 
 
 
-<div id="outline-container-orgbb9a76f" class="outline-2">
-<h2 id="orgbb9a76f">为什么redis采用单线程模型</h2>
-<div class="outline-text-2" id="text-orgbb9a76f">
+<div id="outline-container-org3e752d8" class="outline-2">
+<h2 id="org3e752d8">为什么redis采用单线程模型</h2>
+<div class="outline-text-2" id="text-org3e752d8">
 <ul class="org-ul">
 <li>使用单线程模型具有更好的可维护性</li>
 </ul>
@@ -304,9 +278,9 @@ redis 通过使用 I/O 多路复用机制可以并发处理来自客户端的多
 </div>
 </div>
 
-<div id="outline-container-org9a52660" class="outline-2">
-<h2 id="org9a52660">Redis6.0引入了多线程，是为了解决网络的 IO 消耗？</h2>
-<div class="outline-text-2" id="text-org9a52660">
+<div id="outline-container-org0308a62" class="outline-2">
+<h2 id="org0308a62">Redis6.0引入了多线程，是为了解决网络的 IO 消耗？</h2>
+<div class="outline-text-2" id="text-org0308a62">
 <p>
 I/O 多路复用的主要作用是让我们可以使用一个线程来监控多个连接是否可读或者可写，但是从网络另一头发的数据包需要先解序列化成 Redis 内部其他模块可以理解的命令，这个过程就是 Redis 6.0 引入多线程来并发处理的。
 </p>

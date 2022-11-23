@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2022-03-06 Sun 15:15 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>&lrm;</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Justin" />
+<link rel="stylesheet" type="text/css" href="/css/worg.css"/>
+<link rel="icon" type="image/png" href="/img/icons/heckert.png">
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="index.html"> UP </a>
+ |
+ <a accesskey="H" href="../index.html"> HOME </a>
+</div><div id="content">
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org5e72af2">Algorithm</a></li>
+<li><a href="#org5f95afd">Review</a></li>
+<li><a href="#orgc6f416a">Tip</a></li>
+<li><a href="#orgbb8d755">Share</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org5e72af2" class="outline-2">
+<h2 id="org5e72af2">Algorithm</h2>
+<div class="outline-text-2" id="text-org5e72af2">
+<p>
+<a href="https://leetcode.com/problems/two-sum/">1.Two Sum</a>
+</p>
+
+<ul class="org-ul">
+<li>暴力求解：直接双重遍历去找是否存在与当期值加和等于目标值的元素，时间复杂度 O(n<sup>2</sup>) ，空间复杂度 O(1)</li>
+<li>哈希表：构建 <code>值-索引</code> 的键值对，然后遍历去找与当前值匹配的对应值，当然更好的方式是边构建边往回找目标值，时间复杂度 O(n) ，空间复杂度 O(n)</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #EF2F27;">class</span> <span style="color: #68A8E4;">Solution</span><span style="color: #FCE8C3;">(</span><span style="color: #2C78BF;">object</span><span style="color: #FCE8C3;">)</span>:
+    <span style="color: #EF2F27;">def</span> <span style="color: #FBB829;">twoSum</span><span style="color: #FCE8C3;">(</span><span style="color: #EF2F27;">self</span>, nums, target<span style="color: #FCE8C3;">)</span>:
+        <span style="color: #519F50;">"""</span>
+<span style="color: #519F50;">        :type nums: List[int]</span>
+<span style="color: #519F50;">        :type target: int</span>
+<span style="color: #519F50;">        :rtype: List[int]</span>
+<span style="color: #519F50;">        """</span>
+        <span style="color: #0AAEB3;">nums_dict</span> = <span style="color: #FCE8C3;">{}</span>
+        <span style="color: #EF2F27;">for</span> index, num <span style="color: #EF2F27;">in</span> <span style="color: #2C78BF;">enumerate</span><span style="color: #FCE8C3;">(</span>nums<span style="color: #FCE8C3;">)</span>:
+            <span style="color: #EF2F27;">if</span> target - num <span style="color: #EF2F27;">in</span> nums_dict:
+                <span style="color: #EF2F27;">return</span> <span style="color: #2C78BF;">sorted</span><span style="color: #FCE8C3;">(</span><span style="color: #68A8E4;">[</span>index, nums_dict<span style="color: #FCE8C3;">[</span>target - num<span style="color: #FCE8C3;">]</span><span style="color: #68A8E4;">]</span><span style="color: #FCE8C3;">)</span>
+            <span style="color: #0AAEB3;">nums_dict</span><span style="color: #FCE8C3;">[</span>num<span style="color: #FCE8C3;">]</span> = index
+        <span style="color: #EF2F27;">return</span> <span style="color: #FCE8C3;">[]</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org5f95afd" class="outline-2">
+<h2 id="org5f95afd">Review</h2>
+<div class="outline-text-2" id="text-org5f95afd">
+<p>
+本文来自 OpenAI 联合创始 Sam Altman 的博客，他分享了关于工作中提高效率的几个观点，<a href="http://blog.samaltman.com/productivity">原文戳此</a>。
+</p>
+
+<p>
+推荐阅读：<a href="https://www.newyorker.com/magazine/2016/10/10/sam-altmans-manifest-destiny">Sam Altman’s Manifest Destiny</a>
+</p>
+
+<p>
+Altman 比较注重复利的力量，我在其另外一篇文章中也看到过相关的观点。当然复利是一个金融概念，每天的成长和每一次的突破都会成为未来发展的基础。
+因为时间和再投资是影响复利的重要因素，所以越早开始投资自己，持续的输入输出，达到某个临界点时，成长曲线就会开始陡峭增长，价值回报就会出现质的飞跃。
+虽然此文不是技术类文章，但作为开篇文章，希望 ARTS 计划给自己带来复利的力量。
+</p>
+
+<ul class="org-ul">
+<li><p>
+<b>知道要做什么</b>
+</p>
+
+<p>
+知道要做什么，做自己喜欢的事，这一点非常重要。如果自己不清楚自己要做什么，方向不对，再努力也是徒劳，只会事倍功半。当然，在实际工作中，我们每个人的工作或多或少
+都会有些不如意，这就需要区分这些时刻的频率和持续时间。如果只是暂时的或者通过调节、沟通能够解决掉的，这种自行调节便可。作者提到了委派，可能有些工作你不喜欢做，但其他同事比较感兴趣，
+那么在可行的情况下，委派他人或者合理的调动，当然这一点在实际中操作条件各有差异；如果是长时间无法跳出来，从根本上无法解决的情况，那最好还是换个工作吧。现在是一个协同合作的社会，所以同事也很重要，
+多和聪明、积极向上的同事交流合作，避免与经常释放负能量的人接触。
+</p></li>
+
+<li><p>
+<b>优先级</b>
+</p>
+
+<p>
+作者会对自己的工作指定优先级，先做最重要的事。作者使用纸笔直接罗列 TODO，顶多用星星区分优先级，这种做法我非常赞同，目前市面上各种效率工具五花八门，功能也非常繁多。我们其实要避免陷入到
+效率旋涡中，不要花费太多精力去做一些没有太大意义的事，比如：如何更完美的分组，哪一个 app 更好用、更好看，如何使用非常复杂的时间流去等等，我们要把关注点始终应该放在如何高效的做事，而不是如何更好地提高效率本身上。
+还有，不要只做计划或者做太多详细的计划，如果是未来比较远的计划，可以做的简略一点。更多的关注近期，并制定可执行性较强的计划，让自己处于适当忙碌的状态，这样更容易有种紧迫感，促使自己更好地完成任务。
+</p>
+
+<p>
+还有一点是，不要为了省钱，去做一些不想做、没必要且浪费时间的事。时间是最公平和最宝贵的资源，合理地充分利用时间就是省下了最大的一笔钱。这一点，在我搬到公司附近住以后，深有体会。
+</p></li>
+
+<li><p>
+<b>身体因素</b>
+</p>
+
+<p>
+这一点无需多言，好的身体是革命的本钱。适量的运动和合理的膳食非常重要，前段时间自己做一段少油少盐的餐食，虽然在口感上有些无味，但身体感觉会轻盈一些。减少糖分的摄入，饮料最好别喝，这是我的一些小建议。
+</p></li>
+</ul>
+
+<p>
+<b>当然，不要忘记家人和朋友。</b>
+</p>
+</div>
+</div>
+<div id="outline-container-orgc6f416a" class="outline-2">
+<h2 id="orgc6f416a">Tip</h2>
+<div class="outline-text-2" id="text-orgc6f416a">
+<p>
+分享两个 git 小技巧：
+</p>
+
+<ul class="org-ul">
+<li><code>git branch |grep 'branchName' |xargs git branch -D</code> ，可以用于批量删除本地分支</li>
+<li>通过安装<a href="https://github.com/nvie/git-toolbelt"> git-toolbelt</a>，简化 git 命令， 比如：直接使用 <code>git fixup</code> 来替代 <code>git commit --amend</code> ，不会再进入编辑界面。</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgbb8d755" class="outline-2">
+<h2 id="orgbb8d755">Share</h2>
+<div class="outline-text-2" id="text-orgbb8d755">
+<p>
+<a href="http://blog.thefirehoseproject.com/posts/learn-to-code-and-be-self-reliant/">The Key To Accelerating Your Coding Skills</a>
+</p>
+
+<p>
+我觉得每个开发者去读这篇文章时，都能找到自己所处的阶段，文章也比较准确地描述了开发者在学习编程过程中，每个阶段要突破的增长点。
+经历前面几个阶段之后会达到技术的 <code>拐点</code> ，如果我们可以跨过拐点，那编码能力就会出现飞跃式提高。
+</p>
+
+
+<div class="figure">
+<p><img src="img/inflection-point.png" alt="inflection-point.png" width="500" />
+</p>
+</div>
+
+<ul class="org-ul">
+<li><p>
+教程阶段
+</p>
+
+<p>
+学习一门新的技术或语言，首先要去看教程，知道一些基础的概念和基本的语法，然后根据示例或者教程去完成一些特定的任务。在这个过程中
+我们肯定会遇到很多问题，然后重新翻阅文档或者 Google 一下去找寻解决方案；也会碰到很多报错，这个时候在解决报错的同时也要去细究
+其背后的原理；在这个阶段，可能也会有同事或导师帮助或指导你该如何去完成任务。随着时间的推移和代码量的增加，我们会完成对特定领域
+知识的学习和使用，知道如何去解决问题，也可以根据过去写过的代码对当前的任务进行关联或复用。
+</p></li>
+
+<li><p>
+拐点阶段
+</p>
+
+<p>
+拐点阶段可能会比较难熬，这一点要做好心理准备去迎接挑战。这一阶段，可能开始需要我们自主去承担一些任务，提出解决问题的方案。在编码
+时间上可能会比上一阶段慢很多，同时也需要我们跳出自己的舒适区，去寻求一个突破，去尝试完成高于当前能力的工作，这个时候可能就需要我们
+自己去弄清需要学习什么知识，要用哪些技术来解决什么样的问题等等。这是技术上的突破也是心理上的突破，所以，也要适度地调整心态和强度，
+不要过度地紧绷和消耗身体，这样才能循序渐进的迈过拐点。
+</p></li>
+</ul>
+
+<p>
+在 web 开发领域有两个拐点：
+</p>
+
+<ul class="org-ul">
+<li>web 开发拐点：能够熟练掌握 <code>CRUD</code> ，并能够调用第三库完成数据驱动的应用。</li>
+
+<li>数据结构和算法拐点：能够熟练使用并理解各种算法，并且掌握对排序、队列、栈、链表等的实现与操作</li>
+</ul>
+
+<p>
+<b>编程是一个终身的事业，我们永远学不会所有的知识。所以从大局看来，特定领域的知识意义没有那么大，我们要寻求的是找到过程中的拐点，并且迈过它。</b>
+</p>
+</div>
+</div>
+</div>
+</body>
+</html>

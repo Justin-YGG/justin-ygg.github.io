@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2022-03-06 Sun 15:15 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>&lrm;</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Justin" />
+<link rel="stylesheet" type="text/css" href="/css/worg.css"/>
+<link rel="icon" type="image/png" href="/img/icons/heckert.png">
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="index.html"> UP </a>
+ |
+ <a accesskey="H" href="../index.html"> HOME </a>
+</div><div id="content">
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org86f572b">TCP/IP/HTTP</a></li>
+<li><a href="#orgb7f2eba">数据库</a></li>
+<li><a href="#orgb53d4b6">nginx</a></li>
+<li><a href="#orgf15ce04">redis</a></li>
+<li><a href="#orgdfcb49e">队列</a></li>
+<li><a href="#orgf743e16">安全</a></li>
+<li><a href="#orgb3d2de7">算法</a></li>
+<li><a href="#org2d39828">其他</a></li>
+<li><a href="#org742ec38">分布式</a></li>
+<li><a href="#orgd816a1c">操作系统</a></li>
+<li><a href="#orga656eb6">设计模式</a></li>
+<li><a href="#org48404b1">新增</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org86f572b" class="outline-2">
+<h2 id="org86f572b">TCP/IP/HTTP</h2>
+<div class="outline-text-2" id="text-org86f572b">
+<ul class="org-ul">
+<li>tcp，udp区别</li>
+<li>tcp 有哪些机制确保可靠性？拥塞控制怎么实现？</li>
+<li>close<sub>wait</sub> 太多怎么处理？为什么会出现这种情况？</li>
+<li>三次握手，为什么？ 四次挥手，为什么要等待2msl? 服务器没有收到最后一个ack怎么办</li>
+<li>http 与 https 区别，对称加密与非对称加密，混合加密，数字证书</li>
+<li>http 缓存机制都有哪些？什么是 cdn？header 中涉及到缓存的字段有哪些？</li>
+<li>todo 网络的拥塞控制的基本四种算法 慢开始，拥塞避免，快重传，快恢复。</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgb7f2eba" class="outline-2">
+<h2 id="orgb7f2eba">数据库</h2>
+<div class="outline-text-2" id="text-orgb7f2eba">
+<ul class="org-ul">
+<li>B+树和B树，为什么用 B+ 数，跟红黑树有什么区别</li>
+<li>悲观锁和乐观锁区别和应用，ABA问题的解决</li>
+<li>done 事务的隔离级别：读未提交，读提交，可重复读、串行化</li>
+<li>如何解决幻读</li>
+<li>mysql 索引，覆盖索引，联合索引，最左前缀，索引下推</li>
+<li>todo MVCC的实现原理</li>
+<li>mysql如果发生了抖动，怎么排查问题</li>
+<li><p>
+MyISAM、InnoDB 区别？为什么不用 MyISAM？
+</p>
+
+<p>
+InnoDB : 支持事务；支持redo log 可以快速恢复；聚集索引，效率更高
+myisam：不支持事务；不支持 redo log，恢复困难；非聚集索引
+</p></li>
+
+<li>redo log，binlog，两阶段提交？</li>
+<li>主键选随机 id、uuid 还是自增 id？为什么？主键有序无序对数据库的影响？</li>
+<li><p>
+联合索引的最左匹配原则
+</p>
+
+<p>
+最左前缀可以是联合索引的最左 N 个字段，也可以是字符串索引的最左 M 个字符
+</p></li>
+
+<li>mysql的explain有用过吗？讲一讲数据库的慢查询？</li>
+<li>数据库的悲观和乐观锁都说一下吧，什么时候用乐观锁比较合适？什么时候用悲观锁呢？</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgb53d4b6" class="outline-2">
+<h2 id="orgb53d4b6">nginx</h2>
+<div class="outline-text-2" id="text-orgb53d4b6">
+<ul class="org-ul">
+<li>nginx的epoll模型的介绍以及io多路复用模型</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgf15ce04" class="outline-2">
+<h2 id="orgf15ce04">redis</h2>
+<div class="outline-text-2" id="text-orgf15ce04">
+<ul class="org-ul">
+<li>redis数据结构是哪些，有序集合的底层实现，跳表的实现</li>
+<li>Redis 数据结构、对象，使用场景</li>
+<li>Redis 内存淘汰策略</li>
+<li>缓存的热点 Key 怎么处理？redis 缓存穿透，怎么避免？</li>
+<li>redis keys 命令有什么缺点</li>
+<li>主从同步原理，新加从库的过程</li>
+<li>RDB 和 AOF 怎么选择，什么场景使用？</li>
+<li>redis 的 zset 的使用场景？底层实现？为什么要用跳表？</li>
+<li>怎么实现 redis 分布式锁？</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgdfcb49e" class="outline-2">
+<h2 id="orgdfcb49e">队列</h2>
+<div class="outline-text-2" id="text-orgdfcb49e">
+<ul class="org-ul">
+<li>队列选型
+<ul class="org-ul">
+<li>开源，社区活跃，比较成熟的周边生态</li>
+<li>可靠的消息传递，支持集群</li>
+<li>RabbitMQ 认为消息队列是一个管道，不合适消息堆积，性能较差</li>
+<li>RocketMQ 性能·稳定性都很好，响应时延 也不错 毫秒级响应延时</li>
+<li>Kafka 周年兼容最好；大量使用了批量和异步的思想 性能很好，同步支持不好，不太适合在线业务</li>
+</ul></li>
+<li><p>
+消息积压了该如何处理？ 
+</p>
+
+<p>
+扩容、系统降级；消费和发送速度正常时，检查消费端看是不是有特殊情况拖慢消费
+</p></li>
+
+<li>如何确保消息不丢失
+
+<ul class="org-ul">
+<li>用消息队列的有序性来验证是否有消息丢失, 保证各自分区连续</li>
+<li>生产：注意捕获同步响应和异步通知错误并重发，发送-broker响应</li>
+<li>存储(集群，会被复制到其他副本)，配置 Broker 参数，在收到消息后，将消息写入磁盘后再给 Producer 返回确认响应，这样即使发生宕机</li>
+<li>消费 cosumer 消费成功后，向broker发送响应，不要在收到消息后就立即发送消费确认，而是应该在执行完所有消费业务逻辑之后，再发送消费确认</li>
+</ul></li>
+
+<li>如何处理重复消息
+<ul class="org-ul">
+<li>At most once At least once Exactly once</li>
+<li>幂等性, 其任意多次执行所产生的影响均与一次执行的影响相同
+At least once + 幂等消费 = Exactly once
+从业务逻辑设计上入手，将消费的业务逻辑设计成具备幂等性的操作
+<ol class="org-ol">
+<li>数据库唯一约束 2.更新前置条件 3. 记录并检查，全局唯一id</li>
+</ol></li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgf743e16" class="outline-2">
+<h2 id="orgf743e16">安全</h2>
+<div class="outline-text-2" id="text-orgf743e16">
+<ul class="org-ul">
+<li>SQL注入 预编译，参数过滤</li>
+<li>xss、csrf</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgb3d2de7" class="outline-2">
+<h2 id="orgb3d2de7">算法</h2>
+<div class="outline-text-2" id="text-orgb3d2de7">
+<ul class="org-ul">
+<li>剑指原题，剪绳子</li>
+<li>排序数组，平方后，数组当中有多少不同的数字（相同算一个）</li>
+<li>二叉树最长路径</li>
+<li>合并N个有序数组，每个数组的长度为M，合并为N*M的有序数组，时间复杂度要求最低</li>
+
+<li>什么是最小堆？什么是最大堆？在堆中怎么插入一个元素？</li>
+<li>二分查找法的变种题,给定target和一个升序的数组,寻找下一个比数组大的数</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org2d39828" class="outline-2">
+<h2 id="org2d39828">其他</h2>
+<div class="outline-text-2" id="text-org2d39828">
+<ul class="org-ul">
+<li>哈希表实现原理及扩容方式</li>
+<li>浏览器中输入一个url后，发生了什么</li>
+<li>nginx 负载均衡有哪些算法？各自有什么优缺点？</li>
+<li>文件上传服务器的原理</li>
+
+<li>uWSGI 工作原理</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org742ec38" class="outline-2">
+<h2 id="org742ec38">分布式</h2>
+<div class="outline-text-2" id="text-org742ec38">
+<ul class="org-ul">
+<li>有哪些分布式组件是你最熟悉的，简单聊一聊。</li>
+<li>cap 是指什么？mysql 满足 cap 中哪些？</li>
+<li>分布式锁有哪些方式可以实现？各有什么优缺点？</li>
+<li>什么是一致性 hash？自己实现一致性 hash，会用什么数据结构？</li>
+<li>有什么分布式 id 生成方法？各自的优缺点是什么？</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgd816a1c" class="outline-2">
+<h2 id="orgd816a1c">操作系统</h2>
+<div class="outline-text-2" id="text-orgd816a1c">
+<ul class="org-ul">
+<li>死锁和死锁的检测</li>
+<li>进程和线程的区别，并行和并发的区别，了解协程吗</li>
+<li>进程间通信的方法都有什么</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orga656eb6" class="outline-2">
+<h2 id="orga656eb6">设计模式</h2>
+<div class="outline-text-2" id="text-orga656eb6">
+<p>
+工厂方法和抽象工厂的区别
+装饰器和代理区别
+单例
+对于单例，你知道哪些实现方法？
+实现一个懒加载单例
+双重校验锁为什么需要双重校验？
+</p>
+
+<p>
+、有一个1G大小的一个文件，里面每一行是一个词，词的大小不超过16字节，内存限制大小是1M。返回频数最高的100个词。
+</p>
+
+<p>
+    方案：顺序读文件中，对于每个词x，取hash(x)%5000，然后按照该值存到5000个小文件（记为x0,x1,&#x2026;x4999）中。这样每个文件大概是200k左右。
+</p>
+
+<p>
+    如果其中的有的文件超过了1M大小，还可以按照类似的方法继续往下分，直到分解得到的小文件的大小都不超过1M。
+    对每个小文件，统计每个文件中出现的词以及相应的频率（可以采用trie树/hash<sub>map等</sub>），并取出出现频率最大的100个词（可以用含100个结点的最小堆），并把100个词及相应的频率存入文件，这样又得到了5000个文件。下一步就是把这5000个文件进行归并（类似与归并排序）的过程了。
+————————————————
+版权声明：本文为CSDN博主「v<sub>JULY</sub><sub>v</sub>」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。
+原文链接：<a href="https://blog.csdn.net/v_JULY_v/article/details/6279498">https://blog.csdn.net/v_JULY_v/article/details/6279498</a>
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org48404b1" class="outline-2">
+<h2 id="org48404b1">新增</h2>
+<div class="outline-text-2" id="text-org48404b1">
+<ul class="org-ul">
+<li>类加载器工作机制</li>
+</ul>
+</div>
+</div>
+</div>
+</body>
+</html>

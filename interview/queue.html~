@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2022-03-06 Sun 15:15 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>&lrm;</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Justin" />
+<link rel="stylesheet" type="text/css" href="/css/worg.css"/>
+<link rel="icon" type="image/png" href="/img/icons/heckert.png">
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="index.html"> UP </a>
+ |
+ <a accesskey="H" href="../index.html"> HOME </a>
+</div><div id="content">
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org58a432a">rocketmq 和 kafka 的区别</a>
+<ul>
+<li><a href="#org5f6b42b">rocketmq</a></li>
+<li><a href="#org4c001fe">kafka</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org58a432a" class="outline-2">
+<h2 id="org58a432a">rocketmq 和 kafka 的区别</h2>
+<div class="outline-text-2" id="text-org58a432a">
+</div>
+<div id="outline-container-org5f6b42b" class="outline-3">
+<h3 id="org5f6b42b">rocketmq</h3>
+<div class="outline-text-3" id="text-org5f6b42b">
+<ul class="org-ul">
+<li>适合业务场景</li>
+<li>性能在 10w/s</li>
+<li>支持同步/异步刷盘，同步/异步复制</li>
+<li>支持严格的消息顺序，在顺序消息场景下，一台Broker宕机后，发送消息会失败，但是不会乱序</li>
+<li>消费失败支持定时重试，每次重试间隔时间顺延</li>
+<li>支持定时消息</li>
+<li>支持查询消息</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org4c001fe" class="outline-3">
+<h3 id="org4c001fe">kafka</h3>
+<div class="outline-text-3" id="text-org4c001fe">
+<ul class="org-ul">
+<li>适合日志处理场景</li>
+<li>单机tps 百万/s</li>
+<li>异步刷盘方式，异步Replication</li>
+<li>某些配置下，支持消息顺序，但是一台Broker宕机后，就会产生消息乱序</li>
+<li>消费失败不支持重试</li>
+<li>不支持定时消息</li>
+<li>不支持消息查询</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

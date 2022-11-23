@@ -3,59 +3,33 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-03-06 Sun 15:15 -->
+<!-- 2022-11-24 Thu 00:46 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>透视HTTP协议</title>
-<meta name="generator" content="Org mode" />
 <meta name="author" content="Justin" />
+<meta name="generator" content="Org Mode" />
 <link rel="stylesheet" type="text/css" href="/css/worg.css"/>
 <link rel="icon" type="image/png" href="/img/icons/heckert.png">
-<script type="text/javascript">
-/*
-@licstart  The following is the entire license notice for the
-JavaScript code in this tag.
-
-Copyright (C) 2012-2020 Free Software Foundation, Inc.
-
-The JavaScript code in this tag is free software: you can
-redistribute it and/or modify it under the terms of the GNU
-General Public License (GNU GPL) as published by the Free Software
-Foundation, either version 3 of the License, or (at your option)
-any later version.  The code is distributed WITHOUT ANY WARRANTY;
-without even the implied warranty of MERCHANTABILITY or FITNESS
-FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
-
-As additional permission under GNU GPL version 3 section 7, you
-may distribute non-source (e.g., minimized or compacted) forms of
-that code without the copy of the GNU GPL normally required by
-section 4, provided you include this license notice and a URL
-through which recipients can access the Corresponding Source.
-
-
-@licend  The above is the entire license notice
-for the JavaScript code in this tag.
-*/
-<!--/*--><![CDATA[/*><!--*/
- function CodeHighlightOn(elem, id)
- {
-   var target = document.getElementById(id);
-   if(null != target) {
-     elem.cacheClassElem = elem.className;
-     elem.cacheClassTarget = target.className;
-     target.className = "code-highlighted";
-     elem.className   = "code-highlighted";
-   }
- }
- function CodeHighlightOff(elem, id)
- {
-   var target = document.getElementById(id);
-   if(elem.cacheClassElem)
-     elem.className = elem.cacheClassElem;
-   if(elem.cacheClassTarget)
-     target.className = elem.cacheClassTarget;
- }
-/*]]>*///-->
+<script>
+// @license magnet:?xt=urn:btih:1f739d935676111cfff4b4693e3816e664797050&amp;dn=gpl-3.0.txt GPL-v3-or-Later
+     function CodeHighlightOn(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.add("code-highlighted");
+         target.classList.add("code-highlighted");
+       }
+     }
+     function CodeHighlightOff(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.remove("code-highlighted");
+         target.classList.remove("code-highlighted");
+       }
+     }
+// @license-end
 </script>
 <script type="text/javascript" src="https://www.mxtsing.com/js/MathJax.js?config=TeX-AMS-MML_HTMLorMML,local/local"></script>
 </head>
@@ -64,190 +38,190 @@ for the JavaScript code in this tag.
  <a accesskey="h" href="index.html"> UP </a>
  |
  <a accesskey="H" href="../index.html"> HOME </a>
-</div><div id="content">
+</div><div id="content" class="content">
 <h1 class="title">透视HTTP协议</h1>
-<div id="table-of-contents">
+<div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
-<div id="text-table-of-contents">
+<div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org7219194">名词解释</a></li>
-<li><a href="#org4639249">01 | 时势与英雄：HTTP 的前世今生</a></li>
-<li><a href="#orge9a961b">02 | HTTP 是什么？HTTP 又不是什么？</a>
+<li><a href="#org1391d39">名词解释</a></li>
+<li><a href="#org77489ef">01 | 时势与英雄：HTTP 的前世今生</a></li>
+<li><a href="#org7400165">02 | HTTP 是什么？HTTP 又不是什么？</a>
 <ul>
-<li><a href="#org666c999">HTTP 是什么？</a></li>
+<li><a href="#org0591cc2">HTTP 是什么？</a></li>
 </ul>
 </li>
-<li><a href="#org6312288">03 | HTTP世界全览（上）：与HTTP相关的各种概念</a></li>
-<li><a href="#orgc27f919">04 | HTTP世界全览（下）：与HTTP相关的各种协议</a></li>
-<li><a href="#orga5e45dd">05 | 常说的“四层”和“七层”到底是什么？“五层”“六层”哪去了？</a>
+<li><a href="#org989c6f7">03 | HTTP世界全览（上）：与HTTP相关的各种概念</a></li>
+<li><a href="#org36e097e">04 | HTTP世界全览（下）：与HTTP相关的各种协议</a></li>
+<li><a href="#orgba5b297">05 | 常说的“四层”和“七层”到底是什么？“五层”“六层”哪去了？</a>
 <ul>
-<li><a href="#org24c557c">四层模型</a></li>
-<li><a href="#org36bbba6">七层模型</a></li>
+<li><a href="#org5d2622d">四层模型</a></li>
+<li><a href="#org37bc272">七层模型</a></li>
 </ul>
 </li>
-<li><a href="#orga35abee">06 | 域名里有哪些门道？</a>
+<li><a href="#org62ad2f3">06 | 域名里有哪些门道？</a>
 <ul>
-<li><a href="#orgcba1584">域名解析</a></li>
-<li><a href="#orgbd5c1bd">域名新玩法</a></li>
+<li><a href="#org3bd7098">域名解析</a></li>
+<li><a href="#orgaed81a2">域名新玩法</a></li>
 </ul>
 </li>
-<li><a href="#org9373500">08 | 键入网址再按下回车，后面究竟发生了什么？</a></li>
-<li><a href="#orgd687fb6">09 | HTTP报文是什么样子的？</a>
+<li><a href="#org8c422f3">08 | 键入网址再按下回车，后面究竟发生了什么？</a></li>
+<li><a href="#orgd8b548b">09 | HTTP报文是什么样子的？</a>
 <ul>
-<li><a href="#org08163e2">报文结构</a></li>
-<li><a href="#org71f65f8">请求行</a></li>
-<li><a href="#org9f974d1">状态行</a></li>
-<li><a href="#org2e8f0c8">头部字段</a>
+<li><a href="#org8308c3b">报文结构</a></li>
+<li><a href="#orgaba0493">请求行</a></li>
+<li><a href="#org2d6b8e8">状态行</a></li>
+<li><a href="#org71907ef">头部字段</a>
 <ul>
-<li><a href="#org96b7d13">常用头字段</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#org30d3ec3">10 | 应该如何理解请求方法?</a>
-<ul>
-<li><a href="#org1e7635a">标准请求方法</a>
-<ul>
-<li><a href="#orgb55df21">GET/HEAD</a></li>
-<li><a href="#orgfb44ce4">POST/PUT</a></li>
-<li><a href="#org8a5a8d6">其他方法</a></li>
-</ul>
-</li>
-<li><a href="#org19bd300">扩展方法</a></li>
-<li><a href="#org5fa08db">安全与幂等</a></li>
-</ul>
-</li>
-<li><a href="#org9ac4830">11 | 你能写出正确的网址吗？</a>
-<ul>
-<li><a href="#orgcf6d93c">URI 格式</a></li>
-<li><a href="#orgc38c91b">URI 完整格式</a></li>
-<li><a href="#orgb4c07b3">URI 编码</a></li>
-</ul>
-</li>
-<li><a href="#orgfcd668b">12 | 响应状态码该怎么用？</a>
-<ul>
-<li><a href="#orgd539304">1xx</a></li>
-<li><a href="#org390563f">2xx</a></li>
-<li><a href="#org2e28890">3xx</a></li>
-<li><a href="#org4d7ffe0">4xx</a></li>
-<li><a href="#orgdf18613">5xx</a></li>
-</ul>
-</li>
-<li><a href="#org556516d">13 | HTTP有哪些特点？</a>
-<ul>
-<li><a href="#org1d793f4">灵活可扩展</a></li>
-<li><a href="#orgdb0e708">可靠传输</a></li>
-<li><a href="#org44dcc3f">应用层协议</a></li>
-<li><a href="#orgd36be17">请求 - 应答</a></li>
-<li><a href="#org115a676">无状态</a></li>
-</ul>
-</li>
-<li><a href="#org3a8a272">14 | HTTP有哪些优点？又有哪些缺点？</a></li>
-<li><a href="#org28dca7c">15 | 海纳百川：HTTP的实体数据</a>
-<ul>
-<li><a href="#org1955372">数据类型与编码</a></li>
-<li><a href="#orga51da00">数据类型使用的头字段</a></li>
-<li><a href="#orgbfb15bc">语言类型与编码</a></li>
-<li><a href="#org18468c5">语言类型使用的头字段</a></li>
-<li><a href="#org9c3864b">内容协商的质量值</a></li>
-<li><a href="#orga852c6d">内容协商的结果</a></li>
-</ul>
-</li>
-<li><a href="#orgc11c4fc">16 | 把大象装进冰箱：HTTP传输大文件的方法</a>
-<ul>
-<li><a href="#orga3ed2f5">数据压缩</a></li>
-<li><a href="#orga7fabfc">分块传输</a>
-<ul>
-<li><a href="#orge4907bd">分块传输的编码规则，采用了明文的方式，与响应头类似</a></li>
-</ul>
-</li>
-<li><a href="#org82e9d40">范围请求</a></li>
-<li><a href="#orgd33ff0d">多段数据</a></li>
-</ul>
-</li>
-<li><a href="#org1e82f62">17 | 排队也要讲效率：HTTP的连接管理</a>
-<ul>
-<li><a href="#org5b831fb">短连接</a></li>
-<li><a href="#org867c778">长连接</a></li>
-<li><a href="#orge0fc12d">连接相关的头字段</a></li>
-<li><a href="#orgea08744">队头阻塞</a></li>
-<li><a href="#orgec3a786">性能优化</a>
-<ul>
-<li><a href="#org41c4e9e">并发连接”（concurrent connections）</a></li>
-<li><a href="#org6ad3f86">“域名分片”（domain sharding）</a></li>
+<li><a href="#org0392e05">常用头字段</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org218b6f3">18 | 四通八达：HTTP的重定向和跳转</a>
+<li><a href="#org3a3b7e2">10 | 应该如何理解请求方法?</a>
 <ul>
-<li><a href="#org5ce241f">重定向的过程</a></li>
-<li><a href="#org681739d">重定向状态码</a></li>
-<li><a href="#orgd662e72">重定向的应用场景</a>
+<li><a href="#org117ff07">标准请求方法</a>
 <ul>
-<li><a href="#org157a569">什么时候需要重定向？</a></li>
-<li><a href="#org7c59aad">永久 or 临时？</a></li>
+<li><a href="#org6c47ea4">GET/HEAD</a></li>
+<li><a href="#orgba0af94">POST/PUT</a></li>
+<li><a href="#orga4e696e">其他方法</a></li>
 </ul>
 </li>
-<li><a href="#org12464a3">重定向的相关问题</a></li>
+<li><a href="#org30cb381">扩展方法</a></li>
+<li><a href="#orgceb0fc7">安全与幂等</a></li>
 </ul>
 </li>
-<li><a href="#orge770105">19 | 让我知道你是谁：HTTP的Cookie机制</a>
+<li><a href="#org22c9a21">11 | 你能写出正确的网址吗？</a>
 <ul>
-<li><a href="#org97ad428">Cookie 的工作过程</a></li>
-<li><a href="#orgce7afe0">Cookie 的属性</a></li>
-<li><a href="#orgc00c62a">Cookie 的应用</a></li>
+<li><a href="#org9b6c748">URI 格式</a></li>
+<li><a href="#orgaca205c">URI 完整格式</a></li>
+<li><a href="#org1848c91">URI 编码</a></li>
 </ul>
 </li>
-<li><a href="#orgd742c7e">20 | 生鲜速递：HTTP的缓存控制</a>
+<li><a href="#orgde969fa">12 | 响应状态码该怎么用？</a>
 <ul>
-<li><a href="#org87da0ce">服务器端缓存</a></li>
-<li><a href="#org61eeee6">客户端的缓存控制</a>
+<li><a href="#org012bb3e">1xx</a></li>
+<li><a href="#orga6496af">2xx</a></li>
+<li><a href="#org1e63ce9">3xx</a></li>
+<li><a href="#orgfc57159">4xx</a></li>
+<li><a href="#org5bfb03f">5xx</a></li>
+</ul>
+</li>
+<li><a href="#orga90d1a7">13 | HTTP有哪些特点？</a>
 <ul>
-<li><a href="#org7810e6d">条件请求</a></li>
+<li><a href="#orgeaae016">灵活可扩展</a></li>
+<li><a href="#orgfd00098">可靠传输</a></li>
+<li><a href="#org42a9ec7">应用层协议</a></li>
+<li><a href="#org73f0a12">请求 - 应答</a></li>
+<li><a href="#orgd7ce86e">无状态</a></li>
+</ul>
+</li>
+<li><a href="#org64121ef">14 | HTTP有哪些优点？又有哪些缺点？</a></li>
+<li><a href="#org91e4fe3">15 | 海纳百川：HTTP的实体数据</a>
+<ul>
+<li><a href="#org763d1fd">数据类型与编码</a></li>
+<li><a href="#org8912fc6">数据类型使用的头字段</a></li>
+<li><a href="#orgfcd586c">语言类型与编码</a></li>
+<li><a href="#org9c9511b">语言类型使用的头字段</a></li>
+<li><a href="#orgd9828bc">内容协商的质量值</a></li>
+<li><a href="#org5d191fa">内容协商的结果</a></li>
+</ul>
+</li>
+<li><a href="#org37cf0cc">16 | 把大象装进冰箱：HTTP传输大文件的方法</a>
+<ul>
+<li><a href="#org1dd70aa">数据压缩</a></li>
+<li><a href="#org552aeb3">分块传输</a>
+<ul>
+<li><a href="#org6bc026d">分块传输的编码规则，采用了明文的方式，与响应头类似</a></li>
+</ul>
+</li>
+<li><a href="#org4016368">范围请求</a></li>
+<li><a href="#orgbb41b94">多段数据</a></li>
+</ul>
+</li>
+<li><a href="#org0f8c43e">17 | 排队也要讲效率：HTTP的连接管理</a>
+<ul>
+<li><a href="#org246c80f">短连接</a></li>
+<li><a href="#org220a07f">长连接</a></li>
+<li><a href="#org22c2278">连接相关的头字段</a></li>
+<li><a href="#org0146214">队头阻塞</a></li>
+<li><a href="#org688dcfc">性能优化</a>
+<ul>
+<li><a href="#orgd29b08a">并发连接”（concurrent connections）</a></li>
+<li><a href="#org86f29b7">“域名分片”（domain sharding）</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#orgff20135">21 | 良心中间商：HTTP的代理服务</a>
+<li><a href="#org836dce0">18 | 四通八达：HTTP的重定向和跳转</a>
 <ul>
-<li><a href="#org5f25a30">代理服务</a></li>
-<li><a href="#org778e30e">代理的作用</a></li>
-<li><a href="#org09c6074">代理相关头字段</a></li>
-<li><a href="#org48f1046">代理协议</a></li>
+<li><a href="#org42bc098">重定向的过程</a></li>
+<li><a href="#org6bec1c3">重定向状态码</a></li>
+<li><a href="#orgb161287">重定向的应用场景</a>
+<ul>
+<li><a href="#orgd11d447">什么时候需要重定向？</a></li>
+<li><a href="#org108dc16">永久 or 临时？</a></li>
 </ul>
 </li>
-<li><a href="#org5317661">22 | 冷链周转：HTTP的缓存代理</a>
-<ul>
-<li><a href="#org4401570">缓存代理服务</a></li>
-<li><a href="#orgc00abe5">源服务器的缓存控制</a></li>
-<li><a href="#org2000bda">客户端的缓存控制</a></li>
-<li><a href="#orgb004626">其他问题</a></li>
+<li><a href="#org87bb24e">重定向的相关问题</a></li>
 </ul>
 </li>
-<li><a href="#orge8a755e">23 | HTTPS是什么？SSL/TLS又是什么？</a>
+<li><a href="#org252bc04">19 | 让我知道你是谁：HTTP的Cookie机制</a>
 <ul>
-<li><a href="#org4571058">什么是安全？</a></li>
-<li><a href="#orgcdab359">什么是 HTTPS？</a></li>
-<li><a href="#orgb43d068">SSL/TLS</a></li>
-<li><a href="#orge17d2b6">OpenSSL</a></li>
+<li><a href="#org71289e8">Cookie 的工作过程</a></li>
+<li><a href="#org4992190">Cookie 的属性</a></li>
+<li><a href="#org1e48fc7">Cookie 的应用</a></li>
 </ul>
 </li>
-<li><a href="#orgfea28d2">24 | 固若金汤的根本（上）：对称加密与非对称加密</a>
+<li><a href="#orge13ac90">20 | 生鲜速递：HTTP的缓存控制</a>
 <ul>
-<li><a href="#orgd0114c2">对称加密</a></li>
-<li><a href="#org8a051aa">加密分组模式</a></li>
-<li><a href="#org01bc75a">非对称加密</a></li>
-<li><a href="#org68c7cd6">混合加密</a></li>
+<li><a href="#org29228e1">服务器端缓存</a></li>
+<li><a href="#org5ea6ea3">客户端的缓存控制</a>
+<ul>
+<li><a href="#orgb1a6ddc">条件请求</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgbc238b4">21 | 良心中间商：HTTP的代理服务</a>
+<ul>
+<li><a href="#org51da60d">代理服务</a></li>
+<li><a href="#orgb90cdd5">代理的作用</a></li>
+<li><a href="#orgcf173c6">代理相关头字段</a></li>
+<li><a href="#orga8abc18">代理协议</a></li>
+</ul>
+</li>
+<li><a href="#org713b0a9">22 | 冷链周转：HTTP的缓存代理</a>
+<ul>
+<li><a href="#orga438cf7">缓存代理服务</a></li>
+<li><a href="#org95c420e">源服务器的缓存控制</a></li>
+<li><a href="#orgaf4708a">客户端的缓存控制</a></li>
+<li><a href="#org59ebdff">其他问题</a></li>
+</ul>
+</li>
+<li><a href="#orge506d8f">23 | HTTPS是什么？SSL/TLS又是什么？</a>
+<ul>
+<li><a href="#org4445f6f">什么是安全？</a></li>
+<li><a href="#org0e17fb7">什么是 HTTPS？</a></li>
+<li><a href="#orgca336cd">SSL/TLS</a></li>
+<li><a href="#org0f05961">OpenSSL</a></li>
+</ul>
+</li>
+<li><a href="#orge240e91">24 | 固若金汤的根本（上）：对称加密与非对称加密</a>
+<ul>
+<li><a href="#org448021b">对称加密</a></li>
+<li><a href="#orgcb87025">加密分组模式</a></li>
+<li><a href="#orgab8f799">非对称加密</a></li>
+<li><a href="#orga34d174">混合加密</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org7219194" class="outline-2">
-<h2 id="org7219194">名词解释</h2>
-<div class="outline-text-2" id="text-org7219194">
+<div id="outline-container-org1391d39" class="outline-2">
+<h2 id="org1391d39">名词解释</h2>
+<div class="outline-text-2" id="text-org1391d39">
 <ul class="org-ul">
 <li>HTTP：HyperText Transfer Protocol 超文本传输协议</li>
 <li>CDN: Content Delivery Network 内容分发网络</li>
@@ -264,9 +238,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org4639249" class="outline-2">
-<h2 id="org4639249">01 | 时势与英雄：HTTP 的前世今生</h2>
-<div class="outline-text-2" id="text-org4639249">
+<div id="outline-container-org77489ef" class="outline-2">
+<h2 id="org77489ef">01 | 时势与英雄：HTTP 的前世今生</h2>
+<div class="outline-text-2" id="text-org77489ef">
 <ul class="org-ul">
 <li>HTTP 协议始于三十年前蒂姆·伯纳斯 - 李的一篇论文</li>
 <li>HTTP/0.9 是个简单的文本协议，只能获取文本资源</li>
@@ -278,19 +252,19 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-orge9a961b" class="outline-2">
-<h2 id="orge9a961b">02 | HTTP 是什么？HTTP 又不是什么？</h2>
-<div class="outline-text-2" id="text-orge9a961b">
+<div id="outline-container-org7400165" class="outline-2">
+<h2 id="org7400165">02 | HTTP 是什么？HTTP 又不是什么？</h2>
+<div class="outline-text-2" id="text-org7400165">
 </div>
-<div id="outline-container-org666c999" class="outline-3">
-<h3 id="org666c999">HTTP 是什么？</h3>
-<div class="outline-text-3" id="text-org666c999">
+<div id="outline-container-org0591cc2" class="outline-3">
+<h3 id="org0591cc2">HTTP 是什么？</h3>
+<div class="outline-text-3" id="text-org0591cc2">
 <p>
 <b>超文本传输协议</b> ，它可以拆成三个部分，分别是： <b>超文本</b> 、 <b>传输</b> 和 <b>协议</b> 。
 </p>
 
 
-<div class="figure">
+<div id="org6223ba0" class="figure">
 <p><img src="../img/http/http.jpg" alt="http.jpg" width="600" />
 </p>
 </div>
@@ -308,9 +282,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org6312288" class="outline-2">
-<h2 id="org6312288">03 | HTTP世界全览（上）：与HTTP相关的各种概念</h2>
-<div class="outline-text-2" id="text-org6312288">
+<div id="outline-container-org989c6f7" class="outline-2">
+<h2 id="org989c6f7">03 | HTTP世界全览（上）：与HTTP相关的各种概念</h2>
+<div class="outline-text-2" id="text-org989c6f7">
 <ul class="org-ul">
 <li>互联网上绝大部分资源都使用 HTTP 协议传输</li>
 <li>浏览器是 HTTP 协议里的请求方，即 User Agent</li>
@@ -321,9 +295,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-orgc27f919" class="outline-2">
-<h2 id="orgc27f919">04 | HTTP世界全览（下）：与HTTP相关的各种协议</h2>
-<div class="outline-text-2" id="text-orgc27f919">
+<div id="outline-container-org36e097e" class="outline-2">
+<h2 id="org36e097e">04 | HTTP世界全览（下）：与HTTP相关的各种协议</h2>
+<div class="outline-text-2" id="text-org36e097e">
 <ul class="org-ul">
 <li>TCP/IP 是网络世界最常用的协议，HTTP 通常运行在 TCP/IP 提供的可靠传输基础上</li>
 <li>DNS 域名是 IP 地址的等价替代，需要用域名解析实现到 IP 地址的映射</li>
@@ -334,15 +308,15 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-orga5e45dd" class="outline-2">
-<h2 id="orga5e45dd">05 | 常说的“四层”和“七层”到底是什么？“五层”“六层”哪去了？</h2>
-<div class="outline-text-2" id="text-orga5e45dd">
+<div id="outline-container-orgba5b297" class="outline-2">
+<h2 id="orgba5b297">05 | 常说的“四层”和“七层”到底是什么？“五层”“六层”哪去了？</h2>
+<div class="outline-text-2" id="text-orgba5b297">
 </div>
-<div id="outline-container-org24c557c" class="outline-3">
-<h3 id="org24c557c">四层模型</h3>
-<div class="outline-text-3" id="text-org24c557c">
+<div id="outline-container-org5d2622d" class="outline-3">
+<h3 id="org5d2622d">四层模型</h3>
+<div class="outline-text-3" id="text-org5d2622d">
 
-<div class="figure">
+<div id="orgcc317f1" class="figure">
 <p><img src="../img/http/tcp-ip-4.png" alt="tcp-ip-4.png" width="600" />
 </p>
 </div>
@@ -356,15 +330,15 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org36bbba6" class="outline-3">
-<h3 id="org36bbba6">七层模型</h3>
-<div class="outline-text-3" id="text-org36bbba6">
+<div id="outline-container-org37bc272" class="outline-3">
+<h3 id="org37bc272">七层模型</h3>
+<div class="outline-text-3" id="text-org37bc272">
 <p>
 <b>OSI，全称是“开放式系统互联通信参考模型”（Open System Interconnection Reference Model）</b>
 </p>
 
 
-<div class="figure">
+<div id="org2330295" class="figure">
 <p><img src="../img/http/tcp-ip-7.png" alt="tcp-ip-7.png" width="600" />
 </p>
 </div>
@@ -390,19 +364,19 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-orga35abee" class="outline-2">
-<h2 id="orga35abee">06 | 域名里有哪些门道？</h2>
-<div class="outline-text-2" id="text-orga35abee">
+<div id="outline-container-org62ad2f3" class="outline-2">
+<h2 id="org62ad2f3">06 | 域名里有哪些门道？</h2>
+<div class="outline-text-2" id="text-org62ad2f3">
 <p>
 <b>域名结构</b> ：主机.二级域名.顶级域名
 </p>
 </div>
 
-<div id="outline-container-orgcba1584" class="outline-3">
-<h3 id="orgcba1584">域名解析</h3>
-<div class="outline-text-3" id="text-orgcba1584">
+<div id="outline-container-org3bd7098" class="outline-3">
+<h3 id="org3bd7098">域名解析</h3>
+<div class="outline-text-3" id="text-org3bd7098">
 
-<div class="figure">
+<div id="orgd8093ad" class="figure">
 <p><img src="../img/http/dns.png" alt="dns.png" width="600" />
 </p>
 </div>
@@ -432,7 +406,7 @@ for the JavaScript code in this tag.
 <b>那么浏览器里输入 www.apple.com，具体的 DNS 解析过程是怎样的呢？</b>
 </p>
 
-<div class="figure">
+<div id="orgbacc4b3" class="figure">
 <p><img src="../img/http/dns-arc.png" alt="dns-arc.png" width="600" />
 </p>
 </div>
@@ -448,9 +422,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-orgbd5c1bd" class="outline-3">
-<h3 id="orgbd5c1bd">域名新玩法</h3>
-<div class="outline-text-3" id="text-orgbd5c1bd">
+<div id="outline-container-orgaed81a2" class="outline-3">
+<h3 id="orgaed81a2">域名新玩法</h3>
+<div class="outline-text-3" id="text-orgaed81a2">
 <ul class="org-ul">
 <li>重定向：当主机有情况需要下线、迁移时，可以更改 DNS 记录，让域名指向其他的机器</li>
 <li>名字服务器：搭建一个在内部使用的 DNS，作为名字服务器</li>
@@ -465,18 +439,18 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org9373500" class="outline-2">
-<h2 id="org9373500">08 | 键入网址再按下回车，后面究竟发生了什么？</h2>
+<div id="outline-container-org8c422f3" class="outline-2">
+<h2 id="org8c422f3">08 | 键入网址再按下回车，后面究竟发生了什么？</h2>
 </div>
-<div id="outline-container-orgd687fb6" class="outline-2">
-<h2 id="orgd687fb6">09 | HTTP报文是什么样子的？</h2>
-<div class="outline-text-2" id="text-orgd687fb6">
+<div id="outline-container-orgd8b548b" class="outline-2">
+<h2 id="orgd8b548b">09 | HTTP报文是什么样子的？</h2>
+<div class="outline-text-2" id="text-orgd8b548b">
 </div>
-<div id="outline-container-org08163e2" class="outline-3">
-<h3 id="org08163e2">报文结构</h3>
-<div class="outline-text-3" id="text-org08163e2">
+<div id="outline-container-org8308c3b" class="outline-3">
+<h3 id="org8308c3b">报文结构</h3>
+<div class="outline-text-3" id="text-org8308c3b">
 
-<div class="figure">
+<div id="org20e7496" class="figure">
 <p><img src="../img/http/http-structure.png" alt="http-structure.png" width="400" />
 </p>
 </div>
@@ -505,11 +479,11 @@ HTTP 协议的请求报文和响应报文的结构基本相同，由三大部分
 </div>
 </div>
 
-<div id="outline-container-org71f65f8" class="outline-3">
-<h3 id="org71f65f8">请求行</h3>
-<div class="outline-text-3" id="text-org71f65f8">
+<div id="outline-container-orgaba0493" class="outline-3">
+<h3 id="orgaba0493">请求行</h3>
+<div class="outline-text-3" id="text-orgaba0493">
 
-<div class="figure">
+<div id="orgf1b879a" class="figure">
 <p><img src="../img/http/request-line.png" alt="request-line.png" width="400" />
 </p>
 </div>
@@ -530,11 +504,11 @@ HTTP 协议的请求报文和响应报文的结构基本相同，由三大部分
 </div>
 </div>
 
-<div id="outline-container-org9f974d1" class="outline-3">
-<h3 id="org9f974d1">状态行</h3>
-<div class="outline-text-3" id="text-org9f974d1">
+<div id="outline-container-org2d6b8e8" class="outline-3">
+<h3 id="org2d6b8e8">状态行</h3>
+<div class="outline-text-3" id="text-org2d6b8e8">
 
-<div class="figure">
+<div id="orgdb38968" class="figure">
 <p><img src="../img/http/response-line.png" alt="response-line.png" width="400" />
 </p>
 </div>
@@ -551,21 +525,21 @@ HTTP 协议的请求报文和响应报文的结构基本相同，由三大部分
 </div>
 </div>
 
-<div id="outline-container-org2e8f0c8" class="outline-3">
-<h3 id="org2e8f0c8">头部字段</h3>
-<div class="outline-text-3" id="text-org2e8f0c8">
+<div id="outline-container-org71907ef" class="outline-3">
+<h3 id="org71907ef">头部字段</h3>
+<div class="outline-text-3" id="text-org71907ef">
 <p>
 *请求行或状态行再加上头部字段集合就构成了 HTTP 报文里完整的请求头或响应头*，请求头和响应头的结构是基本一样的，唯一的区别是起始行。
 </p>
 
 
-<div class="figure">
+<div id="org878da0d" class="figure">
 <p><img src="../img/http/request-head.png" alt="request-head.png" width="400" />
 </p>
 </div>
 
 
-<div class="figure">
+<div id="org9bf3a73" class="figure">
 <p><img src="../img/http/response-head.png" alt="response-head.png" width="400" />
 </p>
 </div>
@@ -591,9 +565,9 @@ HTTP 协议的请求报文和响应报文的结构基本相同，由三大部分
 </p>
 </div>
 
-<div id="outline-container-org96b7d13" class="outline-4">
-<h4 id="org96b7d13">常用头字段</h4>
-<div class="outline-text-4" id="text-org96b7d13">
+<div id="outline-container-org0392e05" class="outline-4">
+<h4 id="org0392e05">常用头字段</h4>
+<div class="outline-text-4" id="text-org0392e05">
 <p>
 HTTP 协议规定了非常多的头部字段，实现各种各样的功能，但基本上可以分为四大类：
 </p>
@@ -629,27 +603,27 @@ HTTP 协议规定了非常多的头部字段，实现各种各样的功能，但
 </div>
 </div>
 
-<div id="outline-container-org30d3ec3" class="outline-2">
-<h2 id="org30d3ec3">10 | 应该如何理解请求方法?</h2>
-<div class="outline-text-2" id="text-org30d3ec3">
+<div id="outline-container-org3a3b7e2" class="outline-2">
+<h2 id="org3a3b7e2">10 | 应该如何理解请求方法?</h2>
+<div class="outline-text-2" id="text-org3a3b7e2">
 </div>
-<div id="outline-container-org1e7635a" class="outline-3">
-<h3 id="org1e7635a">标准请求方法</h3>
-<div class="outline-text-3" id="text-org1e7635a">
+<div id="outline-container-org117ff07" class="outline-3">
+<h3 id="org117ff07">标准请求方法</h3>
+<div class="outline-text-3" id="text-org117ff07">
 <p>
 目前 HTTP/1.1 规定了八种方法，单词都必须是大写的形式：
 </p>
 
 
-<div class="figure">
+<div id="orgd370438" class="figure">
 <p><img src="../img/http/http-methods.jpg" alt="http-methods.jpg" width="600" />
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgb55df21" class="outline-4">
-<h4 id="orgb55df21">GET/HEAD</h4>
-<div class="outline-text-4" id="text-orgb55df21">
+<div id="outline-container-org6c47ea4" class="outline-4">
+<h4 id="org6c47ea4">GET/HEAD</h4>
+<div class="outline-text-4" id="text-org6c47ea4">
 <p>
 <b>GET</b> 含义是请求 <b>从服务器获取资源</b> ，以是静态的文本、页面、图片、视频，也可以是由 PHP、Java 动态生成的页面或者其他格式的数据。GET 方法虽然动作简单，但可以搭配 URI 和其他头字段能实现对资源更精细的操作。如在 URI 后使用“#”，就可以在获取页面后直接定位到某个标签所在的位置；使用 If-Modified-Since 字段就变成了“有条件的请求”，仅当资源被修改时才会执行获取动作；使用 Range 字段就是“范围请求”，只获取资源的一部分数据。
 </p>
@@ -660,18 +634,18 @@ HTTP 协议规定了非常多的头部字段，实现各种各样的功能，但
 </div>
 </div>
 
-<div id="outline-container-orgfb44ce4" class="outline-4">
-<h4 id="orgfb44ce4">POST/PUT</h4>
-<div class="outline-text-4" id="text-orgfb44ce4">
+<div id="outline-container-orgba0af94" class="outline-4">
+<h4 id="orgba0af94">POST/PUT</h4>
+<div class="outline-text-4" id="text-orgba0af94">
 <p>
 POST 和 PUT 向 URI 指定的资源提交数据，数据就放在报文的 body 里。PUT 的作用与 POST 类似，也可以向服务器提交数据，但与 POST 存在微妙的不同，通常 POST 表示的是“新建”“create”的含义，而 PUT 则是“修改”“update”的含义。
 </p>
 </div>
 </div>
 
-<div id="outline-container-org8a5a8d6" class="outline-4">
-<h4 id="org8a5a8d6">其他方法</h4>
-<div class="outline-text-4" id="text-org8a5a8d6">
+<div id="outline-container-orga4e696e" class="outline-4">
+<h4 id="orga4e696e">其他方法</h4>
+<div class="outline-text-4" id="text-orga4e696e">
 <p>
 DELETE 方法指示服务器删除资源。
 </p>
@@ -691,18 +665,18 @@ TRACE 方法多用于对 HTTP 链路的测试或诊断。
 </div>
 </div>
 
-<div id="outline-container-org19bd300" class="outline-3">
-<h3 id="org19bd300">扩展方法</h3>
-<div class="outline-text-3" id="text-org19bd300">
+<div id="outline-container-org30cb381" class="outline-3">
+<h3 id="org30cb381">扩展方法</h3>
+<div class="outline-text-3" id="text-org30cb381">
 <p>
 <b>虽然 HTTP/1.1 里规定了八种请求方法，但它并没有限制我们只能用这八种方法，这也体现了 HTTP 协议良好的扩展性，我们可以任意添加请求动作，只要请求方和响应方都能理解就行</b>
 </p>
 </div>
 </div>
 
-<div id="outline-container-org5fa08db" class="outline-3">
-<h3 id="org5fa08db">安全与幂等</h3>
-<div class="outline-text-3" id="text-org5fa08db">
+<div id="outline-container-orgceb0fc7" class="outline-3">
+<h3 id="orgceb0fc7">安全与幂等</h3>
+<div class="outline-text-3" id="text-orgceb0fc7">
 <p>
 所谓的“安全”是指请求方法不会“破坏”服务器上的资源，即不会对服务器上的资源造成实质的修改。按照这个定义，只有 GET 和 HEAD 方法是“安全”的，因为它们是“只读”操作。
 </p>
@@ -722,23 +696,23 @@ GET 和 HEAD 既是安全的也是幂等的，DELETE 可以多次删除同一个
 </div>
 </div>
 
-<div id="outline-container-org9ac4830" class="outline-2">
-<h2 id="org9ac4830">11 | 你能写出正确的网址吗？</h2>
-<div class="outline-text-2" id="text-org9ac4830">
+<div id="outline-container-org22c9a21" class="outline-2">
+<h2 id="org22c9a21">11 | 你能写出正确的网址吗？</h2>
+<div class="outline-text-2" id="text-org22c9a21">
 <p>
 <b>URI</b> - 统一资源标识符（Uniform Resource Identifier）包含 URL —— 统一资源定位符（Uniform Resource Locator）和 URN，在 HTTP 世界里用的网址实际上是 URL。
 </p>
 </div>
 
-<div id="outline-container-orgcf6d93c" class="outline-3">
-<h3 id="orgcf6d93c">URI 格式</h3>
-<div class="outline-text-3" id="text-orgcf6d93c">
+<div id="outline-container-org9b6c748" class="outline-3">
+<h3 id="org9b6c748">URI 格式</h3>
+<div class="outline-text-3" id="text-org9b6c748">
 <p>
 URI 本质上是一个字符串，这个字符串的作用是唯一地标记资源的位置或者名字。通常由 由 scheme、host:port、path 和 query 四个部分组成：
 </p>
 
 
-<div class="figure">
+<div id="orgb763204" class="figure">
 <p><img src="../img/http/uri.png" alt="uri.png" width="400" />
 </p>
 </div>
@@ -757,11 +731,11 @@ URI 本质上是一个字符串，这个字符串的作用是唯一地标记资�
 </div>
 </div>
 
-<div id="outline-container-orgc38c91b" class="outline-3">
-<h3 id="orgc38c91b">URI 完整格式</h3>
-<div class="outline-text-3" id="text-orgc38c91b">
+<div id="outline-container-orgaca205c" class="outline-3">
+<h3 id="orgaca205c">URI 完整格式</h3>
+<div class="outline-text-3" id="text-orgaca205c">
 
-<div class="figure">
+<div id="org5a1394b" class="figure">
 <p><img src="../img/http/complete-uri.png" alt="complete-uri.png" width="400" />
 </p>
 </div>
@@ -777,9 +751,9 @@ URI 本质上是一个字符串，这个字符串的作用是唯一地标记资�
 </div>
 </div>
 
-<div id="outline-container-orgb4c07b3" class="outline-3">
-<h3 id="orgb4c07b3">URI 编码</h3>
-<div class="outline-text-3" id="text-orgb4c07b3">
+<div id="outline-container-org1848c91" class="outline-3">
+<h3 id="org1848c91">URI 编码</h3>
+<div class="outline-text-3" id="text-org1848c91">
 <p>
 URI 引入了编码机制，对于 ASCII 码以外的字符集和特殊字符做一个特殊的操作，把它们转换成与 URI 语义不冲突的形式。这在 RFC 规范里称为“escape”和“unescape”，俗称“转义”。转义的规则为： <b>把非 ASCII 码或特殊字符转换成十六进制字节值，然后前面再加上一个“%”</b> 。
 </p>
@@ -803,15 +777,15 @@ URI 引入了编码机制，对于 ASCII 码以外的字符集和特殊字符做
 </div>
 </div>
 
-<div id="outline-container-orgfcd668b" class="outline-2">
-<h2 id="orgfcd668b">12 | 响应状态码该怎么用？</h2>
-<div class="outline-text-2" id="text-orgfcd668b">
+<div id="outline-container-orgde969fa" class="outline-2">
+<h2 id="orgde969fa">12 | 响应状态码该怎么用？</h2>
+<div class="outline-text-2" id="text-orgde969fa">
 <p>
 响应报文由响应头加响应体数据组成，响应头又由状态行和头字段构成。状态行的结构，有三部分：
 </p>
 
 
-<div class="figure">
+<div id="org129be50" class="figure">
 <p><img src="../img/http/response-head.png" alt="response-head.png" width="400" />
 </p>
 </div>
@@ -837,18 +811,18 @@ RFC 标准把状态码分成了五类，用数字的第一位表示分类，而 
 </ul>
 </div>
 
-<div id="outline-container-orgd539304" class="outline-3">
-<h3 id="orgd539304">1xx</h3>
-<div class="outline-text-3" id="text-orgd539304">
+<div id="outline-container-org012bb3e" class="outline-3">
+<h3 id="org012bb3e">1xx</h3>
+<div class="outline-text-3" id="text-org012bb3e">
 <p>
 1××类状态码属于提示信息，是协议处理的中间状态，实际能够用到的时候很少。偶尔能够见到的是“101 Switching Protocols”。它的意思是客户端使用 Upgrade 头字段，要求在 HTTP 协议的基础上改成其他的协议继续通信，比如 WebSocket。
 </p>
 </div>
 </div>
 
-<div id="outline-container-org390563f" class="outline-3">
-<h3 id="org390563f">2xx</h3>
-<div class="outline-text-3" id="text-org390563f">
+<div id="outline-container-orga6496af" class="outline-3">
+<h3 id="orga6496af">2xx</h3>
+<div class="outline-text-3" id="text-orga6496af">
 <p>
 2××类状态码表示服务器收到并成功处理了客户端的请求
 </p>
@@ -861,9 +835,9 @@ RFC 标准把状态码分成了五类，用数字的第一位表示分类，而 
 </div>
 </div>
 
-<div id="outline-container-org2e28890" class="outline-3">
-<h3 id="org2e28890">3xx</h3>
-<div class="outline-text-3" id="text-org2e28890">
+<div id="outline-container-org1e63ce9" class="outline-3">
+<h3 id="org1e63ce9">3xx</h3>
+<div class="outline-text-3" id="text-org1e63ce9">
 <p>
 3××类状态码表示客户端请求的资源发生了变动，客户端必须用新的 URI 重新发送请求获取资源，也就是通常所说的“重定向”
 </p>
@@ -876,9 +850,9 @@ RFC 标准把状态码分成了五类，用数字的第一位表示分类，而 
 </div>
 </div>
 
-<div id="outline-container-org4d7ffe0" class="outline-3">
-<h3 id="org4d7ffe0">4xx</h3>
-<div class="outline-text-3" id="text-org4d7ffe0">
+<div id="outline-container-orgfc57159" class="outline-3">
+<h3 id="orgfc57159">4xx</h3>
+<div class="outline-text-3" id="text-orgfc57159">
 <p>
 4××类状态码表示客户端发送的请求报文有误，服务器无法处理。
 </p>
@@ -899,9 +873,9 @@ RFC 标准把状态码分成了五类，用数字的第一位表示分类，而 
 </div>
 </div>
 
-<div id="outline-container-orgdf18613" class="outline-3">
-<h3 id="orgdf18613">5xx</h3>
-<div class="outline-text-3" id="text-orgdf18613">
+<div id="outline-container-org5bfb03f" class="outline-3">
+<h3 id="org5bfb03f">5xx</h3>
+<div class="outline-text-3" id="text-org5bfb03f">
 <p>
 5×× 类状态码表示服务器在处理时内部发生了错误，无法返回应有的响应数据，是服务器端的“错误码”
 </p>
@@ -916,46 +890,46 @@ RFC 标准把状态码分成了五类，用数字的第一位表示分类，而 
 </div>
 </div>
 
-<div id="outline-container-org556516d" class="outline-2">
-<h2 id="org556516d">13 | HTTP有哪些特点？</h2>
-<div class="outline-text-2" id="text-org556516d">
+<div id="outline-container-orga90d1a7" class="outline-2">
+<h2 id="orga90d1a7">13 | HTTP有哪些特点？</h2>
+<div class="outline-text-2" id="text-orga90d1a7">
 
-<div class="figure">
+<div id="org54357ad" class="figure">
 <p><img src="../img/http/http-feature.png" alt="http-feature.png" width="400" />
 </p>
 </div>
 </div>
 
-<div id="outline-container-org1d793f4" class="outline-3">
-<h3 id="org1d793f4">灵活可扩展</h3>
-<div class="outline-text-3" id="text-org1d793f4">
+<div id="outline-container-orgeaae016" class="outline-3">
+<h3 id="orgeaae016">灵活可扩展</h3>
+<div class="outline-text-3" id="text-orgeaae016">
 <p>
 可以任意添加头字段实现任意功能
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgdb0e708" class="outline-3">
-<h3 id="orgdb0e708">可靠传输</h3>
-<div class="outline-text-3" id="text-orgdb0e708">
+<div id="outline-container-orgfd00098" class="outline-3">
+<h3 id="orgfd00098">可靠传输</h3>
+<div class="outline-text-3" id="text-orgfd00098">
 <p>
 为 HTTP 协议是基于 TCP/IP 的，而 TCP 本身是一个“可靠”的传输协议，所以 HTTP 自然也就继承了这个特性，能够在请求方和应答方之间“可靠”地传输数据。不过我们必须正确地理解“可靠”的含义，HTTP 并不能 100% 保证数据一定能够发送到另一端，在网络繁忙、连接质量差等恶劣的环境下，也有可能收发失败。“可靠”只是向使用者提供了一个“承诺”，会在下层用多种手段“尽量”保证数据的完整送达。
 </p>
 </div>
 </div>
 
-<div id="outline-container-org44dcc3f" class="outline-3">
-<h3 id="org44dcc3f">应用层协议</h3>
-<div class="outline-text-3" id="text-org44dcc3f">
+<div id="outline-container-org42a9ec7" class="outline-3">
+<h3 id="org42a9ec7">应用层协议</h3>
+<div class="outline-text-3" id="text-org42a9ec7">
 <p>
 HTTP 凭借着可携带任意头字段和实体数据的报文结构，以及连接控制、缓存代理等方便易用的特性，一出现就“技压群雄”，迅速成为了应用层里的“明星”协议。
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgd36be17" class="outline-3">
-<h3 id="orgd36be17">请求 - 应答</h3>
-<div class="outline-text-3" id="text-orgd36be17">
+<div id="outline-container-org73f0a12" class="outline-3">
+<h3 id="org73f0a12">请求 - 应答</h3>
+<div class="outline-text-3" id="text-org73f0a12">
 <p>
 HTTP 协议使用的是请求 - 应答通信模式， 通俗来讲就是“一发一收”“有来有去”。
 </p>
@@ -970,9 +944,9 @@ HTTP 的请求 - 应答模式也恰好契合了传统的 C/S（Client/Server）�
 </div>
 </div>
 
-<div id="outline-container-org115a676" class="outline-3">
-<h3 id="org115a676">无状态</h3>
-<div class="outline-text-3" id="text-org115a676">
+<div id="outline-container-orgd7ce86e" class="outline-3">
+<h3 id="orgd7ce86e">无状态</h3>
+<div class="outline-text-3" id="text-orgd7ce86e">
 <p>
 “状态”其实就是客户端或者服务器里保存的一些数据或者标志，记录了通信过程中的一些变化信息。
 </p>
@@ -991,9 +965,9 @@ TCP 协议是有状态的，一开始处于 CLOSED 状态，连接成功后是 E
 </div>
 </div>
 </div>
-<div id="outline-container-org3a8a272" class="outline-2">
-<h2 id="org3a8a272">14 | HTTP有哪些优点？又有哪些缺点？</h2>
-<div class="outline-text-2" id="text-org3a8a272">
+<div id="outline-container-org64121ef" class="outline-2">
+<h2 id="org64121ef">14 | HTTP有哪些优点？又有哪些缺点？</h2>
+<div class="outline-text-2" id="text-org64121ef">
 <p>
 今天的讨论范围仅限于 HTTP/1.1，所说的优点和缺点也仅针对 HTTP/1.1。实际上，后续要讲的 HTTPS 和 HTTP/2 都是对 HTTP/1.1 优点的发挥和缺点的完善。
 </p>
@@ -1008,13 +982,13 @@ TCP 协议是有状态的，一开始处于 CLOSED 状态，连接成功后是 E
 </ul>
 </div>
 </div>
-<div id="outline-container-org28dca7c" class="outline-2">
-<h2 id="org28dca7c">15 | 海纳百川：HTTP的实体数据</h2>
-<div class="outline-text-2" id="text-org28dca7c">
+<div id="outline-container-org91e4fe3" class="outline-2">
+<h2 id="org91e4fe3">15 | 海纳百川：HTTP的实体数据</h2>
+<div class="outline-text-2" id="text-org91e4fe3">
 </div>
-<div id="outline-container-org1955372" class="outline-3">
-<h3 id="org1955372">数据类型与编码</h3>
-<div class="outline-text-3" id="text-org1955372">
+<div id="outline-container-org763d1fd" class="outline-3">
+<h3 id="org763d1fd">数据类型与编码</h3>
+<div class="outline-text-3" id="text-org763d1fd">
 <p>
 在电子邮件系统里的，让电子邮件可以发送 ASCII 码以外的任意数据，方案的名字叫做“多用途互联网邮件扩展”（Multipurpose Internet Mail Extensions），简称为 MIME。MIME 是一个很大的标准规范，但 HTTP 只“顺手牵羊”取了其中的一部分，用来标记 body 的数据类型，这就是我们平常总能听到的“MIME type”。
 </p>
@@ -1050,9 +1024,9 @@ MIME 把数据分成了八大类，每个大类下再细分出多个子类，形
 </div>
 </div>
 
-<div id="outline-container-orga51da00" class="outline-3">
-<h3 id="orga51da00">数据类型使用的头字段</h3>
-<div class="outline-text-3" id="text-orga51da00">
+<div id="outline-container-org8912fc6" class="outline-3">
+<h3 id="org8912fc6">数据类型使用的头字段</h3>
+<div class="outline-text-3" id="text-org8912fc6">
 <p>
 TTP 协议为此定义了两个 Accept 请求头字段和两个 Content 实体头字段，用于客户端和服务器进行“内容协商”。客户端用 Accept 头告诉服务器希望接收什么样的数据，而服务器用 Content 头告诉客户端实际发送了什么样的数据。
 </p>
@@ -1087,9 +1061,9 @@ TTP 协议为此定义了两个 Accept 请求头字段和两个 Content 实体�
 </div>
 </div>
 
-<div id="outline-container-orgbfb15bc" class="outline-3">
-<h3 id="orgbfb15bc">语言类型与编码</h3>
-<div class="outline-text-3" id="text-orgbfb15bc">
+<div id="outline-container-orgfcd586c" class="outline-3">
+<h3 id="orgfcd586c">语言类型与编码</h3>
+<div class="outline-text-3" id="text-orgfcd586c">
 <p>
 语言类型”就是人类使用的自然语言，例如英语、汉语、日语等，而这些自然语言可能还有下属的地区性方言，所以在需要明确区分的时候也要使用“type-subtype”的形式，分隔符是“-”。举几个例子：en 表示任意的英语，en-US 表示美式英语，en-GB 表示英式英语，而 zh-CN 就表示我们最常使用的汉语。
 </p>
@@ -1100,9 +1074,9 @@ TTP 协议为此定义了两个 Accept 请求头字段和两个 Content 实体�
 </div>
 </div>
 
-<div id="outline-container-org18468c5" class="outline-3">
-<h3 id="org18468c5">语言类型使用的头字段</h3>
-<div class="outline-text-3" id="text-org18468c5">
+<div id="outline-container-org9c9511b" class="outline-3">
+<h3 id="org9c9511b">语言类型使用的头字段</h3>
+<div class="outline-text-3" id="text-org9c9511b">
 <p>
 HTTP 协议也使用 Accept 请求头字段和 Content 实体头字段，用于客户端和服务器就语言与编码进行“内容协商”。
 </p>
@@ -1121,9 +1095,9 @@ Accept-Language 字段标记了客户端可理解的自然语言： <code>Accept
 </div>
 </div>
 
-<div id="outline-container-org9c3864b" class="outline-3">
-<h3 id="org9c3864b">内容协商的质量值</h3>
-<div class="outline-text-3" id="text-org9c3864b">
+<div id="outline-container-orgd9828bc" class="outline-3">
+<h3 id="orgd9828bc">内容协商的质量值</h3>
+<div class="outline-text-3" id="text-orgd9828bc">
 <p>
 在 HTTP 协议里用 Accept、Accept-Encoding、Accept-Language 等请求头字段进行内容协商的时候，以用一种特殊的“q”参数表示权重来设定优先级，这里的“q”是“quality factor”的意思。
 </p>
@@ -1134,28 +1108,28 @@ Accept-Language 字段标记了客户端可理解的自然语言： <code>Accept
 </div>
 </div>
 
-<div id="outline-container-orga852c6d" class="outline-3">
-<h3 id="orga852c6d">内容协商的结果</h3>
-<div class="outline-text-3" id="text-orga852c6d">
+<div id="outline-container-org5d191fa" class="outline-3">
+<h3 id="org5d191fa">内容协商的结果</h3>
+<div class="outline-text-3" id="text-org5d191fa">
 <p>
 内容协商的过程是不透明的，每个 Web 服务器使用的算法都不一样。但有的时候，服务器会在响应头里多加一个 Vary 字段，记录服务器在内容协商时参考的请求头字段，给出一点信息，例如： <code>Vary: Accept-Encoding,User-Agent,Accept</code> ，这个 Vary 字段表示服务器依据了 Accept-Encoding、User-Agent 和 Accept 这三个头字段，然后决定了发回的响应报文。
 </p>
 
 
-<div class="figure">
+<div id="orgaae9f5d" class="figure">
 <p><img src="../img/http/http-accept.png" alt="http-accept.png" width="400" />
 </p>
 </div>
 </div>
 </div>
 </div>
-<div id="outline-container-orgc11c4fc" class="outline-2">
-<h2 id="orgc11c4fc">16 | 把大象装进冰箱：HTTP传输大文件的方法</h2>
-<div class="outline-text-2" id="text-orgc11c4fc">
+<div id="outline-container-org37cf0cc" class="outline-2">
+<h2 id="org37cf0cc">16 | 把大象装进冰箱：HTTP传输大文件的方法</h2>
+<div class="outline-text-2" id="text-org37cf0cc">
 </div>
-<div id="outline-container-orga3ed2f5" class="outline-3">
-<h3 id="orga3ed2f5">数据压缩</h3>
-<div class="outline-text-3" id="text-orga3ed2f5">
+<div id="outline-container-org1dd70aa" class="outline-3">
+<h3 id="org1dd70aa">数据压缩</h3>
+<div class="outline-text-3" id="text-org1dd70aa">
 <p>
 把大象变成小猪佩奇，再放进冰箱。
 </p>
@@ -1170,9 +1144,9 @@ Accept-Language 字段标记了客户端可理解的自然语言： <code>Accept
 </div>
 </div>
 
-<div id="outline-container-orga7fabfc" class="outline-3">
-<h3 id="orga7fabfc">分块传输</h3>
-<div class="outline-text-3" id="text-orga7fabfc">
+<div id="outline-container-org552aeb3" class="outline-3">
+<h3 id="org552aeb3">分块传输</h3>
+<div class="outline-text-3" id="text-org552aeb3">
 <p>
 化整为零”的思路在 HTTP 协议里就是“chunked”分块传输编码，在响应报文里用头字段“Transfer-Encoding: chunked”来表示，意思是报文里的 body 部分不是一次性发过来的，而是分成了许多的块（chunk）逐个发送。这就好比是用魔法把大象变成“乐高积木”，拆散了逐个装进冰箱，到达目的地后再施法拼起来“满血复活”。分块传输也可以用于“流式数据”，对于 body 长度未知，无法在头字段“Content-Length”里给出确切的长度的情况。
 </p>
@@ -1182,9 +1156,9 @@ Accept-Language 字段标记了客户端可理解的自然语言： <code>Accept
 </p>
 </div>
 
-<div id="outline-container-orge4907bd" class="outline-4">
-<h4 id="orge4907bd">分块传输的编码规则，采用了明文的方式，与响应头类似</h4>
-<div class="outline-text-4" id="text-orge4907bd">
+<div id="outline-container-org6bc026d" class="outline-4">
+<h4 id="org6bc026d">分块传输的编码规则，采用了明文的方式，与响应头类似</h4>
+<div class="outline-text-4" id="text-org6bc026d">
 <ul class="org-ul">
 <li>每个分块包含两个部分，长度头和数据块</li>
 <li>长度头是以 CRLF（回车换行，即\r\n）结尾的一行明文，用 16 进制数字表示长度</li>
@@ -1193,7 +1167,7 @@ Accept-Language 字段标记了客户端可理解的自然语言： <code>Accept
 </ul>
 
 
-<div class="figure">
+<div id="orgc36da44" class="figure">
 <p><img src="../img/http/chunk.png" alt="chunk.png" width="400" />
 </p>
 </div>
@@ -1206,9 +1180,9 @@ Accept-Language 字段标记了客户端可理解的自然语言： <code>Accept
 </div>
 
 
-<div id="outline-container-org82e9d40" class="outline-3">
-<h3 id="org82e9d40">范围请求</h3>
-<div class="outline-text-3" id="text-org82e9d40">
+<div id="outline-container-org4016368" class="outline-3">
+<h3 id="org4016368">范围请求</h3>
+<div class="outline-text-3" id="text-org4016368">
 <p>
 在听歌或看电影的时候，想要拖动进度条，实际是请求获取大文件的一部分。HTTP 协议为了满足这样的需求，提出了“范围请求”（range requests）的概念，允许客户端在请求头里使用专用字段来表示只获取文件的一部分，相当于是客户端的“化整为零”。
 </p>
@@ -1243,9 +1217,9 @@ Accept-Language 字段标记了客户端可理解的自然语言： <code>Accept
 </div>
 </div>
 
-<div id="outline-container-orgd33ff0d" class="outline-3">
-<h3 id="orgd33ff0d">多段数据</h3>
-<div class="outline-text-3" id="text-orgd33ff0d">
+<div id="outline-container-orgbb41b94" class="outline-3">
+<h3 id="orgbb41b94">多段数据</h3>
+<div class="outline-text-3" id="text-orgbb41b94">
 <p>
 范围请求是获取一个片段，在 Range 头中还支持多个 <code>x-y</code> ，一次性获取多个片段。
 </p>
@@ -1255,7 +1229,7 @@ Accept-Language 字段标记了客户端可理解的自然语言： <code>Accept
 </p>
 
 
-<div class="figure">
+<div id="org2679a80" class="figure">
 <p><img src="../img/http/multi-chunk.png" alt="multi-chunk.png" width="400" />
 </p>
 </div>
@@ -1303,13 +1277,13 @@ ext json d
 </div>
 </div>
 </div>
-<div id="outline-container-org1e82f62" class="outline-2">
-<h2 id="org1e82f62">17 | 排队也要讲效率：HTTP的连接管理</h2>
-<div class="outline-text-2" id="text-org1e82f62">
+<div id="outline-container-org0f8c43e" class="outline-2">
+<h2 id="org0f8c43e">17 | 排队也要讲效率：HTTP的连接管理</h2>
+<div class="outline-text-2" id="text-org0f8c43e">
 </div>
-<div id="outline-container-org5b831fb" class="outline-3">
-<h3 id="org5b831fb">短连接</h3>
-<div class="outline-text-3" id="text-org5b831fb">
+<div id="outline-container-org246c80f" class="outline-3">
+<h3 id="org246c80f">短连接</h3>
+<div class="outline-text-3" id="text-org246c80f">
 <p>
 HTTP 协议最初（0.9/1.0）很简单，采用的是“请求 - 应答”方式，底层的数据传输基于 TCP/IP，每次发送请求钱需要先与服务器建立连接，收到响应后立即关闭连接，不会与服务器保持长时间的连接状态，所以就被称为 <b>“短连接”（short-lived connections）</b> 。
 </p>
@@ -1320,24 +1294,24 @@ HTTP 协议最初（0.9/1.0）很简单，采用的是“请求 - 应答”方�
 </div>
 </div>
 
-<div id="outline-container-org867c778" class="outline-3">
-<h3 id="org867c778">长连接</h3>
-<div class="outline-text-3" id="text-org867c778">
+<div id="outline-container-org220a07f" class="outline-3">
+<h3 id="org220a07f">长连接</h3>
+<div class="outline-text-3" id="text-org220a07f">
 <p>
 针对短连接暴露出的缺点，HTTP 协议就提出了 <b>“长连接”</b> 的通信方式，也叫“持久连接”（persistent connections）、“连接保活”（keep alive）、“连接复用”（connection reuse）。用“成本均摊”的思路，既然 TCP 的连接和关闭非常耗时间，那么就把这个时间成本由原来的一个“请求 - 应答”均摊到多个“请求 - 应答”上。
 </p>
 
 
-<div class="figure">
+<div id="org91abe08" class="figure">
 <p><img src="../img/http/short-long-connect.png" alt="short-long-connect.png" width="400" />
 </p>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orge0fc12d" class="outline-3">
-<h3 id="orge0fc12d">连接相关的头字段</h3>
-<div class="outline-text-3" id="text-orge0fc12d">
+<div id="outline-container-org22c2278" class="outline-3">
+<h3 id="org22c2278">连接相关的头字段</h3>
+<div class="outline-text-3" id="text-org22c2278">
 <p>
 HTTP/1.1 中的连接都会默认启用长连接，可以在请求头里明确地要求使用长连接机制，使用的字段是 <code>Connection</code> ，值是“keep-alive”。不管客户端是否显式要求长连接，如果服务器支持长连接，它总会在响应报文里放一个 <code>Connection: keep-alive</code> 字段。
 </p>
@@ -1358,9 +1332,9 @@ HTTP/1.1 中的连接都会默认启用长连接，可以在请求头里明确�
 </div>
 </div>
 
-<div id="outline-container-orgea08744" class="outline-3">
-<h3 id="orgea08744">队头阻塞</h3>
-<div class="outline-text-3" id="text-orgea08744">
+<div id="outline-container-org0146214" class="outline-3">
+<h3 id="org0146214">队头阻塞</h3>
+<div class="outline-text-3" id="text-org0146214">
 <p>
 “队头阻塞”（Head-of-line blocking），也叫“队首阻塞”，与短连接和长连接无关，是由 HTTP 基本的“请求 - 应答”模型所导致的。
 </p>
@@ -1370,24 +1344,24 @@ HTTP/1.1 中的连接都会默认启用长连接，可以在请求头里明确�
 </p>
 
 
-<div class="figure">
+<div id="orgbc92022" class="figure">
 <p><img src="../img/http/head-line-blocking.png" alt="head-line-blocking.png" width="400" />
 </p>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgec3a786" class="outline-3">
-<h3 id="orgec3a786">性能优化</h3>
-<div class="outline-text-3" id="text-orgec3a786">
+<div id="outline-container-org688dcfc" class="outline-3">
+<h3 id="org688dcfc">性能优化</h3>
+<div class="outline-text-3" id="text-org688dcfc">
 <p>
 因为“请求 - 应答”模型不能变，所以“队头阻塞”问题在 HTTP/1.1 里无法解决，只能缓解，那用什么方法？
 </p>
 </div>
 
-<div id="outline-container-org41c4e9e" class="outline-4">
-<h4 id="org41c4e9e">并发连接”（concurrent connections）</h4>
-<div class="outline-text-4" id="text-org41c4e9e">
+<div id="outline-container-orgd29b08a" class="outline-4">
+<h4 id="orgd29b08a">并发连接”（concurrent connections）</h4>
+<div class="outline-text-4" id="text-orgd29b08a">
 <p>
 同时对一个域名发起多个长连接，用数量来解决质量的问题。
 </p>
@@ -1398,9 +1372,9 @@ HTTP/1.1 中的连接都会默认启用长连接，可以在请求头里明确�
 </div>
 </div>
 
-<div id="outline-container-org6ad3f86" class="outline-4">
-<h4 id="org6ad3f86">“域名分片”（domain sharding）</h4>
-<div class="outline-text-4" id="text-org6ad3f86">
+<div id="outline-container-org86f29b7" class="outline-4">
+<h4 id="org86f29b7">“域名分片”（domain sharding）</h4>
+<div class="outline-text-4" id="text-org86f29b7">
 <p>
 多开几个域名，比如 shard1.chrono.com、shard2.chrono.com，而这些域名都指向同一台服务器 www.chrono.com 对应的 IP 地址，比如浏览器限制一个域名最多6个连接，域名分3片，那么浏览器就可以同时建立18个连接。
 </p>
@@ -1408,26 +1382,26 @@ HTTP/1.1 中的连接都会默认启用长连接，可以在请求头里明确�
 </div>
 </div>
 </div>
-<div id="outline-container-org218b6f3" class="outline-2">
-<h2 id="org218b6f3">18 | 四通八达：HTTP的重定向和跳转</h2>
-<div class="outline-text-2" id="text-org218b6f3">
+<div id="outline-container-org836dce0" class="outline-2">
+<h2 id="org836dce0">18 | 四通八达：HTTP的重定向和跳转</h2>
+<div class="outline-text-2" id="text-org836dce0">
 <p>
 用户的点击链接等行为的跳转动作是由浏览器的使用者主动发起的，可以称为“主动跳转”，还有一种是服务器发起的，浏览器无法控制的“被动跳转”，称之为 <b>重定向</b> 。
 </p>
 </div>
 
-<div id="outline-container-org5ce241f" class="outline-3">
-<h3 id="org5ce241f">重定向的过程</h3>
-<div class="outline-text-3" id="text-org5ce241f">
+<div id="outline-container-org42bc098" class="outline-3">
+<h3 id="org42bc098">重定向的过程</h3>
+<div class="outline-text-3" id="text-org42bc098">
 <p>
 301 是“永久重定向”，302 是“临时重定向”，浏览器收到这两个状态码就会跳转到新的 URI。“Location”字段属于响应字段，必须出现在响应报文里。但只有配合 301/302 状态码才有意义，它标记了服务器要求重定向的 URI。Location”里的 URI 既可以使用绝对 URI，也可以使用相对 URI
 </p>
 </div>
 </div>
 
-<div id="outline-container-org681739d" class="outline-3">
-<h3 id="org681739d">重定向状态码</h3>
-<div class="outline-text-3" id="text-org681739d">
+<div id="outline-container-org6bec1c3" class="outline-3">
+<h3 id="org6bec1c3">重定向状态码</h3>
+<div class="outline-text-3" id="text-org6bec1c3">
 <ul class="org-ul">
 <li>301 俗称“永久重定向”（Moved Permanently），意思是原 URI 已经“永久”性地不存在了，今后的所有请求都必须改用新的 URI；浏览器会做适当的优化：历史记录、更新书签等，省去下次跳转的成本；索引擎的爬虫会更新索引库</li>
 <li>302 俗称“临时重定向”（“Moved Temporarily”），意思是原 URI 处于“临时维护”状态，新的 URI 是起“顶包”作用的“临时工”</li>
@@ -1445,17 +1419,17 @@ HTTP/1.1 中的连接都会默认启用长连接，可以在请求头里明确�
 </div>
 </div>
 
-<div id="outline-container-orgd662e72" class="outline-3">
-<h3 id="orgd662e72">重定向的应用场景</h3>
-<div class="outline-text-3" id="text-orgd662e72">
+<div id="outline-container-orgb161287" class="outline-3">
+<h3 id="orgb161287">重定向的应用场景</h3>
+<div class="outline-text-3" id="text-orgb161287">
 <p>
 使用重定向跳转，核心是要理解“重定向”和“永久 / 临时”这两个关键词。
 </p>
 </div>
 
-<div id="outline-container-org157a569" class="outline-4">
-<h4 id="org157a569">什么时候需要重定向？</h4>
-<div class="outline-text-4" id="text-org157a569">
+<div id="outline-container-orgd11d447" class="outline-4">
+<h4 id="orgd11d447">什么时候需要重定向？</h4>
+<div class="outline-text-4" id="text-orgd11d447">
 <ul class="org-ul">
 <li>资源不可用： 域名变更、服务器变更、网站改版、系统维护等</li>
 <li>避免重复： 多个网址都跳转到一个 URI，增加访问入口的同时还不会增加额外的工作量</li>
@@ -1463,9 +1437,9 @@ HTTP/1.1 中的连接都会默认启用长连接，可以在请求头里明确�
 </div>
 </div>
 
-<div id="outline-container-org7c59aad" class="outline-4">
-<h4 id="org7c59aad">永久 or 临时？</h4>
-<div class="outline-text-4" id="text-org7c59aad">
+<div id="outline-container-org108dc16" class="outline-4">
+<h4 id="org108dc16">永久 or 临时？</h4>
+<div class="outline-text-4" id="text-org108dc16">
 <ul class="org-ul">
 <li>永久：原来的 URI 已经不能用了，如启用了新域名、服务器切换到了新机房、网站目录层次重构等，通知浏览器和搜索引擎更新到新地址，这也是搜索引擎优化（SEO）要考虑的因素之一</li>
 <li>临时：如系统维护时；另一种用法就是“服务降级”，比如在双十一促销的时候，把订单查询、领积分等不重要的功能入口暂时关闭，保证核心服务能够正常运行</li>
@@ -1474,9 +1448,9 @@ HTTP/1.1 中的连接都会默认启用长连接，可以在请求头里明确�
 </div>
 </div>
 
-<div id="outline-container-org12464a3" class="outline-3">
-<h3 id="org12464a3">重定向的相关问题</h3>
-<div class="outline-text-3" id="text-org12464a3">
+<div id="outline-container-org87bb24e" class="outline-3">
+<h3 id="org87bb24e">重定向的相关问题</h3>
+<div class="outline-text-3" id="text-org87bb24e">
 <ul class="org-ul">
 <li>性能损耗：重定向的机制决定了一个跳转会有两次请求 - 应答，所以重定向应当适度使用，决不能滥用</li>
 <li>循环跳转：可能会出现“A=&gt;B=&gt;C=&gt;A”的无限循环</li>
@@ -1484,23 +1458,23 @@ HTTP/1.1 中的连接都会默认启用长连接，可以在请求头里明确�
 </div>
 </div>
 </div>
-<div id="outline-container-orge770105" class="outline-2">
-<h2 id="orge770105">19 | 让我知道你是谁：HTTP的Cookie机制</h2>
-<div class="outline-text-2" id="text-orge770105">
+<div id="outline-container-org252bc04" class="outline-2">
+<h2 id="org252bc04">19 | 让我知道你是谁：HTTP的Cookie机制</h2>
+<div class="outline-text-2" id="text-org252bc04">
 <p>
 HTTP 是“无状态”的，这既是优点也是缺点。优点是服务器没有状态差异，可以很容易地组成集群，而缺点就是无法支持需要记录状态的事务操作。所以, Cookie 技术给 HTTP 增加了“记忆能力”。
 </p>
 </div>
 
-<div id="outline-container-org97ad428" class="outline-3">
-<h3 id="org97ad428">Cookie 的工作过程</h3>
-<div class="outline-text-3" id="text-org97ad428">
+<div id="outline-container-org71289e8" class="outline-3">
+<h3 id="org71289e8">Cookie 的工作过程</h3>
+<div class="outline-text-3" id="text-org71289e8">
 <p>
 Cookie 传递用到两个字段：响应头字段 Set-Cookie 和请求头字段 Cookie。
 </p>
 
 
-<div class="figure">
+<div id="orgba5e92c" class="figure">
 <p><img src="../img/http/cookie.png" alt="cookie.png" width="400" />
 </p>
 </div>
@@ -1511,9 +1485,9 @@ Cookie 传递用到两个字段：响应头字段 Set-Cookie 和请求头字段 
 </div>
 </div>
 
-<div id="outline-container-orgce7afe0" class="outline-3">
-<h3 id="orgce7afe0">Cookie 的属性</h3>
-<div class="outline-text-3" id="text-orgce7afe0">
+<div id="outline-container-org4992190" class="outline-3">
+<h3 id="org4992190">Cookie 的属性</h3>
+<div class="outline-text-3" id="text-org4992190">
 <p>
 Cookie 是服务器委托浏览器存储在客户端里的一些数据，为了防止外泄或者被窃取，需要做一些额外的操作：
 </p>
@@ -1539,9 +1513,9 @@ Cookie 是服务器委托浏览器存储在客户端里的一些数据，为了�
 </div>
 </div>
 
-<div id="outline-container-orgc00c62a" class="outline-3">
-<h3 id="orgc00c62a">Cookie 的应用</h3>
-<div class="outline-text-3" id="text-orgc00c62a">
+<div id="outline-container-org1e48fc7" class="outline-3">
+<h3 id="org1e48fc7">Cookie 的应用</h3>
+<div class="outline-text-3" id="text-org1e48fc7">
 <ul class="org-ul">
 <li>身份识别：保存用户的登录信息，实现会话事务</li>
 <li>广告跟踪：这种 Cookie 不是由访问的主站存储的，所以又叫“第三方 Cookie”（third-party cookie）；网站的页面里会嵌入很多广告代码，里面就会访问广告商，在浏览器里存储广告商的cookie，换到其他网站后，上面也有这个广告商的广告代码，因为都是一个广告商网站，自然就能够读取之前设置的 cookie，也就获得了你的信息</li>
@@ -1549,9 +1523,9 @@ Cookie 是服务器委托浏览器存储在客户端里的一些数据，为了�
 </div>
 </div>
 </div>
-<div id="outline-container-orgd742c7e" class="outline-2">
-<h2 id="orgd742c7e">20 | 生鲜速递：HTTP的缓存控制</h2>
-<div class="outline-text-2" id="text-orgd742c7e">
+<div id="outline-container-orge13ac90" class="outline-2">
+<h2 id="orge13ac90">20 | 生鲜速递：HTTP的缓存控制</h2>
+<div class="outline-text-2" id="text-orge13ac90">
 <p>
 由于链路漫长，网络时延不可控，浏览器使用 HTTP 获取资源的成本较高。所以，非常有必要把“来之不易”的数据缓存起来，下次再请求的时候尽可能地复用。这样，就可以避免多次请求 - 应答的通信成本，节约网络带宽，也可以加快响应速度。
 </p>
@@ -1561,11 +1535,11 @@ Cookie 是服务器委托浏览器存储在客户端里的一些数据，为了�
 </p>
 </div>
 
-<div id="outline-container-org87da0ce" class="outline-3">
-<h3 id="org87da0ce">服务器端缓存</h3>
-<div class="outline-text-3" id="text-org87da0ce">
+<div id="outline-container-org29228e1" class="outline-3">
+<h3 id="org29228e1">服务器端缓存</h3>
+<div class="outline-text-3" id="text-org29228e1">
 <div class="org-src-container">
-<pre class="src src-python">&#22799;&#22825;&#21040;&#20102;&#65292;&#22825;&#27668;&#24456;&#28909;&#12290;&#20320;&#24819;&#21507;&#35199;&#29916;&#28040;&#26257;&#65292;&#20110;&#26159;&#25171;&#24320;&#20912;&#31665;&#65292;&#20294;&#24456;&#19981;&#24039;&#65292;&#20912;&#31665;&#26159;&#31354;&#30340;&#12290;&#19981;&#36807;&#27809;&#20107;&#65292;&#29616;&#22312;&#29289;&#27969;&#24456;&#21457;&#36798;&#65292;&#32473;&#29983;&#40092;&#36229;&#24066;&#25171;&#20010;&#30005;&#35805;&#65292;&#19981;&#19968;&#20250;&#20799;&#65292;&#23601;&#32473;&#20320;&#36865;&#26469;&#19968;&#20010; 8 &#26020;&#30340;&#27801;&#29924;&#22823;&#35199;&#29916;&#65292;&#19978;&#38754;&#36824;&#36148;&#30528;&#26631;&#31614;&#65306;&#8220;&#20445;&#40092;&#26399; 5 &#22825;&#8221;&#12290;&#22909;&#20102;&#65292;&#20320;&#25226;&#23427;&#25918;&#36827;&#20912;&#31665;&#65292;&#24819;&#21507;&#30340;&#26102;&#20505;&#38543;&#26102;&#25343;&#20986;&#26469;&#12290;
+<pre class="src src-python">夏天到了，天气很热。你想吃西瓜消暑，于是打开冰箱，但很不巧，冰箱是空的。不过没事，现在物流很发达，给生鲜超市打个电话，不一会儿，就给你送来一个 8 斤的沙瓤大西瓜，上面还贴着标签：“保鲜期 5 天”。好了，你把它放进冰箱，想吃的时候随时拿出来。
 </pre>
 </div>
 
@@ -1574,7 +1548,7 @@ Cookie 是服务器委托浏览器存储在客户端里的一些数据，为了�
 </p>
 
 
-<div class="figure">
+<div id="org055dec7" class="figure">
 <p><img src="../img/http/cache.png" alt="cache.png" width="400" />
 </p>
 </div>
@@ -1610,16 +1584,16 @@ Cookie 是服务器委托浏览器存储在客户端里的一些数据，为了�
 </ul>
 
 
-<div class="figure">
+<div id="org29d17c8" class="figure">
 <p><img src="../img/http/cache-flow.png" alt="cache-flow.png" width="400" />
 </p>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org61eeee6" class="outline-3">
-<h3 id="org61eeee6">客户端的缓存控制</h3>
-<div class="outline-text-3" id="text-org61eeee6">
+<div id="outline-container-org5ea6ea3" class="outline-3">
+<h3 id="org5ea6ea3">客户端的缓存控制</h3>
+<div class="outline-text-3" id="text-org5ea6ea3">
 <p>
 不止服务器可以发“Cache-Control”头，浏览器也可以发“Cache-Control”，也就是说请求 - 应答的双方都可以用这个字段进行缓存控制，互相协商缓存的使用策略。
 </p>
@@ -1641,15 +1615,15 @@ Ctrl+F5 的“强制刷新”其实是发了一个“Cache-Control: no-cache”�
 </p>
 
 
-<div class="figure">
+<div id="orgc90c5e2" class="figure">
 <p><img src="../img/http/disk-cache.png" alt="disk-cache.png" width="400" />
 </p>
 </div>
 </div>
 
-<div id="outline-container-org7810e6d" class="outline-4">
-<h4 id="org7810e6d">条件请求</h4>
-<div class="outline-text-4" id="text-org7810e6d">
+<div id="outline-container-orgb1a6ddc" class="outline-4">
+<h4 id="orgb1a6ddc">条件请求</h4>
+<div class="outline-text-4" id="text-orgb1a6ddc">
 <p>
 HTTP 协议就定义了一系列“If”开头的“条件请求”字段，专门用来检查验证资源是否过期，把两个请求才能完成的工作合并在一个请求里做。而且，验证的责任也交给服务器，浏览器只需“坐享其成”。
 </p>
@@ -1659,7 +1633,7 @@ HTTP 协议就定义了一系列“If”开头的“条件请求”字段，专�
 </p>
 
 
-<div class="figure">
+<div id="orgb2d0391" class="figure">
 <p><img src="../img/http/cache-if.png" alt="cache-if.png" width="400" />
 </p>
 </div>
@@ -1692,26 +1666,26 @@ ETag 还有“强”“弱”之分。强 ETag 要求资源在字节级别必须
 </div>
 </div>
 </div>
-<div id="outline-container-orgff20135" class="outline-2">
-<h2 id="orgff20135">21 | 良心中间商：HTTP的代理服务</h2>
-<div class="outline-text-2" id="text-orgff20135">
+<div id="outline-container-orgbc238b4" class="outline-2">
+<h2 id="orgbc238b4">21 | 良心中间商：HTTP的代理服务</h2>
+<div class="outline-text-2" id="text-orgbc238b4">
 <p>
 引入 HTTP 代理后，原来简单的双方通信就变复杂了一些，加入了一个或者多个中间人，但整体上来看，还是一个有顺序关系的链条，而且链条里相邻的两个角色仍然是简单的一对一通信，不会出现越级的情况。
 </p>
 </div>
 
-<div id="outline-container-org5f25a30" class="outline-3">
-<h3 id="org5f25a30">代理服务</h3>
-<div class="outline-text-3" id="text-org5f25a30">
+<div id="outline-container-org51da60d" class="outline-3">
+<h3 id="org51da60d">代理服务</h3>
+<div class="outline-text-3" id="text-org51da60d">
 <p>
 所谓的“代理服务”就是指服务本身不生产内容，而是处于中间位置转发上下游的请求和响应，具有双重身份：面向下游的用户时，表现为服务器，代表源服务器响应客户端的请求；而面向上游的源服务器时，又表现为客户端，代表客户端发送请求。
 </p>
 </div>
 </div>
 
-<div id="outline-container-org778e30e" class="outline-3">
-<h3 id="org778e30e">代理的作用</h3>
-<div class="outline-text-3" id="text-org778e30e">
+<div id="outline-container-orgb90cdd5" class="outline-3">
+<h3 id="orgb90cdd5">代理的作用</h3>
+<div class="outline-text-3" id="text-orgb90cdd5">
 <p>
 计算机科学领域里的任何问题，都可以通过引入一个中间层来解决（在这句话后面还可以再加上一句“如果一个中间层解决不了问题，那就再加一个中间层”）。TCP/IP 协议栈是这样，而代理也是这样。
 </p>
@@ -1725,7 +1699,7 @@ ETag 还有“强”“弱”之分。强 ETag 要求资源在字节级别必须
 </p>
 
 
-<div class="figure">
+<div id="orga53679a" class="figure">
 <p><img src="../img/http/load-balance.png" alt="load-balance.png" width="400" />
 </p>
 </div>
@@ -1760,9 +1734,9 @@ ETag 还有“强”“弱”之分。强 ETag 要求资源在字节级别必须
 </div>
 </div>
 
-<div id="outline-container-org09c6074" class="outline-3">
-<h3 id="org09c6074">代理相关头字段</h3>
-<div class="outline-text-3" id="text-org09c6074">
+<div id="outline-container-orgcf173c6" class="outline-3">
+<h3 id="orgcf173c6">代理相关头字段</h3>
+<div class="outline-text-3" id="text-orgcf173c6">
 <p>
 代理隐藏了真实客户端和服务器，如果双方想要获得这些“丢失”的原始信息，该怎么办呢？
 </p>
@@ -1772,7 +1746,7 @@ ETag 还有“强”“弱”之分。强 ETag 要求资源在字节级别必须
 </p>
 
 
-<div class="figure">
+<div id="org2d49825" class="figure">
 <p><img src="../img/http/via.png" alt="via.png" width="400" />
 </p>
 </div>
@@ -1788,9 +1762,9 @@ Via 字段只解决了客户端和源服务器判断是否存在代理的问题�
 </div>
 </div>
 
-<div id="outline-container-org48f1046" class="outline-3">
-<h3 id="org48f1046">代理协议</h3>
-<div class="outline-text-3" id="text-org48f1046">
+<div id="outline-container-orga8abc18" class="outline-3">
+<h3 id="orga8abc18">代理协议</h3>
+<div class="outline-text-3" id="text-orga8abc18">
 <p>
 对代理服务器来说，增加“X-Forwarded-For”等头字段需要解析 HTTP 报文头，必要是需要修改报文（使用 HTTPS 通信被加密时是不允许的），所以就出现了一个专门的“代理协议”（The PROXY protocol），它由知名的代理软件 HAProxy 所定义，也是一个“事实标准”，被广泛采用（注意并不是 RFC）。
 </p>
@@ -1815,19 +1789,19 @@ Host: www.xxx.com\r\n
 </div>
 </div>
 
-<div id="outline-container-org5317661" class="outline-2">
-<h2 id="org5317661">22 | 冷链周转：HTTP的缓存代理</h2>
-<div class="outline-text-2" id="text-org5317661">
+<div id="outline-container-org713b0a9" class="outline-2">
+<h2 id="org713b0a9">22 | 冷链周转：HTTP的缓存代理</h2>
+<div class="outline-text-2" id="text-org713b0a9">
 <p>
 HTTP 的服务器缓存功能主要由代理服务器来实现（即缓存代理），而源服务器系统内部虽然也经常有各种缓存（如 Memcache、Redis、Varnish 等），但与 HTTP 没有太多关系，所以这里暂且不说。
 </p>
 </div>
 
-<div id="outline-container-org4401570" class="outline-3">
-<h3 id="org4401570">缓存代理服务</h3>
-<div class="outline-text-3" id="text-org4401570">
+<div id="outline-container-orga438cf7" class="outline-3">
+<h3 id="orga438cf7">缓存代理服务</h3>
+<div class="outline-text-3" id="text-orga438cf7">
 
-<div class="figure">
+<div id="orgc91dcdf" class="figure">
 <p><img src="../img/http/cache-proxy.png" alt="cache-proxy.png" width="400" />
 </p>
 </div>
@@ -1847,9 +1821,9 @@ HTTP 的服务器缓存功能主要由代理服务器来实现（即缓存代理
 </div>
 </div>
 
-<div id="outline-container-orgc00abe5" class="outline-3">
-<h3 id="orgc00abe5">源服务器的缓存控制</h3>
-<div class="outline-text-3" id="text-orgc00abe5">
+<div id="outline-container-org95c420e" class="outline-3">
+<h3 id="org95c420e">源服务器的缓存控制</h3>
+<div class="outline-text-3" id="text-org95c420e">
 <p>
 可以使用两个新属性“private”和“public”来区分客户端上的缓存和代理上的缓存。“private”表示缓存只能在客户端保存，是用户“私有”的；ublic”的意思就是缓存完全开放，谁都可以存，谁都可以用。
 </p>
@@ -1868,11 +1842,11 @@ HTTP 的服务器缓存功能主要由代理服务器来实现（即缓存代理
 
 <div class="org-src-container">
 <pre class="src src-html">
-&#27700;&#26524;&#19978;&#36148;&#30528;&#26631;&#31614;&#8220;private, max-age=5&#8221;&#12290;&#36825;&#23601;&#26159;&#35828;&#27700;&#26524;&#19981;&#33021;&#25918;&#36827;&#20919;&#26588;&#65292;&#24517;&#39035;&#30452;&#25509;&#32473;&#39038;&#23458;&#65292;&#20445;&#40092;&#26399; 5 &#22825;&#65292;&#36807;&#26399;&#20102;&#36824;&#24471;&#21435;&#36229;&#24066;&#37325;&#26032;&#36827;&#36135;&#12290;
+水果上贴着标签“private, max-age=5”。这就是说水果不能放进冷柜，必须直接给顾客，保鲜期 5 天，过期了还得去超市重新进货。
 
-&#20923;&#40060;&#19978;&#36148;&#30528;&#26631;&#31614;&#8220;public, max-age=5, s-maxage=10&#8221;&#12290;&#36825;&#20010;&#30340;&#24847;&#24605;&#23601;&#26159;&#21487;&#20197;&#22312;&#20912;&#26588;&#37324;&#23384; 10 &#22825;&#65292;&#20294;&#39038;&#23458;&#37027;&#37324;&#21482;&#33021;&#23384; 5 &#22825;&#65292;&#36807;&#26399;&#20102;&#21487;&#20197;&#26469;&#20415;&#21033;&#24215;&#21462;&#65292;&#21482;&#35201;&#22312; 10 &#22825;&#20043;&#20869;&#23601;&#19981;&#24517;&#20877;&#25214;&#36229;&#24066;&#12290;
+冻鱼上贴着标签“public, max-age=5, s-maxage=10”。这个的意思就是可以在冰柜里存 10 天，但顾客那里只能存 5 天，过期了可以来便利店取，只要在 10 天之内就不必再找超市。
 
-&#25490;&#39592;&#19978;&#36148;&#30528;&#26631;&#31614;&#8220;max-age=30, proxy-revalidate, no-transform&#8221;&#12290;&#22240;&#20026;&#32531;&#23384;&#40664;&#35748;&#26159; public &#30340;&#65292;&#37027;&#20040;&#23427;&#22312;&#20415;&#21033;&#24215;&#21644;&#39038;&#23458;&#30340;&#20912;&#31665;&#37324;&#23601;&#37117;&#21487;&#20197;&#23384; 30 &#22825;&#65292;&#36807;&#26399;&#21518;&#20415;&#21033;&#24215;&#24517;&#39035;&#21435;&#36229;&#24066;&#36827;&#26032;&#36135;&#65292;&#32780;&#19988;&#19981;&#33021;&#25797;&#33258;&#25226;&#8220;&#22823;&#25490;&#8221;&#25913;&#25104;&#8220;&#23567;&#25490;&#8221;&#12290;
+排骨上贴着标签“max-age=30, proxy-revalidate, no-transform”。因为缓存默认是 public 的，那么它在便利店和顾客的冰箱里就都可以存 30 天，过期后便利店必须去超市进新货，而且不能擅自把“大排”改成“小排”。
 
 </pre>
 </div>
@@ -1882,7 +1856,7 @@ HTTP 的服务器缓存功能主要由代理服务器来实现（即缓存代理
 </p>
 
 
-<div class="figure">
+<div id="orgdc0d81b" class="figure">
 <p><img src="../img/http/server-cache-strategy.png" alt="server-cache-strategy.png" width="400" />
 </p>
 </div>
@@ -1893,11 +1867,11 @@ HTTP 的服务器缓存功能主要由代理服务器来实现（即缓存代理
 </div>
 </div>
 
-<div id="outline-container-org2000bda" class="outline-3">
-<h3 id="org2000bda">客户端的缓存控制</h3>
-<div class="outline-text-3" id="text-org2000bda">
+<div id="outline-container-orgaf4708a" class="outline-3">
+<h3 id="orgaf4708a">客户端的缓存控制</h3>
+<div class="outline-text-3" id="text-orgaf4708a">
 
-<div class="figure">
+<div id="orgf09bd9c" class="figure">
 <p><img src="../img/http/client-cache-server.png" alt="client-cache-server.png" width="400" />
 </p>
 </div>
@@ -1912,17 +1886,17 @@ HTTP 的服务器缓存功能主要由代理服务器来实现（即缓存代理
 </ul>
 
 <div class="org-src-container">
-<pre class="src src-html">&#33609;&#33683;&#19978;&#36148;&#30528;&#26631;&#31614;&#8220;max-age=5&#8221;&#65292;&#29616;&#22312;&#24050;&#32463;&#22312;&#20912;&#26588;&#37324;&#23384;&#20102; 7 &#22825;&#12290;&#22914;&#26524;&#26377;&#35831;&#27714;&#8220;max-stale=2&#8221;&#65292;&#24847;&#24605;&#26159;&#36807;&#26399;&#20004;&#22825;&#20063;&#33021;&#25509;&#21463;&#65292;&#25152;&#20197;&#21018;&#22909;&#33021;&#21334;&#20986;&#21435;&#12290;
+<pre class="src src-html">草莓上贴着标签“max-age=5”，现在已经在冰柜里存了 7 天。如果有请求“max-stale=2”，意思是过期两天也能接受，所以刚好能卖出去。
 
-&#20294;&#35201;&#26159;&#8220;min-fresh=1&#8221;&#65292;&#36825;&#26159;&#32477;&#23545;&#19981;&#20801;&#35768;&#36807;&#26399;&#30340;&#65292;&#23601;&#19981;&#20250;&#20080;&#36208;&#12290;&#36825;&#26102;&#22914;&#26524;&#26377;&#21478;&#22806;&#19968;&#20010;&#33760;&#33821;&#26159;&#8220;max-age=10&#8221;&#65292;&#37027;&#20040;&#8220;7+1&lt;10&#8221;&#65292;&#22312;&#19968;&#22825;&#20043;&#21518;&#36824;&#26159;&#26032;&#40092;&#30340;&#65292;&#25152;&#20197;&#23601;&#33021;&#21334;&#20986;&#21435;
+但要是“min-fresh=1”，这是绝对不允许过期的，就不会买走。这时如果有另外一个菠萝是“max-age=10”，那么“7+1&lt;10”，在一天之后还是新鲜的，所以就能卖出去
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgb004626" class="outline-3">
-<h3 id="orgb004626">其他问题</h3>
-<div class="outline-text-3" id="text-orgb004626">
+<div id="outline-container-org59ebdff" class="outline-3">
+<h3 id="org59ebdff">其他问题</h3>
+<div class="outline-text-3" id="text-org59ebdff">
 <p>
 同一个请求，经过内容协商后可能会有不同的字符集、编码、浏览器等版本。比如，“Vary: Accept-Encoding”“Vary: User-Agent”，缓存代理必须要存储这些不同的版本。
 </p>
@@ -1943,13 +1917,13 @@ HTTP 的服务器缓存功能主要由代理服务器来实现（即缓存代理
 </div>
 </div>
 </div>
-<div id="outline-container-orge8a755e" class="outline-2">
-<h2 id="orge8a755e">23 | HTTPS是什么？SSL/TLS又是什么？</h2>
-<div class="outline-text-2" id="text-orge8a755e">
+<div id="outline-container-orge506d8f" class="outline-2">
+<h2 id="orge506d8f">23 | HTTPS是什么？SSL/TLS又是什么？</h2>
+<div class="outline-text-2" id="text-orge506d8f">
 </div>
-<div id="outline-container-org4571058" class="outline-3">
-<h3 id="org4571058">什么是安全？</h3>
-<div class="outline-text-3" id="text-org4571058">
+<div id="outline-container-org4445f6f" class="outline-3">
+<h3 id="org4445f6f">什么是安全？</h3>
+<div class="outline-text-3" id="text-org4445f6f">
 <p>
 既然 HTTP“不安全”，那什么样的通信过程才是安全的呢？
 </p>
@@ -1967,9 +1941,9 @@ HTTP 的服务器缓存功能主要由代理服务器来实现（即缓存代理
 </div>
 </div>
 
-<div id="outline-container-orgcdab359" class="outline-3">
-<h3 id="orgcdab359">什么是 HTTPS？</h3>
-<div class="outline-text-3" id="text-orgcdab359">
+<div id="outline-container-org0e17fb7" class="outline-3">
+<h3 id="org0e17fb7">什么是 HTTPS？</h3>
+<div class="outline-text-3" id="text-org0e17fb7">
 <p>
 除了协议名“http”和端口号 80 这两点不同，HTTPS 协议在语法、语义上和 HTTP 完全一样，优缺点也“照单全收”（当然要除去“明文”和“不安全”）。
 </p>
@@ -1979,22 +1953,22 @@ HTTP 下层的传输协议由 TCP/IP 换成了 SSL/TLS，由“HTTP over TCP/IP�
 </p>
 
 
-<div class="figure">
+<div id="org3a08ccb" class="figure">
 <p><img src="../img/http/https.png" alt="https.png" width="400" />
 </p>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgb43d068" class="outline-3">
-<h3 id="orgb43d068">SSL/TLS</h3>
-<div class="outline-text-3" id="text-orgb43d068">
+<div id="outline-container-orgca336cd" class="outline-3">
+<h3 id="orgca336cd">SSL/TLS</h3>
+<div class="outline-text-3" id="text-orgca336cd">
 <p>
 SSL 即安全套接层（Secure Sockets Layer），在 OSI 模型中处于第 5 层（会话层）。
 </p>
 
 <div class="org-src-container">
-<pre class="src src-html">SSL &#21457;&#23637;&#21040; v3 &#26102;&#24050;&#32463;&#35777;&#26126;&#20102;&#23427;&#33258;&#36523;&#26159;&#19968;&#20010;&#38750;&#24120;&#22909;&#30340;&#23433;&#20840;&#36890;&#20449;&#21327;&#35758;&#65292;&#20110;&#26159;&#20114;&#32852;&#32593;&#24037;&#31243;&#32452; IETF &#22312; 1999 &#24180;&#25226;&#23427;&#25913;&#21517;&#20026; TLS&#65288;&#20256;&#36755;&#23618;&#23433;&#20840;&#65292;Transport Layer Security&#65289;&#65292;&#27491;&#24335;&#26631;&#20934;&#21270;&#65292;&#29256;&#26412;&#21495;&#20174; 1.0 &#37325;&#26032;&#31639;&#36215;&#65292;&#25152;&#20197; TLS1.0 &#23454;&#38469;&#19978;&#23601;&#26159; SSLv3.1&#12290;
+<pre class="src src-html">SSL 发展到 v3 时已经证明了它自身是一个非常好的安全通信协议，于是互联网工程组 IETF 在 1999 年把它改名为 TLS（传输层安全，Transport Layer Security），正式标准化，版本号从 1.0 重新算起，所以 TLS1.0 实际上就是 SSLv3.1。
 </pre>
 </div>
 
@@ -2008,7 +1982,7 @@ TLS 由记录协议、握手协议、警告协议、变更密码规范协议、�
 </p>
 
 
-<div class="figure">
+<div id="org80055eb" class="figure">
 <p><img src="../img/http/tls.png" alt="tls.png" width="400" />
 </p>
 </div>
@@ -2019,9 +1993,9 @@ TLS 的密码套件命名非常规范，格式很固定。基本的形式是“�
 </div>
 </div>
 
-<div id="outline-container-orge17d2b6" class="outline-3">
-<h3 id="orge17d2b6">OpenSSL</h3>
-<div class="outline-text-3" id="text-orge17d2b6">
+<div id="outline-container-org0f05961" class="outline-3">
+<h3 id="org0f05961">OpenSSL</h3>
+<div class="outline-text-3" id="text-org0f05961">
 <p>
 penSSL 是一个著名的开源密码学程序库和工具包，几乎支持所有公开的加密算法和协议，已经成为了事实上的标准，许多应用软件都会使用它作为底层库来实现 TLS 功能，包括常用的 Web 服务器 Apache、Nginx 等。
 </p>
@@ -2029,9 +2003,9 @@ penSSL 是一个著名的开源密码学程序库和工具包，几乎支持所�
 </div>
 </div>
 
-<div id="outline-container-orgfea28d2" class="outline-2">
-<h2 id="orgfea28d2">24 | 固若金汤的根本（上）：对称加密与非对称加密</h2>
-<div class="outline-text-2" id="text-orgfea28d2">
+<div id="outline-container-orge240e91" class="outline-2">
+<h2 id="orge240e91">24 | 固若金汤的根本（上）：对称加密与非对称加密</h2>
+<div class="outline-text-2" id="text-orge240e91">
 <p>
 机密性是信息安全的基础，缺乏机密性 TLS 就会成为“无水之源”“无根之木”。实现机密性最常用的手段是“加密”（encrypt），就是把消息用某种方式转换成谁也看不懂的乱码，只有掌握特殊“钥匙”的人才能再转换出原始文本。
 </p>
@@ -2045,15 +2019,15 @@ penSSL 是一个著名的开源密码学程序库和工具包，几乎支持所�
 </p>
 </div>
 
-<div id="outline-container-orgd0114c2" class="outline-3">
-<h3 id="orgd0114c2">对称加密</h3>
-<div class="outline-text-3" id="text-orgd0114c2">
+<div id="outline-container-org448021b" class="outline-3">
+<h3 id="org448021b">对称加密</h3>
+<div class="outline-text-3" id="text-org448021b">
 <p>
 对称加密”很好理解，就是指加密和解密时使用的密钥都是同一个，是“对称”的。
 </p>
 
 
-<div class="figure">
+<div id="org5506680" class="figure">
 <p><img src="../img/http/symmetrical-encryption.png" alt="symmetrical-encryption.png" width="400" />
 </p>
 </div>
@@ -2069,9 +2043,9 @@ TLS 里有非常多的对称加密算法可供选择，比如 RC4、DES、3DES�
 </div>
 </div>
 
-<div id="outline-container-org8a051aa" class="outline-3">
-<h3 id="org8a051aa">加密分组模式</h3>
-<div class="outline-text-3" id="text-org8a051aa">
+<div id="outline-container-orgcb87025" class="outline-3">
+<h3 id="orgcb87025">加密分组模式</h3>
+<div class="outline-text-3" id="text-orgcb87025">
 <p>
 称算法还有一个“分组模式”的概念，它可以让算法用固定长度的密钥加密任意长度的明文，把小秘密（即密钥）转化为大秘密（即密文）。
 </p>
@@ -2082,9 +2056,9 @@ TLS 里有非常多的对称加密算法可供选择，比如 RC4、DES、3DES�
 </div>
 </div>
 
-<div id="outline-container-org01bc75a" class="outline-3">
-<h3 id="org01bc75a">非对称加密</h3>
-<div class="outline-text-3" id="text-org01bc75a">
+<div id="outline-container-orgab8f799" class="outline-3">
+<h3 id="orgab8f799">非对称加密</h3>
+<div class="outline-text-3" id="text-orgab8f799">
 <p>
 对称加密其中一个很大的问题是 <b>密钥交换</b> ，如果被拦截就无加密可言了。
 </p>
@@ -2094,7 +2068,7 @@ TLS 里有非常多的对称加密算法可供选择，比如 RC4、DES、3DES�
 </p>
 
 
-<div class="figure">
+<div id="org9235ddc" class="figure">
 <p><img src="../img/http/asymmetric-encryption.png" alt="asymmetric-encryption.png" width="400" />
 </p>
 </div>
@@ -2110,9 +2084,9 @@ TLS 里有非常多的对称加密算法可供选择，比如 RC4、DES、3DES�
 </div>
 </div>
 
-<div id="outline-container-org68c7cd6" class="outline-3">
-<h3 id="org68c7cd6">混合加密</h3>
-<div class="outline-text-3" id="text-org68c7cd6">
+<div id="outline-container-orga34d174" class="outline-3">
+<h3 id="orga34d174">混合加密</h3>
+<div class="outline-text-3" id="text-orga34d174">
 <p>
 虽然非对称加密没有“密钥交换”的问题，但因为它们都是基于复杂的数学难题，运算速度很慢，即使是 ECC 也要比 AES 差上好几个数量级。如果仅用非对称加密，虽然保证了安全，但通信速度有如乌龟、蜗牛，实用性就变成了零。
 </p>
@@ -2134,7 +2108,7 @@ TLS 里有非常多的对称加密算法可供选择，比如 RC4、DES、3DES�
 </p>
 
 
-<div class="figure">
+<div id="org0768251" class="figure">
 <p><img src="../img/http/hybrid-encryption.png" alt="hybrid-encryption.png" width="400" />
 </p>
 </div>

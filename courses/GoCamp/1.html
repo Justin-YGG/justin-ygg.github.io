@@ -3,59 +3,33 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-03-06 Sun 15:15 -->
+<!-- 2022-11-24 Thu 00:46 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>微服务概览与治理</title>
-<meta name="generator" content="Org mode" />
 <meta name="author" content="Justin" />
+<meta name="generator" content="Org Mode" />
 <link rel="stylesheet" type="text/css" href="/css/worg.css"/>
 <link rel="icon" type="image/png" href="/img/icons/heckert.png">
-<script type="text/javascript">
-/*
-@licstart  The following is the entire license notice for the
-JavaScript code in this tag.
-
-Copyright (C) 2012-2020 Free Software Foundation, Inc.
-
-The JavaScript code in this tag is free software: you can
-redistribute it and/or modify it under the terms of the GNU
-General Public License (GNU GPL) as published by the Free Software
-Foundation, either version 3 of the License, or (at your option)
-any later version.  The code is distributed WITHOUT ANY WARRANTY;
-without even the implied warranty of MERCHANTABILITY or FITNESS
-FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
-
-As additional permission under GNU GPL version 3 section 7, you
-may distribute non-source (e.g., minimized or compacted) forms of
-that code without the copy of the GNU GPL normally required by
-section 4, provided you include this license notice and a URL
-through which recipients can access the Corresponding Source.
-
-
-@licend  The above is the entire license notice
-for the JavaScript code in this tag.
-*/
-<!--/*--><![CDATA[/*><!--*/
- function CodeHighlightOn(elem, id)
- {
-   var target = document.getElementById(id);
-   if(null != target) {
-     elem.cacheClassElem = elem.className;
-     elem.cacheClassTarget = target.className;
-     target.className = "code-highlighted";
-     elem.className   = "code-highlighted";
-   }
- }
- function CodeHighlightOff(elem, id)
- {
-   var target = document.getElementById(id);
-   if(elem.cacheClassElem)
-     elem.className = elem.cacheClassElem;
-   if(elem.cacheClassTarget)
-     target.className = elem.cacheClassTarget;
- }
-/*]]>*///-->
+<script>
+// @license magnet:?xt=urn:btih:1f739d935676111cfff4b4693e3816e664797050&amp;dn=gpl-3.0.txt GPL-v3-or-Later
+     function CodeHighlightOn(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.add("code-highlighted");
+         target.classList.add("code-highlighted");
+       }
+     }
+     function CodeHighlightOff(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.remove("code-highlighted");
+         target.classList.remove("code-highlighted");
+       }
+     }
+// @license-end
 </script>
 </head>
 <body>
@@ -63,47 +37,47 @@ for the JavaScript code in this tag.
  <a accesskey="h" href="index.html"> UP </a>
  |
  <a accesskey="H" href="../index.html"> HOME </a>
-</div><div id="content">
+</div><div id="content" class="content">
 <h1 class="title">微服务概览与治理</h1>
-<div id="table-of-contents">
+<div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
-<div id="text-table-of-contents">
+<div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org5b95ae3">微服务概览</a>
+<li><a href="#org7063fd0">微服务概览</a>
 <ul>
-<li><a href="#org5674945">微服务定义</a></li>
-<li><a href="#orgcbb73f4">微服务的不足</a></li>
-<li><a href="#org64e6617">组件服务化</a></li>
-<li><a href="#orgfd6564e">按业务组织服务</a></li>
-<li><a href="#orgc897242">去中心化</a></li>
-<li><a href="#orge1131fe">基础设施自动化</a></li>
-<li><a href="#orgac54d6e">可用性&amp;兼容性设计</a></li>
+<li><a href="#orgedd4a59">微服务定义</a></li>
+<li><a href="#org0210536">微服务的不足</a></li>
+<li><a href="#orga9937fa">组件服务化</a></li>
+<li><a href="#orgdb1b5c4">按业务组织服务</a></li>
+<li><a href="#orgb8abe00">去中心化</a></li>
+<li><a href="#org1c37805">基础设施自动化</a></li>
+<li><a href="#org3f52233">可用性&amp;兼容性设计</a></li>
 </ul>
 </li>
-<li><a href="#org41b58f2">微服务设计</a>
+<li><a href="#orga4dfa00">微服务设计</a>
 <ul>
-<li><a href="#org92e973c">API Gateway</a></li>
-<li><a href="#orgd49c18b">Microservice 划分</a></li>
-<li><a href="#org6c77d87">Microservice 安全</a></li>
+<li><a href="#org677de9b">API Gateway</a></li>
+<li><a href="#org8e40222">Microservice 划分</a></li>
+<li><a href="#orgeda6023">Microservice 安全</a></li>
 </ul>
 </li>
-<li><a href="#org96d405d">gRPC &amp; 服务发现</a>
+<li><a href="#orgab6a852">gRPC &amp; 服务发现</a>
 <ul>
-<li><a href="#org7f06245">gRPC</a>
+<li><a href="#org3baeda1">gRPC</a>
 <ul>
-<li><a href="#org5c215ad">gRPC - HealthCheck</a></li>
+<li><a href="#orgc24a754">gRPC - HealthCheck</a></li>
 </ul>
 </li>
-<li><a href="#org936a38c">服务发现</a></li>
+<li><a href="#orgec4d82e">服务发现</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org5b95ae3" class="outline-2">
-<h2 id="org5b95ae3">微服务概览</h2>
-<div class="outline-text-2" id="text-org5b95ae3">
+<div id="outline-container-org7063fd0" class="outline-2">
+<h2 id="org7063fd0">微服务概览</h2>
+<div class="outline-text-2" id="text-org7063fd0">
 <p>
 SOA（面向服务）的架构模式，可以把微服务想象成 SOA 的一种实践。
 </p>
@@ -116,63 +90,63 @@ SOA（面向服务）的架构模式，可以把微服务想象成 SOA 的一种
 </ul>
 </div>
 
-<div id="outline-container-org5674945" class="outline-3">
-<h3 id="org5674945">微服务定义</h3>
+<div id="outline-container-orgedd4a59" class="outline-3">
+<h3 id="orgedd4a59">微服务定义</h3>
 </div>
-<div id="outline-container-orgcbb73f4" class="outline-3">
-<h3 id="orgcbb73f4">微服务的不足</h3>
+<div id="outline-container-org0210536" class="outline-3">
+<h3 id="org0210536">微服务的不足</h3>
 </div>
-<div id="outline-container-org64e6617" class="outline-3">
-<h3 id="org64e6617">组件服务化</h3>
+<div id="outline-container-orga9937fa" class="outline-3">
+<h3 id="orga9937fa">组件服务化</h3>
 </div>
-<div id="outline-container-orgfd6564e" class="outline-3">
-<h3 id="orgfd6564e">按业务组织服务</h3>
+<div id="outline-container-orgdb1b5c4" class="outline-3">
+<h3 id="orgdb1b5c4">按业务组织服务</h3>
 </div>
-<div id="outline-container-orgc897242" class="outline-3">
-<h3 id="orgc897242">去中心化</h3>
+<div id="outline-container-orgb8abe00" class="outline-3">
+<h3 id="orgb8abe00">去中心化</h3>
 </div>
-<div id="outline-container-orge1131fe" class="outline-3">
-<h3 id="orge1131fe">基础设施自动化</h3>
+<div id="outline-container-org1c37805" class="outline-3">
+<h3 id="org1c37805">基础设施自动化</h3>
 </div>
-<div id="outline-container-orgac54d6e" class="outline-3">
-<h3 id="orgac54d6e">可用性&amp;兼容性设计</h3>
+<div id="outline-container-org3f52233" class="outline-3">
+<h3 id="org3f52233">可用性&amp;兼容性设计</h3>
 </div>
 </div>
 
-<div id="outline-container-org41b58f2" class="outline-2">
-<h2 id="org41b58f2">微服务设计</h2>
-<div class="outline-text-2" id="text-org41b58f2">
+<div id="outline-container-orga4dfa00" class="outline-2">
+<h2 id="orga4dfa00">微服务设计</h2>
+<div class="outline-text-2" id="text-orga4dfa00">
 </div>
-<div id="outline-container-org92e973c" class="outline-3">
-<h3 id="org92e973c">API Gateway</h3>
-<div class="outline-text-3" id="text-org92e973c">
+<div id="outline-container-org677de9b" class="outline-3">
+<h3 id="org677de9b">API Gateway</h3>
+<div class="outline-text-3" id="text-org677de9b">
 <p>
 todo：4/7层负载均衡,lvs/f5/nginx/nets
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgd49c18b" class="outline-3">
-<h3 id="orgd49c18b">Microservice 划分</h3>
-<div class="outline-text-3" id="text-orgd49c18b">
+<div id="outline-container-org8e40222" class="outline-3">
+<h3 id="org8e40222">Microservice 划分</h3>
+<div class="outline-text-3" id="text-org8e40222">
 <p>
 CQRS(Command Query Responsibility Segregation)
 </p>
 </div>
 </div>
 
-<div id="outline-container-org6c77d87" class="outline-3">
-<h3 id="org6c77d87">Microservice 安全</h3>
+<div id="outline-container-orgeda6023" class="outline-3">
+<h3 id="orgeda6023">Microservice 安全</h3>
 </div>
 </div>
 
-<div id="outline-container-org96d405d" class="outline-2">
-<h2 id="org96d405d">gRPC &amp; 服务发现</h2>
-<div class="outline-text-2" id="text-org96d405d">
+<div id="outline-container-orgab6a852" class="outline-2">
+<h2 id="orgab6a852">gRPC &amp; 服务发现</h2>
+<div class="outline-text-2" id="text-orgab6a852">
 </div>
-<div id="outline-container-org7f06245" class="outline-3">
-<h3 id="org7f06245">gRPC</h3>
-<div class="outline-text-3" id="text-org7f06245">
+<div id="outline-container-org3baeda1" class="outline-3">
+<h3 id="org3baeda1">gRPC</h3>
+<div class="outline-text-3" id="text-org3baeda1">
 <ul class="org-ul">
 <li>多语言</li>
 <li>轻量级、高性能</li>
@@ -193,9 +167,9 @@ CQRS(Command Query Responsibility Segregation)
 </p>
 </div>
 
-<div id="outline-container-org5c215ad" class="outline-4">
-<h4 id="org5c215ad">gRPC - HealthCheck</h4>
-<div class="outline-text-4" id="text-org5c215ad">
+<div id="outline-container-orgc24a754" class="outline-4">
+<h4 id="orgc24a754">gRPC - HealthCheck</h4>
+<div class="outline-text-4" id="text-orgc24a754">
 <ul class="org-ul">
 <li>异步心跳检测机制，发现直之间的链路问题</li>
 <li>平滑发布及下线</li>
@@ -204,8 +178,8 @@ CQRS(Command Query Responsibility Segregation)
 </div>
 </div>
 
-<div id="outline-container-org936a38c" class="outline-3">
-<h3 id="org936a38c">服务发现</h3>
+<div id="outline-container-orgec4d82e" class="outline-3">
+<h3 id="orgec4d82e">服务发现</h3>
 </div>
 </div>
 </div>

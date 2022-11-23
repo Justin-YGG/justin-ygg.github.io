@@ -3,59 +3,33 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-03-06 Sun 15:15 -->
+<!-- 2022-11-24 Thu 00:46 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
-<meta name="generator" content="Org mode" />
 <meta name="author" content="Justin" />
+<meta name="generator" content="Org Mode" />
 <link rel="stylesheet" type="text/css" href="/css/worg.css"/>
 <link rel="icon" type="image/png" href="/img/icons/heckert.png">
-<script type="text/javascript">
-/*
-@licstart  The following is the entire license notice for the
-JavaScript code in this tag.
-
-Copyright (C) 2012-2020 Free Software Foundation, Inc.
-
-The JavaScript code in this tag is free software: you can
-redistribute it and/or modify it under the terms of the GNU
-General Public License (GNU GPL) as published by the Free Software
-Foundation, either version 3 of the License, or (at your option)
-any later version.  The code is distributed WITHOUT ANY WARRANTY;
-without even the implied warranty of MERCHANTABILITY or FITNESS
-FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
-
-As additional permission under GNU GPL version 3 section 7, you
-may distribute non-source (e.g., minimized or compacted) forms of
-that code without the copy of the GNU GPL normally required by
-section 4, provided you include this license notice and a URL
-through which recipients can access the Corresponding Source.
-
-
-@licend  The above is the entire license notice
-for the JavaScript code in this tag.
-*/
-<!--/*--><![CDATA[/*><!--*/
- function CodeHighlightOn(elem, id)
- {
-   var target = document.getElementById(id);
-   if(null != target) {
-     elem.cacheClassElem = elem.className;
-     elem.cacheClassTarget = target.className;
-     target.className = "code-highlighted";
-     elem.className   = "code-highlighted";
-   }
- }
- function CodeHighlightOff(elem, id)
- {
-   var target = document.getElementById(id);
-   if(elem.cacheClassElem)
-     elem.className = elem.cacheClassElem;
-   if(elem.cacheClassTarget)
-     target.className = elem.cacheClassTarget;
- }
-/*]]>*///-->
+<script>
+// @license magnet:?xt=urn:btih:1f739d935676111cfff4b4693e3816e664797050&amp;dn=gpl-3.0.txt GPL-v3-or-Later
+     function CodeHighlightOn(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.add("code-highlighted");
+         target.classList.add("code-highlighted");
+       }
+     }
+     function CodeHighlightOff(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.remove("code-highlighted");
+         target.classList.remove("code-highlighted");
+       }
+     }
+// @license-end
 </script>
 <script type="text/javascript" src="https://www.mxtsing.com/js/MathJax.js?config=TeX-AMS-MML_HTMLorMML,local/local"></script>
 </head>
@@ -64,46 +38,46 @@ for the JavaScript code in this tag.
  <a accesskey="h" href="index.html"> UP </a>
  |
  <a accesskey="H" href="../index.html"> HOME </a>
-</div><div id="content">
-<div id="table-of-contents">
+</div><div id="content" class="content">
+<div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
-<div id="text-table-of-contents">
+<div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org5d8e091">MyISAM 和 InnoDB 的区别</a></li>
-<li><a href="#orgbaecbe5">一条SQL语句执行得很慢的原因有哪些？</a></li>
-<li><a href="#orgff5cce6">mysql 索引及原理</a>
+<li><a href="#orgb7f5109">MyISAM 和 InnoDB 的区别</a></li>
+<li><a href="#org43ab4c3">一条SQL语句执行得很慢的原因有哪些？</a></li>
+<li><a href="#orgfc1899a">mysql 索引及原理</a>
 <ul>
-<li><a href="#org9c16ef6">why not hash?</a></li>
-<li><a href="#orgb5e0518">why not b tree?</a></li>
+<li><a href="#org4b1ea9a">why not hash?</a></li>
+<li><a href="#org5a2ad63">why not b tree?</a></li>
 </ul>
 </li>
-<li><a href="#org66ed738">为何推荐自增id做主键？</a></li>
-<li><a href="#org8dc9005">覆盖索引</a></li>
-<li><a href="#org9055606">最左前缀原则</a></li>
-<li><a href="#org70f1e6f">一个B+树的节点中到底存多少个元素最合适？</a></li>
-<li><a href="#orgfefa40a">MySQL 中的事务</a>
+<li><a href="#orga918437">为何推荐自增id做主键？</a></li>
+<li><a href="#orgf8715ab">覆盖索引</a></li>
+<li><a href="#org9842cb4">最左前缀原则</a></li>
+<li><a href="#org383dbbd">一个B+树的节点中到底存多少个元素最合适？</a></li>
+<li><a href="#org31772ae">MySQL 中的事务</a>
 <ul>
-<li><a href="#org204b046">读未提交</a></li>
-<li><a href="#orgac34867">读提交</a></li>
-<li><a href="#orgb13303e">可重复读</a></li>
-<li><a href="#org7e59819">串行化</a></li>
-<li><a href="#orgd36c57b">MySQL 中是如何实现事务隔离的？</a>
+<li><a href="#org5f05383">读未提交</a></li>
+<li><a href="#orgb1a50e1">读提交</a></li>
+<li><a href="#org4ef7f1b">可重复读</a></li>
+<li><a href="#org77d4bf2">串行化</a></li>
+<li><a href="#orgd6db141">MySQL 中是如何实现事务隔离的？</a>
 <ul>
-<li><a href="#orgfae5cf2">版本链</a></li>
-<li><a href="#org4b170a6">ReadView</a></li>
+<li><a href="#orgbf9cadb">版本链</a></li>
+<li><a href="#org892ee12">ReadView</a></li>
 </ul>
 </li>
-<li><a href="#org05bf7ae">并发写</a></li>
-<li><a href="#orgc6d19ad">解决幻读</a></li>
+<li><a href="#org2dce1ee">并发写</a></li>
+<li><a href="#orge323681">解决幻读</a></li>
 </ul>
 </li>
-<li><a href="#org330150e">more</a></li>
+<li><a href="#orgd73f675">more</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org5d8e091" class="outline-2">
-<h2 id="org5d8e091">MyISAM 和 InnoDB 的区别</h2>
-<div class="outline-text-2" id="text-org5d8e091">
+<div id="outline-container-orgb7f5109" class="outline-2">
+<h2 id="orgb7f5109">MyISAM 和 InnoDB 的区别</h2>
+<div class="outline-text-2" id="text-orgb7f5109">
 <ul class="org-ul">
 <li>事务：innodb 支持事务，myisam 不支持事务</li>
 <li>物理存储：myisam 每个表有三个文件，表结构、索引、表数据; InnoDB 通过B+树的方式组织索引</li>
@@ -113,9 +87,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-orgbaecbe5" class="outline-2">
-<h2 id="orgbaecbe5">一条SQL语句执行得很慢的原因有哪些？</h2>
-<div class="outline-text-2" id="text-orgbaecbe5">
+<div id="outline-container-org43ab4c3" class="outline-2">
+<h2 id="org43ab4c3">一条SQL语句执行得很慢的原因有哪些？</h2>
+<div class="outline-text-2" id="text-org43ab4c3">
 <ul class="org-ul">
 <li>数据库在刷新脏页，例如 redo log 写满了需要同步到磁盘。</li>
 <li>执行的时候，遇到锁，如表锁、行锁</li>
@@ -124,9 +98,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-orgff5cce6" class="outline-2">
-<h2 id="orgff5cce6">mysql 索引及原理</h2>
-<div class="outline-text-2" id="text-orgff5cce6">
+<div id="outline-container-orgfc1899a" class="outline-2">
+<h2 id="orgfc1899a">mysql 索引及原理</h2>
+<div class="outline-text-2" id="text-orgfc1899a">
 <p>
 以 mysql 默认引擎 InnoDB 为例
 </p>
@@ -140,18 +114,18 @@ for the JavaScript code in this tag.
 </p>
 </div>
 
-<div id="outline-container-org9c16ef6" class="outline-3">
-<h3 id="org9c16ef6">why not hash?</h3>
-<div class="outline-text-3" id="text-org9c16ef6">
+<div id="outline-container-org4b1ea9a" class="outline-3">
+<h3 id="org4b1ea9a">why not hash?</h3>
+<div class="outline-text-3" id="text-org4b1ea9a">
 <p>
 哈希虽然能够提供 O(1) 的单数据行操作性能，但是对于范围查询和排序却无法很好地支持，最终导致全表扫描；
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgb5e0518" class="outline-3">
-<h3 id="orgb5e0518">why not b tree?</h3>
-<div class="outline-text-3" id="text-orgb5e0518">
+<div id="outline-container-org5a2ad63" class="outline-3">
+<h3 id="org5a2ad63">why not b tree?</h3>
+<div class="outline-text-3" id="text-org5a2ad63">
 <p>
 B 树能够在非叶节点中存储数据，但是这也导致在查询连续数据时可能会带来更多的随机 I/O，而 B+ 树的所有叶节点可以通过指针相互连接，能够减少顺序遍历时产生的额外随机 I/O。
 </p>
@@ -167,9 +141,9 @@ B 树能够在非叶节点中存储数据，但是这也导致在查询连续数
 </div>
 </div>
 
-<div id="outline-container-org66ed738" class="outline-2">
-<h2 id="org66ed738">为何推荐自增id做主键？</h2>
-<div class="outline-text-2" id="text-org66ed738">
+<div id="outline-container-orga918437" class="outline-2">
+<h2 id="orga918437">为何推荐自增id做主键？</h2>
+<div class="outline-text-2" id="text-orga918437">
 <p>
 首先选择自增id做主键的话，数据的写入就是以追加的形式，不会触发叶子节点的分裂；
 </p>
@@ -180,27 +154,27 @@ B 树能够在非叶节点中存储数据，但是这也导致在查询连续数
 </div>
 </div>
 
-<div id="outline-container-org8dc9005" class="outline-2">
-<h2 id="org8dc9005">覆盖索引</h2>
-<div class="outline-text-2" id="text-org8dc9005">
+<div id="outline-container-orgf8715ab" class="outline-2">
+<h2 id="orgf8715ab">覆盖索引</h2>
+<div class="outline-text-2" id="text-orgf8715ab">
 <p>
 假如我们执行一个sql是 <code>select * from user where k betwee a and b</code> , 其中 k 为普通索引，这个时候我们在通过 k 定位到数据后，还需要根据主键回表查询，才能得到数据的完整记录；如果此时我们只是查询 id 主键的话，我们就无需回表，直接得到 id 的值，这就是覆盖索引，k 已经覆盖了我们的查询请求。
 </p>
 </div>
 </div>
 
-<div id="outline-container-org9055606" class="outline-2">
-<h2 id="org9055606">最左前缀原则</h2>
-<div class="outline-text-2" id="text-org9055606">
+<div id="outline-container-org9842cb4" class="outline-2">
+<h2 id="org9842cb4">最左前缀原则</h2>
+<div class="outline-text-2" id="text-org9842cb4">
 <p>
 最左前缀可以是联合索引的最左 N 个字段，也可以是字符串索引的最左 M 个字符；如果联合索引是 (a, b)，那么我们的查询条件是 a 的情况下，也能利用这个联合索引，但如果只是 b 的查询，则不能使用上述联合索引。所以，可以通过调整索引的顺序，减少索引的数量，增加索引的复用率。
 </p>
 </div>
 </div>
 
-<div id="outline-container-org70f1e6f" class="outline-2">
-<h2 id="org70f1e6f">一个B+树的节点中到底存多少个元素最合适？</h2>
-<div class="outline-text-2" id="text-org70f1e6f">
+<div id="outline-container-org383dbbd" class="outline-2">
+<h2 id="org383dbbd">一个B+树的节点中到底存多少个元素最合适？</h2>
+<div class="outline-text-2" id="text-org383dbbd">
 <p>
 B+ 树索引并不能找到一个给定键值的对应行，只能找到其对应的页，然后将页中数据加载到内存中读取，索引一个节点中的元素应该以一页或者页的倍数最好，否则可能造成浪费；
 </p>
@@ -210,22 +184,22 @@ B+ 树索引并不能找到一个给定键值的对应行，只能找到其对�
 </p>
 </div>
 </div>
-<div id="outline-container-orgfefa40a" class="outline-2">
-<h2 id="orgfefa40a">MySQL 中的事务</h2>
-<div class="outline-text-2" id="text-orgfefa40a">
+<div id="outline-container-org31772ae" class="outline-2">
+<h2 id="org31772ae">MySQL 中的事务</h2>
+<div class="outline-text-2" id="text-org31772ae">
 </div>
-<div id="outline-container-org204b046" class="outline-3">
-<h3 id="org204b046">读未提交</h3>
-<div class="outline-text-3" id="text-org204b046">
+<div id="outline-container-org5f05383" class="outline-3">
+<h3 id="org5f05383">读未提交</h3>
+<div class="outline-text-3" id="text-org5f05383">
 <p>
 读未提交隔离级别下，一个事务可以读到另外一个未提交的事务，如 A 事务对某条记录执行更新操作，在提交更新事务之前，开启 B 事务查询同一条记录， 此时就能读到 A 刚才的更新，会造成 <code>脏读</code> 的情况；因为数据库的事务隔离是通过锁来实现的，读未提交没有锁，所以性能是最好的，但是相当于裸奔
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgac34867" class="outline-3">
-<h3 id="orgac34867">读提交</h3>
-<div class="outline-text-3" id="text-orgac34867">
+<div id="outline-container-orgb1a50e1" class="outline-3">
+<h3 id="orgb1a50e1">读提交</h3>
+<div class="outline-text-3" id="text-orgb1a50e1">
 <p>
 读未提交无法解决脏读的问题，读提交可以解决。
 </p>
@@ -236,9 +210,9 @@ B+ 树索引并不能找到一个给定键值的对应行，只能找到其对�
 </div>
 </div>
 
-<div id="outline-container-orgb13303e" class="outline-3">
-<h3 id="orgb13303e">可重复读</h3>
-<div class="outline-text-3" id="text-orgb13303e">
+<div id="outline-container-org4ef7f1b" class="outline-3">
+<h3 id="org4ef7f1b">可重复读</h3>
+<div class="outline-text-3" id="text-org4ef7f1b">
 <p>
 读提交解决了脏读的问题，但无法解决不可重复读的问题。
 </p>
@@ -249,35 +223,35 @@ B+ 树索引并不能找到一个给定键值的对应行，只能找到其对�
 </div>
 </div>
 
-<div id="outline-container-org7e59819" class="outline-3">
-<h3 id="org7e59819">串行化</h3>
-<div class="outline-text-3" id="text-org7e59819">
+<div id="outline-container-org77d4bf2" class="outline-3">
+<h3 id="org77d4bf2">串行化</h3>
+<div class="outline-text-3" id="text-org77d4bf2">
 <p>
 事务的执行变为顺序执行，与其他三个隔离级别相比，它就相当于单线程，后一个事务的执行必须等待前一个事务结束。读的时候加共享锁，也就是其他事务可以并发读，但是不能写。写的时候加排它锁，其他事务不能并发写也不能并发读
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgd36c57b" class="outline-3">
-<h3 id="orgd36c57b">MySQL 中是如何实现事务隔离的？</h3>
-<div class="outline-text-3" id="text-orgd36c57b">
+<div id="outline-container-orgd6db141" class="outline-3">
+<h3 id="orgd6db141">MySQL 中是如何实现事务隔离的？</h3>
+<div class="outline-text-3" id="text-orgd6db141">
 <p>
 MVCC 多版本并发控制，是指在 <code>读提交</code> 和 <code>可重复读</code> 隔离级别下的事务执行 <code>select</code> 访问版本链的过程，可以使不同事务的 <code>读-写</code> 、 <code>写-读</code> 并行执行，提高系统性能。
 </p>
 </div>
 
-<div id="outline-container-orgfae5cf2" class="outline-4">
-<h4 id="orgfae5cf2">版本链</h4>
-<div class="outline-text-4" id="text-orgfae5cf2">
+<div id="outline-container-orgbf9cadb" class="outline-4">
+<h4 id="orgbf9cadb">版本链</h4>
+<div class="outline-text-4" id="text-orgbf9cadb">
 <p>
 每条聚簇索引记录中，即有主键的记录中，都有两个隐藏列， <code>trx_id</code> 事务id，每次对记录改动时，会给其赋值； <code>roll_pointer</code> 每次对记录更改之前，都会把旧版本写入 undo log 中，roll<sub>pointer</sub> 记录指向旧版本的指针。随着版本越来越多就会形成一个版本链。
 </p>
 </div>
 </div>
 
-<div id="outline-container-org4b170a6" class="outline-4">
-<h4 id="org4b170a6">ReadView</h4>
-<div class="outline-text-4" id="text-org4b170a6">
+<div id="outline-container-org892ee12" class="outline-4">
+<h4 id="org892ee12">ReadView</h4>
+<div class="outline-text-4" id="text-org892ee12">
 <p>
 ReadView 中包含当前活跃的读写事务即begin之后还没commit的事务，把事务的 id 放到一个列表中，比如我们记作 mids，在执行SELECT语句时会先生成一个ReadView，然后从版本链中挑选可见的记录，然后根据被访问记录的事务id和 ReadView 来判断是否可见。
 </p>
@@ -300,9 +274,9 @@ ReadView 中包含当前活跃的读写事务即begin之后还没commit的事务
 </div>
 
 
-<div id="outline-container-org05bf7ae" class="outline-3">
-<h3 id="org05bf7ae">并发写</h3>
-<div class="outline-text-3" id="text-org05bf7ae">
+<div id="outline-container-org2dce1ee" class="outline-3">
+<h3 id="org2dce1ee">并发写</h3>
+<div class="outline-text-3" id="text-org2dce1ee">
 <p>
 假设 A 事务要执行了一条 update 语句，这个时候 A 会对要修改的行加行锁，这个时候 B 事务也想 update 这条记录，也去申请锁，但由于被 A
 占用，所以只能等待，直到 A 释放锁，如果事务 A 的执行时间太长，事务 B 有可能会出现超时异常。
@@ -314,9 +288,9 @@ ReadView 中包含当前活跃的读写事务即begin之后还没commit的事务
 </div>
 </div>
 
-<div id="outline-container-orgc6d19ad" class="outline-3">
-<h3 id="orgc6d19ad">解决幻读</h3>
-<div class="outline-text-3" id="text-orgc6d19ad">
+<div id="outline-container-orge323681" class="outline-3">
+<h3 id="orge323681">解决幻读</h3>
+<div class="outline-text-3" id="text-orge323681">
 <p>
 当前读: 读取的是记录数据的最新版本，并且当前读返回的记录都会加上锁，保证其他事务不会再并发的修改这条记录
 </p>
@@ -351,9 +325,9 @@ MySQL 把行锁和间隙锁合在一起解决了 <code>当前读</code> 下幻�
 </div>
 </div>
 
-<div id="outline-container-org330150e" class="outline-2">
-<h2 id="org330150e">more</h2>
-<div class="outline-text-2" id="text-org330150e">
+<div id="outline-container-orgd73f675" class="outline-2">
+<h2 id="orgd73f675">more</h2>
+<div class="outline-text-2" id="text-orgd73f675">
 <p>
 由于很多人(当然也包括本人), 容易搞混 不可重复读 和 幻读, 这两者确实非常相似。
 </p>

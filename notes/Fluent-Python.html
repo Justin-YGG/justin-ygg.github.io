@@ -3,59 +3,33 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-03-06 Sun 15:15 -->
+<!-- 2022-11-24 Thu 00:46 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
-<meta name="generator" content="Org mode" />
 <meta name="author" content="Justin" />
+<meta name="generator" content="Org Mode" />
 <link rel="stylesheet" type="text/css" href="/css/worg.css"/>
 <link rel="icon" type="image/png" href="/img/icons/heckert.png">
-<script type="text/javascript">
-/*
-@licstart  The following is the entire license notice for the
-JavaScript code in this tag.
-
-Copyright (C) 2012-2020 Free Software Foundation, Inc.
-
-The JavaScript code in this tag is free software: you can
-redistribute it and/or modify it under the terms of the GNU
-General Public License (GNU GPL) as published by the Free Software
-Foundation, either version 3 of the License, or (at your option)
-any later version.  The code is distributed WITHOUT ANY WARRANTY;
-without even the implied warranty of MERCHANTABILITY or FITNESS
-FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
-
-As additional permission under GNU GPL version 3 section 7, you
-may distribute non-source (e.g., minimized or compacted) forms of
-that code without the copy of the GNU GPL normally required by
-section 4, provided you include this license notice and a URL
-through which recipients can access the Corresponding Source.
-
-
-@licend  The above is the entire license notice
-for the JavaScript code in this tag.
-*/
-<!--/*--><![CDATA[/*><!--*/
- function CodeHighlightOn(elem, id)
- {
-   var target = document.getElementById(id);
-   if(null != target) {
-     elem.cacheClassElem = elem.className;
-     elem.cacheClassTarget = target.className;
-     target.className = "code-highlighted";
-     elem.className   = "code-highlighted";
-   }
- }
- function CodeHighlightOff(elem, id)
- {
-   var target = document.getElementById(id);
-   if(elem.cacheClassElem)
-     elem.className = elem.cacheClassElem;
-   if(elem.cacheClassTarget)
-     target.className = elem.cacheClassTarget;
- }
-/*]]>*///-->
+<script>
+// @license magnet:?xt=urn:btih:1f739d935676111cfff4b4693e3816e664797050&amp;dn=gpl-3.0.txt GPL-v3-or-Later
+     function CodeHighlightOn(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.add("code-highlighted");
+         target.classList.add("code-highlighted");
+       }
+     }
+     function CodeHighlightOff(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.remove("code-highlighted");
+         target.classList.remove("code-highlighted");
+       }
+     }
+// @license-end
 </script>
 </head>
 <body>
@@ -63,50 +37,50 @@ for the JavaScript code in this tag.
  <a accesskey="h" href="index.html"> UP </a>
  |
  <a accesskey="H" href="../index.html"> HOME </a>
-</div><div id="content">
-<div id="table-of-contents">
+</div><div id="content" class="content">
+<div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
-<div id="text-table-of-contents">
+<div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orge99e004">Chapter 2 序列构成的数组</a>
+<li><a href="#org7d3fcd6">Chapter 2 序列构成的数组</a>
 <ul>
-<li><a href="#orge25cd3e">列表</a>
+<li><a href="#orga42729f">列表</a>
 <ul>
-<li><a href="#org4d8d73f">分类</a></li>
-<li><a href="#orgd4b0260">列表推导</a></li>
+<li><a href="#org70be8f9">分类</a></li>
+<li><a href="#org942d340">列表推导</a></li>
 </ul>
 </li>
-<li><a href="#org321fd2e">元组(tuple)</a>
+<li><a href="#org5f87274">元组(tuple)</a>
 <ul>
-<li><a href="#orgcb0a3a2">元组拆包或可迭代元素拆包（Iterable Unpacking）</a></li>
-<li><a href="#orgd911e81">namedtuple</a></li>
-<li><a href="#org7ef7c3d">作为不可变列表</a></li>
+<li><a href="#org904ef4c">元组拆包或可迭代元素拆包（Iterable Unpacking）</a></li>
+<li><a href="#orgf2cea74">namedtuple</a></li>
+<li><a href="#orgd9128f1">作为不可变列表</a></li>
 </ul>
 </li>
-<li><a href="#org17e20df">切片</a>
+<li><a href="#orga68a8bb">切片</a>
 <ul>
-<li><a href="#org9a90716">对序列使用 + 和 *</a></li>
-<li><a href="#org924aabc">序列的增量赋值</a></li>
-<li><a href="#orgf096916">bisect</a></li>
+<li><a href="#orgb4ac1cd">对序列使用 + 和 *</a></li>
+<li><a href="#orgb23c37c">序列的增量赋值</a></li>
+<li><a href="#org9c2945f">bisect</a></li>
 </ul>
 </li>
-<li><a href="#org56a0053">当列表不再是首选</a></li>
+<li><a href="#org820bcc2">当列表不再是首选</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orge99e004" class="outline-2">
-<h2 id="orge99e004">Chapter 2 序列构成的数组</h2>
-<div class="outline-text-2" id="text-orge99e004">
+<div id="outline-container-org7d3fcd6" class="outline-2">
+<h2 id="org7d3fcd6">Chapter 2 序列构成的数组</h2>
+<div class="outline-text-2" id="text-org7d3fcd6">
 </div>
-<div id="outline-container-orge25cd3e" class="outline-3">
-<h3 id="orge25cd3e">列表</h3>
-<div class="outline-text-3" id="text-orge25cd3e">
+<div id="outline-container-orga42729f" class="outline-3">
+<h3 id="orga42729f">列表</h3>
+<div class="outline-text-3" id="text-orga42729f">
 </div>
-<div id="outline-container-org4d8d73f" class="outline-4">
-<h4 id="org4d8d73f">分类</h4>
-<div class="outline-text-4" id="text-org4d8d73f">
+<div id="outline-container-org70be8f9" class="outline-4">
+<h4 id="org70be8f9">分类</h4>
+<div class="outline-text-4" id="text-org70be8f9">
 <p>
 从存放的数据类型可以分为：
 </p>
@@ -127,9 +101,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-orgd4b0260" class="outline-4">
-<h4 id="orgd4b0260">列表推导</h4>
-<div class="outline-text-4" id="text-orgd4b0260">
+<div id="outline-container-org942d340" class="outline-4">
+<h4 id="org942d340">列表推导</h4>
+<div class="outline-text-4" id="text-org942d340">
 <p>
 通常的原则是，列表推导只用来创建新的列表，并保持简短，尽量避免滥用，如通过列表推导重复获取列表的副作用。
 </p>
@@ -139,10 +113,10 @@ for the JavaScript code in this tag.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python">&gt;&gt;&gt; <span style="color: #0AAEB3;">x</span> = <span style="color: #98BC37;">'my precious'</span>
-&gt;&gt;&gt; <span style="color: #0AAEB3;">dummy</span> = <span style="color: #FCE8C3;">[</span>x <span style="color: #EF2F27;">for</span> x <span style="color: #EF2F27;">in</span> <span style="color: #98BC37;">'ABC'</span><span style="color: #FCE8C3;">]</span>
+<pre class="src src-python">&gt;&gt;&gt; x = 'my precious'
+&gt;&gt;&gt; dummy = [x for x in 'ABC']
 &gt;&gt;&gt; x
-<span style="color: #98BC37;">'C'</span>
+'C'
 </pre>
 </div>
 
@@ -153,13 +127,13 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org321fd2e" class="outline-3">
-<h3 id="org321fd2e">元组(tuple)</h3>
-<div class="outline-text-3" id="text-org321fd2e">
+<div id="outline-container-org5f87274" class="outline-3">
+<h3 id="org5f87274">元组(tuple)</h3>
+<div class="outline-text-3" id="text-org5f87274">
 </div>
-<div id="outline-container-orgcb0a3a2" class="outline-4">
-<h4 id="orgcb0a3a2">元组拆包或可迭代元素拆包（Iterable Unpacking）</h4>
-<div class="outline-text-4" id="text-orgcb0a3a2">
+<div id="outline-container-org904ef4c" class="outline-4">
+<h4 id="org904ef4c">元组拆包或可迭代元素拆包（Iterable Unpacking）</h4>
+<div class="outline-text-4" id="text-org904ef4c">
 <ul class="org-ul">
 <li>交换两个变量的值： <code>a, b = b, a</code></li>
 <li>用 * 运算符把一个可迭代对象拆开作为函数的参数： <code>test(*a_tuple)</code></li>
@@ -168,18 +142,18 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-orgd911e81" class="outline-4">
-<h4 id="orgd911e81">namedtuple</h4>
-<div class="outline-text-4" id="text-orgd911e81">
+<div id="outline-container-orgf2cea74" class="outline-4">
+<h4 id="orgf2cea74">namedtuple</h4>
+<div class="outline-text-4" id="text-orgf2cea74">
 <p>
 用 <code>namedtuple</code> 构建的类，内存消耗跟元组一样，比普通的对象实例消耗要小一些，常用方法or属性： <code>_fields</code> 、 <code>_make()</code> 、 <code>_asdict()</code> 。
 </p>
 </div>
 </div>
 
-<div id="outline-container-org7ef7c3d" class="outline-4">
-<h4 id="org7ef7c3d">作为不可变列表</h4>
-<div class="outline-text-4" id="text-org7ef7c3d">
+<div id="outline-container-orgd9128f1" class="outline-4">
+<h4 id="orgd9128f1">作为不可变列表</h4>
+<div class="outline-text-4" id="text-orgd9128f1">
 <p>
 除增减元素相关方法外，元素支持列表的其他所有方法，另外元组没有 <code>_reversed__</code> 方法，不过可以通过 <code>reverse(a_tup)</code> 替代。
 </p>
@@ -188,29 +162,29 @@ for the JavaScript code in this tag.
 </div>
 
 
-<div id="outline-container-org17e20df" class="outline-3">
-<h3 id="org17e20df">切片</h3>
-<div class="outline-text-3" id="text-org17e20df">
+<div id="outline-container-orga68a8bb" class="outline-3">
+<h3 id="orga68a8bb">切片</h3>
+<div class="outline-text-3" id="text-orga68a8bb">
 <p>
 如果赋值的对象是一个切片，那么赋值语句的右侧必须是个可迭代对象。即便只有单独 一个值，也要把它转换成可迭代的序列。
 </p>
 </div>
 
-<div id="outline-container-org9a90716" class="outline-4">
-<h4 id="org9a90716">对序列使用 + 和 *</h4>
-<div class="outline-text-4" id="text-org9a90716">
+<div id="outline-container-orgb4ac1cd" class="outline-4">
+<h4 id="orgb4ac1cd">对序列使用 + 和 *</h4>
+<div class="outline-text-4" id="text-orgb4ac1cd">
 <p>
 对序列使用 + 和 *，都不会改变原有序列，而是重新创建新的序列。但如果序列中的元素是对象的引用，则需要注意下面这种情况：
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python">&gt;&gt;&gt; <span style="color: #0AAEB3;">weird_board</span> = <span style="color: #FCE8C3;">[</span><span style="color: #68A8E4;">[</span><span style="color: #98BC37;">'_'</span><span style="color: #68A8E4;">]</span> * 3<span style="color: #FCE8C3;">]</span> * 3
+<pre class="src src-python">&gt;&gt;&gt; weird_board = [['_'] * 3] * 3
 &gt;&gt;&gt; weird_board
-<span style="color: #FCE8C3;">[</span><span style="color: #68A8E4;">[</span><span style="color: #98BC37;">'_'</span>, <span style="color: #98BC37;">'_'</span>, <span style="color: #98BC37;">'_'</span><span style="color: #68A8E4;">]</span>, <span style="color: #68A8E4;">[</span><span style="color: #98BC37;">'_'</span>, <span style="color: #98BC37;">'_'</span>, <span style="color: #98BC37;">'_'</span><span style="color: #68A8E4;">]</span>, <span style="color: #68A8E4;">[</span><span style="color: #98BC37;">'_'</span>, <span style="color: #98BC37;">'_'</span>, <span style="color: #98BC37;">'_'</span><span style="color: #68A8E4;">]</span><span style="color: #FCE8C3;">]</span>
+[['_', '_', '_'], ['_', '_', '_'], ['_', '_', '_']]
 
-&gt;&gt;&gt; weird_board<span style="color: #FCE8C3;">[</span>1<span style="color: #FCE8C3;">][</span>2<span style="color: #FCE8C3;">]</span> = <span style="color: #98BC37;">'O'</span>
+&gt;&gt;&gt; weird_board[1][2] = 'O'
 &gt;&gt;&gt; weird_board
-<span style="color: #FCE8C3;">[</span><span style="color: #68A8E4;">[</span><span style="color: #98BC37;">'_'</span>, <span style="color: #98BC37;">'_'</span>, <span style="color: #98BC37;">'O'</span><span style="color: #68A8E4;">]</span>, <span style="color: #68A8E4;">[</span><span style="color: #98BC37;">'_'</span>, <span style="color: #98BC37;">'_'</span>, <span style="color: #98BC37;">'O'</span><span style="color: #68A8E4;">]</span>, <span style="color: #68A8E4;">[</span><span style="color: #98BC37;">'_'</span>, <span style="color: #98BC37;">'_'</span>, <span style="color: #98BC37;">'O'</span><span style="color: #68A8E4;">]</span><span style="color: #FCE8C3;">]</span>
+[['_', '_', 'O'], ['_', '_', 'O'], ['_', '_', 'O']]
 </pre>
 </div>
 
@@ -220,9 +194,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org924aabc" class="outline-4">
-<h4 id="org924aabc">序列的增量赋值</h4>
-<div class="outline-text-4" id="text-org924aabc">
+<div id="outline-container-orgb23c37c" class="outline-4">
+<h4 id="orgb23c37c">序列的增量赋值</h4>
+<div class="outline-text-4" id="text-orgb23c37c">
 <p>
 增量赋值运算符 += 和 *= 的表现取决于它们的第一个操作对象。
 </p>
@@ -241,13 +215,13 @@ for the JavaScript code in this tag.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python">&gt;&gt;&gt; <span style="color: #0AAEB3;">t</span> = <span style="color: #FCE8C3;">(</span>1, 2, <span style="color: #68A8E4;">[</span>30, 40<span style="color: #68A8E4;">]</span><span style="color: #FCE8C3;">)</span>
-&gt;&gt;&gt; <span style="color: #0AAEB3;">t</span><span style="color: #FCE8C3;">[</span>2<span style="color: #FCE8C3;">]</span> += <span style="color: #FCE8C3;">[</span>50, 60<span style="color: #FCE8C3;">]</span>
-Traceback <span style="color: #FCE8C3;">(</span>most recent call last<span style="color: #FCE8C3;">)</span>:
-  File <span style="color: #98BC37;">"&lt;stdin&gt;"</span>, line 1, <span style="color: #EF2F27;">in</span> &lt;module&gt;
-<span style="color: #68A8E4;">TypeError</span>: <span style="color: #98BC37;">'tuple'</span> <span style="color: #2C78BF;">object</span> does <span style="color: #EF2F27;">not</span> support item assignment
+<pre class="src src-python">&gt;&gt;&gt; t = (1, 2, [30, 40])
+&gt;&gt;&gt; t[2] += [50, 60]
+Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+TypeError: 'tuple' object does not support item assignment
 &gt;&gt;&gt; t
-<span style="color: #FCE8C3;">(</span>1, 2, <span style="color: #68A8E4;">[</span>30, 40, 50, 60<span style="color: #68A8E4;">]</span><span style="color: #FCE8C3;">)</span>
+(1, 2, [30, 40, 50, 60])
 </pre>
 </div>
 
@@ -266,18 +240,18 @@ Traceback <span style="color: #FCE8C3;">(</span>most recent call last<span style
 </div>
 </div>
 
-<div id="outline-container-orgf096916" class="outline-4">
-<h4 id="orgf096916">bisect</h4>
-<div class="outline-text-4" id="text-orgf096916">
+<div id="outline-container-org9c2945f" class="outline-4">
+<h4 id="org9c2945f">bisect</h4>
+<div class="outline-text-4" id="text-org9c2945f">
 <p>
 根据分数，找到对应传成绩等级
 </p>
 
 <div class="org-src-container">
 <pre class="src src-python">
-<span style="color: #EF2F27;">def</span> <span style="color: #FBB829;">grade</span><span style="color: #FCE8C3;">(</span>score, breakpoints=<span style="color: #68A8E4;">[</span>60, 70, 80, 90<span style="color: #68A8E4;">]</span>, grades=<span style="color: #98BC37;">'FDCBA'</span><span style="color: #FCE8C3;">)</span>:
-    <span style="color: #0AAEB3;">i</span> = bisect.bisect<span style="color: #FCE8C3;">(</span>breakpoints, score<span style="color: #FCE8C3;">)</span>
-    <span style="color: #EF2F27;">return</span> grades<span style="color: #FCE8C3;">[</span>i<span style="color: #FCE8C3;">]</span>
+def grade(score, breakpoints=[60, 70, 80, 90], grades='FDCBA'):
+    i = bisect.bisect(breakpoints, score)
+    return grades[i]
 
 </pre>
 </div>
@@ -285,9 +259,9 @@ Traceback <span style="color: #FCE8C3;">(</span>most recent call last<span style
 </div>
 </div>
 
-<div id="outline-container-org56a0053" class="outline-3">
-<h3 id="org56a0053">当列表不再是首选</h3>
-<div class="outline-text-3" id="text-org56a0053">
+<div id="outline-container-org820bcc2" class="outline-3">
+<h3 id="org820bcc2">当列表不再是首选</h3>
+<div class="outline-text-3" id="text-org820bcc2">
 <ul class="org-ul">
 <li>只处理数字列表时， <code>array.array</code> 比 <code>list</code> 更高效</li>
 <li>memoryview 是一个内置类，它能让用户在不复制内容的情况下操作同一个数组的不同切片</li>

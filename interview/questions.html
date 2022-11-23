@@ -3,59 +3,33 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-03-06 Sun 15:15 -->
+<!-- 2022-11-24 Thu 00:46 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>面经</title>
-<meta name="generator" content="Org mode" />
 <meta name="author" content="Justin" />
+<meta name="generator" content="Org Mode" />
 <link rel="stylesheet" type="text/css" href="/css/worg.css"/>
 <link rel="icon" type="image/png" href="/img/icons/heckert.png">
-<script type="text/javascript">
-/*
-@licstart  The following is the entire license notice for the
-JavaScript code in this tag.
-
-Copyright (C) 2012-2020 Free Software Foundation, Inc.
-
-The JavaScript code in this tag is free software: you can
-redistribute it and/or modify it under the terms of the GNU
-General Public License (GNU GPL) as published by the Free Software
-Foundation, either version 3 of the License, or (at your option)
-any later version.  The code is distributed WITHOUT ANY WARRANTY;
-without even the implied warranty of MERCHANTABILITY or FITNESS
-FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
-
-As additional permission under GNU GPL version 3 section 7, you
-may distribute non-source (e.g., minimized or compacted) forms of
-that code without the copy of the GNU GPL normally required by
-section 4, provided you include this license notice and a URL
-through which recipients can access the Corresponding Source.
-
-
-@licend  The above is the entire license notice
-for the JavaScript code in this tag.
-*/
-<!--/*--><![CDATA[/*><!--*/
- function CodeHighlightOn(elem, id)
- {
-   var target = document.getElementById(id);
-   if(null != target) {
-     elem.cacheClassElem = elem.className;
-     elem.cacheClassTarget = target.className;
-     target.className = "code-highlighted";
-     elem.className   = "code-highlighted";
-   }
- }
- function CodeHighlightOff(elem, id)
- {
-   var target = document.getElementById(id);
-   if(elem.cacheClassElem)
-     elem.className = elem.cacheClassElem;
-   if(elem.cacheClassTarget)
-     target.className = elem.cacheClassTarget;
- }
-/*]]>*///-->
+<script>
+// @license magnet:?xt=urn:btih:1f739d935676111cfff4b4693e3816e664797050&amp;dn=gpl-3.0.txt GPL-v3-or-Later
+     function CodeHighlightOn(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.add("code-highlighted");
+         target.classList.add("code-highlighted");
+       }
+     }
+     function CodeHighlightOff(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.remove("code-highlighted");
+         target.classList.remove("code-highlighted");
+       }
+     }
+// @license-end
 </script>
 </head>
 <body>
@@ -63,30 +37,30 @@ for the JavaScript code in this tag.
  <a accesskey="h" href="index.html"> UP </a>
  |
  <a accesskey="H" href="../index.html"> HOME </a>
-</div><div id="content">
+</div><div id="content" class="content">
 <h1 class="title">面经</h1>
-<div id="table-of-contents">
+<div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
-<div id="text-table-of-contents">
+<div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgb06afec">项目</a></li>
-<li><a href="#org9de91d9">语言框架</a></li>
-<li><a href="#org62c8977">MySQL</a></li>
-<li><a href="#org9ac6aa9">Redis</a></li>
-<li><a href="#org85f4ef7">分布式</a></li>
-<li><a href="#org912a251">队列</a></li>
-<li><a href="#org17b9996">操作系统</a></li>
-<li><a href="#org169d29c">网络</a></li>
-<li><a href="#orgca804ce">算法</a></li>
-<li><a href="#orgbd54f2c">系统设计</a></li>
-<li><a href="#org5067d32">其他</a></li>
+<li><a href="#org9c586b7">项目</a></li>
+<li><a href="#orga70805d">语言框架</a></li>
+<li><a href="#orgaa095c1">MySQL</a></li>
+<li><a href="#orgc0029fe">Redis</a></li>
+<li><a href="#org01eea0d">分布式</a></li>
+<li><a href="#orgd53742f">队列</a></li>
+<li><a href="#org10fc8c7">操作系统</a></li>
+<li><a href="#org343d93b">网络</a></li>
+<li><a href="#orgc734da5">算法</a></li>
+<li><a href="#org31a77d8">系统设计</a></li>
+<li><a href="#org25d2544">其他</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgb06afec" class="outline-2">
-<h2 id="orgb06afec">项目</h2>
-<div class="outline-text-2" id="text-orgb06afec">
+<div id="outline-container-org9c586b7" class="outline-2">
+<h2 id="org9c586b7">项目</h2>
+<div class="outline-text-2" id="text-org9c586b7">
 <ul class="org-ul">
 <li>聊项目，画项目架构图，画一个用户从发起请求 到接收到响应 中间经过哪些服务 每个服务做什么事情 的流程图</li>
 <li>讲项目中的难点、挑战，你是如何解决的</li>
@@ -99,18 +73,18 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org9de91d9" class="outline-2">
-<h2 id="org9de91d9">语言框架</h2>
-<div class="outline-text-2" id="text-org9de91d9">
+<div id="outline-container-orga70805d" class="outline-2">
+<h2 id="orga70805d">语言框架</h2>
+<div class="outline-text-2" id="text-orga70805d">
 <ul class="org-ul">
 <li>python3 的新特性</li>
 <li>flask 、Django、tornado 的区别</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org62c8977" class="outline-2">
-<h2 id="org62c8977">MySQL</h2>
-<div class="outline-text-2" id="text-org62c8977">
+<div id="outline-container-orgaa095c1" class="outline-2">
+<h2 id="orgaa095c1">MySQL</h2>
+<div class="outline-text-2" id="text-orgaa095c1">
 <ul class="org-ul">
 <li>innodb 与myisam 的区别？</li>
 
@@ -136,9 +110,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org9ac6aa9" class="outline-2">
-<h2 id="org9ac6aa9">Redis</h2>
-<div class="outline-text-2" id="text-org9ac6aa9">
+<div id="outline-container-orgc0029fe" class="outline-2">
+<h2 id="orgc0029fe">Redis</h2>
+<div class="outline-text-2" id="text-orgc0029fe">
 <ul class="org-ul">
 <li>redis 和 memcache 的区别</li>
 
@@ -159,18 +133,18 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org85f4ef7" class="outline-2">
-<h2 id="org85f4ef7">分布式</h2>
-<div class="outline-text-2" id="text-org85f4ef7">
+<div id="outline-container-org01eea0d" class="outline-2">
+<h2 id="org01eea0d">分布式</h2>
+<div class="outline-text-2" id="text-org01eea0d">
 <ul class="org-ul">
 <li>如何理解分布式事务，为什么会出现这个问题，如何去解决，了解哪些分布式事务中间件</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org912a251" class="outline-2">
-<h2 id="org912a251">队列</h2>
-<div class="outline-text-2" id="text-org912a251">
+<div id="outline-container-orgd53742f" class="outline-2">
+<h2 id="orgd53742f">队列</h2>
+<div class="outline-text-2" id="text-orgd53742f">
 <ul class="org-ul">
 <li>rocketMQ 和 kafka 各自有缺点</li>
 
@@ -183,9 +157,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org17b9996" class="outline-2">
-<h2 id="org17b9996">操作系统</h2>
-<div class="outline-text-2" id="text-org17b9996">
+<div id="outline-container-org10fc8c7" class="outline-2">
+<h2 id="org10fc8c7">操作系统</h2>
+<div class="outline-text-2" id="text-org10fc8c7">
 <ul class="org-ul">
 <li>怎么理解线程安全</li>
 <li>进程和线程的区别</li>
@@ -196,9 +170,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org169d29c" class="outline-2">
-<h2 id="org169d29c">网络</h2>
-<div class="outline-text-2" id="text-org169d29c">
+<div id="outline-container-org343d93b" class="outline-2">
+<h2 id="org343d93b">网络</h2>
+<div class="outline-text-2" id="text-org343d93b">
 <ul class="org-ul">
 <li>tcp 三次握手，四次挥手，为什么握手是三次，挥手是四次？</li>
 <li>udp 和 tcp 的区别</li>
@@ -209,9 +183,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-orgca804ce" class="outline-2">
-<h2 id="orgca804ce">算法</h2>
-<div class="outline-text-2" id="text-orgca804ce">
+<div id="outline-container-orgc734da5" class="outline-2">
+<h2 id="orgc734da5">算法</h2>
+<div class="outline-text-2" id="text-orgc734da5">
 <ul class="org-ul">
 <li>[1,1,2,2,3,4,4,5,5,5] 找出不重复的元素（黄包车）</li>
 <li>反转链表，要求时间复杂度O(N)，空间复杂度O(1)</li>
@@ -229,9 +203,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-orgbd54f2c" class="outline-2">
-<h2 id="orgbd54f2c">系统设计</h2>
-<div class="outline-text-2" id="text-orgbd54f2c">
+<div id="outline-container-org31a77d8" class="outline-2">
+<h2 id="org31a77d8">系统设计</h2>
+<div class="outline-text-2" id="text-org31a77d8">
 <ul class="org-ul">
 <li>如抢红包，高并发下单等常规的场景设计</li>
 <li>优先级队列的底层原理？</li>
@@ -240,9 +214,9 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org5067d32" class="outline-2">
-<h2 id="org5067d32">其他</h2>
-<div class="outline-text-2" id="text-org5067d32">
+<div id="outline-container-org25d2544" class="outline-2">
+<h2 id="org25d2544">其他</h2>
+<div class="outline-text-2" id="text-org25d2544">
 <ul class="org-ul">
 <li>nginx的location是什么</li>
 </ul>

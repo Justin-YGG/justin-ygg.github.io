@@ -3,59 +3,33 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-03-06 Sun 15:15 -->
+<!-- 2022-11-24 Thu 00:46 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
-<meta name="generator" content="Org mode" />
 <meta name="author" content="Justin" />
+<meta name="generator" content="Org Mode" />
 <link rel="stylesheet" type="text/css" href="/css/worg.css"/>
 <link rel="icon" type="image/png" href="/img/icons/heckert.png">
-<script type="text/javascript">
-/*
-@licstart  The following is the entire license notice for the
-JavaScript code in this tag.
-
-Copyright (C) 2012-2020 Free Software Foundation, Inc.
-
-The JavaScript code in this tag is free software: you can
-redistribute it and/or modify it under the terms of the GNU
-General Public License (GNU GPL) as published by the Free Software
-Foundation, either version 3 of the License, or (at your option)
-any later version.  The code is distributed WITHOUT ANY WARRANTY;
-without even the implied warranty of MERCHANTABILITY or FITNESS
-FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
-
-As additional permission under GNU GPL version 3 section 7, you
-may distribute non-source (e.g., minimized or compacted) forms of
-that code without the copy of the GNU GPL normally required by
-section 4, provided you include this license notice and a URL
-through which recipients can access the Corresponding Source.
-
-
-@licend  The above is the entire license notice
-for the JavaScript code in this tag.
-*/
-<!--/*--><![CDATA[/*><!--*/
- function CodeHighlightOn(elem, id)
- {
-   var target = document.getElementById(id);
-   if(null != target) {
-     elem.cacheClassElem = elem.className;
-     elem.cacheClassTarget = target.className;
-     target.className = "code-highlighted";
-     elem.className   = "code-highlighted";
-   }
- }
- function CodeHighlightOff(elem, id)
- {
-   var target = document.getElementById(id);
-   if(elem.cacheClassElem)
-     elem.className = elem.cacheClassElem;
-   if(elem.cacheClassTarget)
-     target.className = elem.cacheClassTarget;
- }
-/*]]>*///-->
+<script>
+// @license magnet:?xt=urn:btih:1f739d935676111cfff4b4693e3816e664797050&amp;dn=gpl-3.0.txt GPL-v3-or-Later
+     function CodeHighlightOn(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.add("code-highlighted");
+         target.classList.add("code-highlighted");
+       }
+     }
+     function CodeHighlightOff(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.remove("code-highlighted");
+         target.classList.remove("code-highlighted");
+       }
+     }
+// @license-end
 </script>
 </head>
 <body>
@@ -63,21 +37,21 @@ for the JavaScript code in this tag.
  <a accesskey="h" href="index.html"> UP </a>
  |
  <a accesskey="H" href="../index.html"> HOME </a>
-</div><div id="content">
-<div id="table-of-contents">
+</div><div id="content" class="content">
+<div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
-<div id="text-table-of-contents">
+<div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org5e72af2">Algorithm</a></li>
-<li><a href="#org5f95afd">Review</a></li>
-<li><a href="#orgc6f416a">Tip</a></li>
-<li><a href="#orgbb8d755">Share</a></li>
+<li><a href="#org33dc6a0">Algorithm</a></li>
+<li><a href="#org7e047f1">Review</a></li>
+<li><a href="#org50053c0">Tip</a></li>
+<li><a href="#orgf32a479">Share</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org5e72af2" class="outline-2">
-<h2 id="org5e72af2">Algorithm</h2>
-<div class="outline-text-2" id="text-org5e72af2">
+<div id="outline-container-org33dc6a0" class="outline-2">
+<h2 id="org33dc6a0">Algorithm</h2>
+<div class="outline-text-2" id="text-org33dc6a0">
 <p>
 <a href="https://leetcode.com/problems/two-sum/">1.Two Sum</a>
 </p>
@@ -88,27 +62,27 @@ for the JavaScript code in this tag.
 </ul>
 
 <div class="org-src-container">
-<pre class="src src-python"><span style="color: #EF2F27;">class</span> <span style="color: #68A8E4;">Solution</span><span style="color: #FCE8C3;">(</span><span style="color: #2C78BF;">object</span><span style="color: #FCE8C3;">)</span>:
-    <span style="color: #EF2F27;">def</span> <span style="color: #FBB829;">twoSum</span><span style="color: #FCE8C3;">(</span><span style="color: #EF2F27;">self</span>, nums, target<span style="color: #FCE8C3;">)</span>:
-        <span style="color: #519F50;">"""</span>
-<span style="color: #519F50;">        :type nums: List[int]</span>
-<span style="color: #519F50;">        :type target: int</span>
-<span style="color: #519F50;">        :rtype: List[int]</span>
-<span style="color: #519F50;">        """</span>
-        <span style="color: #0AAEB3;">nums_dict</span> = <span style="color: #FCE8C3;">{}</span>
-        <span style="color: #EF2F27;">for</span> index, num <span style="color: #EF2F27;">in</span> <span style="color: #2C78BF;">enumerate</span><span style="color: #FCE8C3;">(</span>nums<span style="color: #FCE8C3;">)</span>:
-            <span style="color: #EF2F27;">if</span> target - num <span style="color: #EF2F27;">in</span> nums_dict:
-                <span style="color: #EF2F27;">return</span> <span style="color: #2C78BF;">sorted</span><span style="color: #FCE8C3;">(</span><span style="color: #68A8E4;">[</span>index, nums_dict<span style="color: #FCE8C3;">[</span>target - num<span style="color: #FCE8C3;">]</span><span style="color: #68A8E4;">]</span><span style="color: #FCE8C3;">)</span>
-            <span style="color: #0AAEB3;">nums_dict</span><span style="color: #FCE8C3;">[</span>num<span style="color: #FCE8C3;">]</span> = index
-        <span style="color: #EF2F27;">return</span> <span style="color: #FCE8C3;">[]</span>
+<pre class="src src-python">class Solution(object):
+    def twoSum(self, nums, target):
+	"""
+	:type nums: List[int]
+	:type target: int
+	:rtype: List[int]
+	"""
+	nums_dict = {}
+	for index, num in enumerate(nums):
+	    if target - num in nums_dict:
+		return sorted([index, nums_dict[target - num]])
+	    nums_dict[num] = index
+	return []
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org5f95afd" class="outline-2">
-<h2 id="org5f95afd">Review</h2>
-<div class="outline-text-2" id="text-org5f95afd">
+<div id="outline-container-org7e047f1" class="outline-2">
+<h2 id="org7e047f1">Review</h2>
+<div class="outline-text-2" id="text-org7e047f1">
 <p>
 本文来自 OpenAI 联合创始 Sam Altman 的博客，他分享了关于工作中提高效率的几个观点，<a href="http://blog.samaltman.com/productivity">原文戳此</a>。
 </p>
@@ -163,9 +137,9 @@ Altman 比较注重复利的力量，我在其另外一篇文章中也看到过�
 </p>
 </div>
 </div>
-<div id="outline-container-orgc6f416a" class="outline-2">
-<h2 id="orgc6f416a">Tip</h2>
-<div class="outline-text-2" id="text-orgc6f416a">
+<div id="outline-container-org50053c0" class="outline-2">
+<h2 id="org50053c0">Tip</h2>
+<div class="outline-text-2" id="text-org50053c0">
 <p>
 分享两个 git 小技巧：
 </p>
@@ -177,9 +151,9 @@ Altman 比较注重复利的力量，我在其另外一篇文章中也看到过�
 </div>
 </div>
 
-<div id="outline-container-orgbb8d755" class="outline-2">
-<h2 id="orgbb8d755">Share</h2>
-<div class="outline-text-2" id="text-orgbb8d755">
+<div id="outline-container-orgf32a479" class="outline-2">
+<h2 id="orgf32a479">Share</h2>
+<div class="outline-text-2" id="text-orgf32a479">
 <p>
 <a href="http://blog.thefirehoseproject.com/posts/learn-to-code-and-be-self-reliant/">The Key To Accelerating Your Coding Skills</a>
 </p>
@@ -190,7 +164,7 @@ Altman 比较注重复利的力量，我在其另外一篇文章中也看到过�
 </p>
 
 
-<div class="figure">
+<div id="org94c3b86" class="figure">
 <p><img src="img/inflection-point.png" alt="inflection-point.png" width="500" />
 </p>
 </div>

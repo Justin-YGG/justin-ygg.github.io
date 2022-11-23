@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2022-03-06 Sun 15:15 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Issues</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Justin" />
+<link rel="stylesheet" type="text/css" href="/css/worg.css"/>
+<link rel="icon" type="image/png" href="/img/icons/heckert.png">
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="index.html"> UP </a>
+ |
+ <a accesskey="H" href="../index.html"> HOME </a>
+</div><div id="content">
+<h1 class="title">Issues</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgc621df5">v2ray 客户端与服务端时间不一致?</a></li>
+<li><a href="#org49172bb">v2ray Pac 模式下，Mac telegram 无法连接？</a></li>
+<li><a href="#org377ae3f">如何更换 Spotify Mac 客户端主题？</a></li>
+<li><a href="#orgaff9880">homebrew 加速</a></li>
+<li><a href="#org6447fd1">极其频繁的google访问超时, youtube断流,重启本地v2ray服务可以解决?</a></li>
+<li><a href="#org0a9258e">蓝牙由于非正常关机不能用，怎么办？</a></li>
+<li><a href="#org4cef15a">如何在 mac 全屏显示网页，且无地址栏、书签栏、任何栏遮？</a></li>
+<li><a href="#org269fd46">mac 如何开启『允许所有来源选项』？</a></li>
+<li><a href="#org5338954">如何解决 mac 下恼人的输入法切换问题？</a></li>
+<li><a href="#org7e724d4">HHKB 蓝牙版，mac 发现不了键盘信号</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgc621df5" class="outline-2">
+<h2 id="orgc621df5">v2ray 客户端与服务端时间不一致?</h2>
+<div class="outline-text-2" id="text-orgc621df5">
+<p>
+V2Ray 对于时间有比较严格的要求，要求服务器和客户端时间差绝对值不能超过 2 分钟，所以一定要保证时间足够准确，时区暂时没要求。
+</p>
+
+<p>
+以 CentOS 7 为例，校正时间：
+</p>
+
+<p>
+<code>yum install ntp ntpdate -y</code>
+</p>
+
+<p>
+<code>service ntpd stop</code>                 #停止 ntp 服务
+</p>
+
+<p>
+<code>ntpdate us.pool.ntp.org</code>           #同步 ntp 时间
+</p>
+
+<p>
+<code>service ntpd start</code>                #启动 ntp 服务
+</p>
+</div>
+</div>
+
+<div id="outline-container-org49172bb" class="outline-2">
+<h2 id="org49172bb">v2ray Pac 模式下，Mac telegram 无法连接？</h2>
+<div class="outline-text-2" id="text-org49172bb">
+<p>
+Mac telegram 设置代理： <code>127.0.0.1</code> ，端口：1080（此端口为Pac模式下的监听端口）
+</p>
+</div>
+</div>
+<div id="outline-container-org377ae3f" class="outline-2">
+<h2 id="org377ae3f">如何更换 Spotify Mac 客户端主题？</h2>
+<div class="outline-text-2" id="text-org377ae3f">
+<p>
+<a href="https://github.com/khanhas/spicetify-cli">https://github.com/khanhas/spicetify-cli</a>
+</p>
+
+<p>
+<a href="https://github.com/morpheusthewhite/spicetify-themes">https://github.com/morpheusthewhite/spicetify-themes</a>
+</p>
+</div>
+</div>
+<div id="outline-container-orgaff9880" class="outline-2">
+<h2 id="orgaff9880">homebrew 加速</h2>
+<div class="outline-text-2" id="text-orgaff9880">
+<p>
+<a href="https://zhuanlan.zhihu.com/p/146001246">https://zhuanlan.zhihu.com/p/146001246</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-org6447fd1" class="outline-2">
+<h2 id="org6447fd1">极其频繁的google访问超时, youtube断流,重启本地v2ray服务可以解决?</h2>
+<div class="outline-text-2" id="text-org6447fd1">
+<ul class="org-ul">
+<li><a href="https://github.com/v2ray/v2ray-core/issues/1662#issuecomment-573660268">https://github.com/v2ray/v2ray-core/issues/1662#issuecomment-573660268</a></li>
+<li><a href="https://askubuntu.com/questions/1127497/how-can-i-change-mtu-size-permanently">https://askubuntu.com/questions/1127497/how-can-i-change-mtu-size-permanently</a></li>
+</ul>
+
+<pre class="example">
+
+# 查看 mtu
+ifconfig eth0
+
+# 设置 临时生效，重启机器后失效
+ifconfig eth0 mtu 1280
+
+# 永久生效，可以在 etc/network/interfaces 加入
+mtu 1499
+
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org0a9258e" class="outline-2">
+<h2 id="org0a9258e">蓝牙由于非正常关机不能用，怎么办？</h2>
+<div class="outline-text-2" id="text-org0a9258e">
+<p>
+关机，按电源键后，迅速按住 <code>option+command+p+r</code> ，大约 3、4 秒后松开，重置电源管理单元。
+</p>
+</div>
+</div>
+<div id="outline-container-org4cef15a" class="outline-2">
+<h2 id="org4cef15a">如何在 mac 全屏显示网页，且无地址栏、书签栏、任何栏遮？</h2>
+<div class="outline-text-2" id="text-org4cef15a">
+<p>
+<code>shift + cmd + F</code>
+</p>
+</div>
+</div>
+<div id="outline-container-org269fd46" class="outline-2">
+<h2 id="org269fd46">mac 如何开启『允许所有来源选项』？</h2>
+<div class="outline-text-2" id="text-org269fd46">
+<p>
+<code>sudo spctl --master-disable</code>
+</p>
+</div>
+</div>
+
+<div id="outline-container-org5338954" class="outline-2">
+<h2 id="org5338954">如何解决 mac 下恼人的输入法切换问题？</h2>
+<div class="outline-text-2" id="text-org5338954">
+<p>
+<a href="http://weishu.me/2015/12/01/autoswitch-keyboard-in-mac/">http://weishu.me/2015/12/01/autoswitch-keyboard-in-mac/</a>
+</p>
+</div>
+</div>
+<div id="outline-container-org7e724d4" class="outline-2">
+<h2 id="org7e724d4">HHKB 蓝牙版，mac 发现不了键盘信号</h2>
+<div class="outline-text-2" id="text-org7e724d4">
+<p>
+Fn + q 重置之前的连接方案
+</p>
+</div>
+</div>
+</div>
+</body>
+</html>

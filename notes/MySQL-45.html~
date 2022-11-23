@@ -1,0 +1,641 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2022-03-06 Sun 15:15 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MySQL实战45讲</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Justin" />
+<link rel="stylesheet" type="text/css" href="/css/worg.css"/>
+<link rel="icon" type="image/png" href="/img/icons/heckert.png">
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="index.html"> UP </a>
+ |
+ <a accesskey="H" href="../index.html"> HOME </a>
+</div><div id="content">
+<h1 class="title">MySQL实战45讲</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org9166e87">01 | 基础架构：一条SQL查询语句是如何执行的？</a>
+<ul>
+<li><a href="#orge907f99">连接器</a></li>
+<li><a href="#org952fdd4">查询缓存</a></li>
+<li><a href="#org86d867f">分析器</a></li>
+<li><a href="#org8c6a55e">优化器</a></li>
+<li><a href="#orgba94f50">执行器</a></li>
+</ul>
+</li>
+<li><a href="#org1debf39">02 | 日志系统：一条SQL更新语句是如何执行的？</a>
+<ul>
+<li><a href="#org1ce2b10">redo log</a></li>
+<li><a href="#orgc7f4457">binlog</a></li>
+<li><a href="#org582f237">update 语句执行流程</a></li>
+</ul>
+</li>
+<li><a href="#org0dbdfb1">03 | 事务隔离：为什么你改了我还看不见？</a>
+<ul>
+<li><a href="#org7ded0e5">隔离级别</a></li>
+<li><a href="#org36b32b6">事务隔离的实现</a></li>
+</ul>
+</li>
+<li><a href="#org98f298f">04 | 深入浅出索引（上）</a>
+<ul>
+<li><a href="#org7218ae4">索引</a>
+<ul>
+<li><a href="#org2b9ece2">常见的索引模型</a></li>
+<li><a href="#orgc377d25">InnoDB 索引模型</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org5ad2eff">05 | 深入浅出索引（下）</a>
+<ul>
+<li><a href="#org6db43f3">覆盖索引</a></li>
+<li><a href="#orge6ed438">最左前缀原则</a></li>
+<li><a href="#orgafea2e0">索引下推</a></li>
+</ul>
+</li>
+<li><a href="#org8a3d976">06 | 全局锁和表锁 ：给表加个字段怎么有这么多阻碍？</a>
+<ul>
+<li><a href="#org27d660c">全局锁</a></li>
+<li><a href="#orgb513540">表级锁</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org9166e87" class="outline-2">
+<h2 id="org9166e87">01 | 基础架构：一条SQL查询语句是如何执行的？</h2>
+<div class="outline-text-2" id="text-org9166e87">
+
+<div class="figure">
+<p><img src=" ../img/mysql-45/mysql-architecture.png" alt="mysql-architecture.png" width="500" />
+</p>
+</div>
+
+<p>
+Mysql 大体分为 <code>Server</code> 层和 <code>存储引擎</code> 两部分，Server层分为连接器、分析器、优化器和执行器，
+存储引擎是插件式的，现在最常用的存储引擎是 InnoDB。
+</p>
+</div>
+
+<div id="outline-container-orge907f99" class="outline-3">
+<h3 id="orge907f99">连接器</h3>
+<div class="outline-text-3" id="text-orge907f99">
+<p>
+经过经典的 TCP握手后，认证身份建立连接，建立连接后即使通过管理员修改用户权限，连接也不会断开，会在下一次连接生效。
+建立连接后长时间没有操作，连接就会自动断开，默认8小时（参数 <code>wait_timeout</code> ）
+</p>
+
+<ul class="org-ul">
+<li>长连接：客户端持续有请求，一直使用一个连接</li>
+<li>短连接：每次执行完几次操作后断开，下一次重新建立连接</li>
+</ul>
+
+<p>
+连接的建立比较复杂，应尽量减少建立连接的动作，也就是使用长连接。但是 MySQL 在执行过程中临时使用的内存是管理在连接对象中的，在连接断开后，
+资源才会释放，所以要定期断开长连接，或者在执行比较大的操作后通过 <code>mysql_reset_connection</code> 重置连接，这个过程不需要重连和重新做权限验证，
+但是会将连接恢复到刚刚创创建完时的状态。
+</p>
+</div>
+</div>
+
+<div id="outline-container-org952fdd4" class="outline-3">
+<h3 id="org952fdd4">查询缓存</h3>
+<div class="outline-text-3" id="text-org952fdd4">
+<p>
+建立连接后，执行语句前会先查询缓存，检查相同语句是否执行过，命中缓存则直接返回，否则继续执行。查询缓存失效非常频繁，表的任何
+更新都会导致缓存失效，所以一般不使用，MySQL 8.0后，不再支持查询缓存。
+</p>
+</div>
+</div>
+
+<div id="outline-container-org86d867f" class="outline-3">
+<h3 id="org86d867f">分析器</h3>
+<div class="outline-text-3" id="text-org86d867f">
+<p>
+MySQL 通过关键字将 SQL 语句解析，生成一课对应的“解析树”， <code>MySQL 解析器</code> 使用 MySQL 语法规则，验证和解析查询，比如关键字是否正确、
+关键字顺序、前后匹配等。 <code>预处理器</code> 通过 MySQL 语法规则进一步检查语法树是否正确，比如表和数据列是否存在，名字和别名是否有歧义。
+</p>
+</div>
+</div>
+
+<div id="outline-container-org8c6a55e" class="outline-3">
+<h3 id="org8c6a55e">优化器</h3>
+<div class="outline-text-3" id="text-org8c6a55e">
+<p>
+语法树合法后，会交由优化器转换为执行计划，一条查询有多种执行方式，结果都相同，但可能性能不一，比如索引的选择等，优化器就是要制定成本最低的执行计划。
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgba94f50" class="outline-3">
+<h3 id="orgba94f50">执行器</h3>
+<div class="outline-text-3" id="text-orgba94f50">
+<p>
+执行器根据优化器生成的执行计划调用存储引擎接口执行，执行计划是一个数据结构，并非字节码，MySQL 只是简单的根据执行计划逐步执行指令。
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org1debf39" class="outline-2">
+<h2 id="org1debf39">02 | 日志系统：一条SQL更新语句是如何执行的？</h2>
+<div class="outline-text-2" id="text-org1debf39">
+</div>
+<div id="outline-container-org1ce2b10" class="outline-3">
+<h3 id="org1ce2b10">redo log</h3>
+<div class="outline-text-3" id="text-org1ce2b10">
+<p>
+如果每次更新操作都是直接写磁盘，IO 成本和查找成本都很高，所以 MySQL 采用 <code>WAL(Write-Ahead Logging)</code> 技术先写日志，并在系统比较空闲时再写磁盘。
+</p>
+
+
+<div class="figure">
+<p><img src=" ../img/mysql-45/WAL.jpg" alt="WAL.jpg" width="500" />
+</p>
+</div>
+
+<p>
+<code>write pos</code> 边写边后移，写到文件末尾后继续从头开始写； <code>checkpoint</code> 擦除记录，往后推移也是循环的，擦除之前需要更新数据到磁盘；
+<code>checkpoint</code> 追赶上 <code>write pos</code> 时，不能再执行新的更新操作，需要停下来擦除一些记录，因为 InnoDB redo log 是固定大小的。有了 redo log，InnoDB 就
+可以在数据库异常重启时，保证数据不丢失，这个能力成为 <code>crash-safe</code> 。
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgc7f4457" class="outline-3">
+<h3 id="orgc7f4457">binlog</h3>
+<div class="outline-text-3" id="text-orgc7f4457">
+<p>
+MySQL server 层提供 binlog 功能，用以归档，没有 <code>crash-safe</code> 功能。
+</p>
+
+<p>
+对比：
+</p>
+
+<ul class="org-ul">
+<li>redo log 是 InnoDB 引擎特有的，binlog 是 MySQL server层提供的；</li>
+
+<li>redo log 是物理日志，记录了“在数据页做了什么修改”；binlog 是逻辑日志，有两种模式， <code>statement</code> 模式记录 sql 语句， <code>row</code> 模式记录行的内容，记两条，更新前和更新后。</li>
+
+<li>redo log 是循环写的，空间固定会用完；binlog 是追加写，文件写到一定大小后会切换下一个，不会覆盖之前的日志。</li>
+
+<li>redo log 和 binlog 通过事务 ID 关联。</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org582f237" class="outline-3">
+<h3 id="org582f237">update 语句执行流程</h3>
+<div class="outline-text-3" id="text-org582f237">
+<p>
+图中浅色框表示是在 InnoDB 内部执行的，深色框表示是在执行器中执行。
+</p>
+
+
+<div class="figure">
+<p><img src=" ../img/mysql-45/update.png" alt="update.png" width="500" />
+</p>
+</div>
+
+<p>
+关键逻辑在 <code>两阶段提交</code> ，InnoDB 将新行写入到内存后，更新 redo log 为 <code>prepare</code> 状态，server 层写入 binlog，事务提交后更新 redo log 为 <code>commit</code> 状态。
+</p>
+
+<p>
+<code>1. redo log prepare 2. binlog 3. redo log commit</code>
+</p>
+
+<ul class="org-ul">
+<li>如果在 <code>2</code> 之前异常，恢复备份时没有 binlog，数据一致；</li>
+
+<li>如果在 <code>3</code> 之前异常，恢复备份时虽然没有 commit，但是 prepare 和 binlog 完整，重启后自动 commit，数据一致。</li>
+</ul>
+
+<p>
+<b>复习用-思考：</b>
+</p>
+
+<ul class="org-ul">
+<li>redo log的概念是什么? 为什么会存在</li>
+<li>什么是WAL(Write-Ahead Logging)机制, 好处是什么</li>
+<li>redo log 为什么可以保证crash safe机制</li>
+<li>binlog的概念是什么, 起到什么作用, 可以做crash safe吗?</li>
+<li>binlog和redolog的不同点有哪些?</li>
+<li>物理一致性和逻辑一直性各应该怎么理解?</li>
+<li>执行器和innoDB在执行update语句时候的流程是什么样的?</li>
+<li>如果数据库误操作, 如何执行数据恢复?</li>
+<li>什么是两阶段提交, 为什么需要两阶段提交, 两阶段提交怎么保证数据库中两份日志间的逻辑一致性(什么叫逻辑一致性)?</li>
+<li>如果不是两阶段提交, 先写redo log和先写bin log两种情况各会遇到什么问题</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org0dbdfb1" class="outline-2">
+<h2 id="org0dbdfb1">03 | 事务隔离：为什么你改了我还看不见？</h2>
+<div class="outline-text-2" id="text-org0dbdfb1">
+</div>
+<div id="outline-container-org7ded0e5" class="outline-3">
+<h3 id="org7ded0e5">隔离级别</h3>
+<div class="outline-text-3" id="text-org7ded0e5">
+<p>
+SQL 标准隔离级别： <code>读未提交（read uncommited）</code> 、 <code>读提交（read commited）</code> 、 <code>可重复读（repeatable read）</code> 和 <code>串行化（serializable）</code> 。
+在实现上，数据库会创建一个视图，访问的时候以视图的逻辑结果为准。
+</p>
+
+<ul class="org-ul">
+<li><code>读未提交</code> ：一个事务还未提交，变更就可被其他事务看到 | 直接返回记录最新值，没有视图概念。</li>
+<li><code>读提交</code> ：一个事务提交后，变更才能被其他事务看到 | 视图在 SQL 语句执行时创建。</li>
+<li><code>可重复读</code> ：一个事务在执行过程中看到的数据与启动时一致 | 视图在事务启动时创建。</li>
+<li><code>串行化</code> : 对同一行记录，读加“读锁”，写加“写锁”，读写冲突时，后访问的事务必须等待前一个结束 | 用加锁方式避免并行访问。</li>
+</ul>
+
+
+<div class="figure">
+<p><img src=" ../img/mysql-45/session.png" alt="session.png" width="400" />
+</p>
+</div>
+
+<p>
+<b>可通过上图，理解各个隔离级别下 <code>V1</code> 、 <code>V2</code> 、 <code>V3</code> 的值来加深理解。</b>
+</p>
+</div>
+</div>
+
+<div id="outline-container-org36b32b6" class="outline-3">
+<h3 id="org36b32b6">事务隔离的实现</h3>
+<div class="outline-text-3" id="text-org36b32b6">
+
+<div class="figure">
+<p><img src=" ../img/mysql-45/read-view.png" alt="read-view.png" width="500" />
+</p>
+</div>
+
+<p>
+MySQL 中每条更新记录都会记录一条回滚操作，记录上的最新值都可以通过回滚操作得到上一个值。不同时刻启动的事务会有不同的 <code>read-view</code> ，
+同一条记录在系统中存在多个版本，就是数据库的多版本并发控制(<a href="https://www.cnblogs.com/chenpingzhao/p/5065316.html">MVCC</a>)。没有比回滚日志更早的 <code>read-view</code> 时，系统会将日志删除。所以要尽量避免使用长事务，
+长事务意味着存在很多老的视图，即使在事务提交后，对应的回滚日志也不会删除，浪费存储空间，同时长事务还会占用资源锁，可能会拖垮系统。
+</p>
+
+<p>
+<b>事务启动的方式：</b>
+</p>
+<ul class="org-ul">
+<li>显示启动： <code>begin</code> 或者 <code>start transaction</code>, 提交 <code>commit=，回滚 =rollback</code> 。</li>
+<li><code>set autocommit=1</code></li>
+</ul>
+
+<p>
+查询持续时间超过 60s 的事务示例:
+</p>
+
+<p>
+<code>select * from information_schema.innodb_trx where TIME_TO_SEC(timediff(now(),trx_started)) &gt; 60;</code>
+</p>
+
+<p>
+<b>MySQLLdb 或者 SQLAlchemy 默认 <code>autocommit=0</code> 。</b>
+</p>
+
+<p>
+<code>commit work</code> 是用来控制事务结束后的行为，是 <code>chain</code> 还是 <code>release</code> ，可以通过参数 <code>completion_type</code> 来控制，默认为 0(或者 NOCHAIN)，
+等同于 <code>commit</code> 。 <code>completion_type=1</code> 时提交事务并自动开启下一个事务， <code>completion_type=2</code> 时等同于 <code>commit and release</code> ，提交事务并断开
+连接。
+</p>
+
+<p>
+<b>复习用-思考：</b>
+</p>
+
+<ul class="org-ul">
+<li>事务的概念是什么?</li>
+<li>mysql的事务隔离级别读未提交, 读已提交, 可重复读, 串行各是什么意思?</li>
+<li>读已提交, 可重复读是怎么通过视图构建实现的?</li>
+<li>可重复读的使用场景举例? 对账的时候应该很有用?</li>
+<li>事务隔离是怎么通过read-view(读视图)实现的?</li>
+<li>并发版本控制(MCVV)的概念是什么, 是怎么实现的?</li>
+<li>使用长事务的弊病? 为什么使用常事务可能拖垮整个库?</li>
+<li>事务的启动方式有哪几种?</li>
+<li>commit work and chain的语法是做什么用的?</li>
+<li>怎么查询各个表中的长事务?</li>
+<li>如何避免长事务的出现?</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org98f298f" class="outline-2">
+<h2 id="org98f298f">04 | 深入浅出索引（上）</h2>
+<div class="outline-text-2" id="text-org98f298f">
+</div>
+<div id="outline-container-org7218ae4" class="outline-3">
+<h3 id="org7218ae4">索引</h3>
+<div class="outline-text-3" id="text-org7218ae4">
+<p>
+索引的作用是为了提高数据查询的效率，作用就像书的目录，更快地找到目标数据。
+</p>
+</div>
+
+<div id="outline-container-org2b9ece2" class="outline-4">
+<h4 id="org2b9ece2">常见的索引模型</h4>
+<div class="outline-text-4" id="text-org2b9ece2">
+<ul class="org-ul">
+<li><b>哈希表</b>
+以 <code>key-value</code> 形式存储数据结构，使用哈希函数把 <code>Key</code> 换算成一个具体的位置，将 <code>value</code> 放到此位置上。
+多个 <code>key</code> 会出现计算后值一样的情况，使用链表来处理这种情况。查询时首先更加 <code>key</code> 计算出位置，然后遍历链表顺序查找目标数据。链表数据是向后追加，所以是无序的，所以做区间查询就会很慢。
+所以， <b>哈希表适用于等值查询</b> ， 如：Memcached 及其他一些 NoSQL 引擎。</li>
+
+<li><b>有序数组</b>
+有序数组在 <b>等值查询</b> 和 <b>范围查询</b> 中性能都非常优秀，可以充分利用二分法。但是要维护数据的有序，在新增数据时，数据挪动成本较高。
+所以， <b>有序数组适用于静态存储引擎</b> 。</li>
+
+<li><b>二叉搜索树</b>
+二叉搜索树的特点是：每个节点的左儿子小于父节点，父节点又小于右儿子。为了维持 <code>O(log(N))</code> 的查询复杂度，需要保持这棵树是平衡二叉树，更新时间复杂度也为 <code>O(log(N))</code> ，数据库存储实际上使用的不是二叉树，因为索引不仅存在内存中，还有写到磁盘上，如果平衡二叉树树高过高，从磁盘中读取数据次数过多，就会导致查询变慢，所以要使用 <code>N 叉树</code> ，N 叉树由于在读写上的性能优点，以及适配磁盘的访问模式，已经被广泛应用在数据库引擎中了， <code>N 叉树</code> 中的 <b>N</b> 取决于数据块的大小。</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgc377d25" class="outline-4">
+<h4 id="orgc377d25">InnoDB 索引模型</h4>
+<div class="outline-text-4" id="text-orgc377d25">
+<p>
+InnoDB 使用了 B+ 树索引模型，每一个索引对应一棵 B+ 树。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sql">mysql&gt; <span style="color: #EF2F27;">create</span> <span style="color: #EF2F27;">table</span> T<span style="color: #FCE8C3;">(</span>
+id <span style="color: #68A8E4;">int</span> <span style="color: #EF2F27;">primary</span> <span style="color: #EF2F27;">key</span>, 
+k <span style="color: #68A8E4;">int</span> <span style="color: #EF2F27;">not</span> <span style="color: #EF2F27;">null</span>, 
+<span style="color: #EF2F27;">name</span> <span style="color: #68A8E4;">varchar</span><span style="color: #68A8E4;">(</span>16<span style="color: #68A8E4;">)</span>,
+index <span style="color: #68A8E4;">(</span>k<span style="color: #68A8E4;">)</span>
+<span style="color: #FCE8C3;">)</span>engine=InnoDB;
+</pre>
+</div>
+
+<p>
+表中 R1~R5 的 (ID,k) 值分别为 (100,1)、(200,2)、(300,3)、(500,5) 和 (600,6)，两棵树示意图如下：
+</p>
+
+<div class="figure">
+<p><img src=" ../img/mysql-45/4.1.png" alt="4.1.png" width="400" />
+</p>
+</div>
+
+<ul class="org-ul">
+<li>主键索引，叶子节点存储的是整行数据，也叫做 <code>聚簇索引(clustered index)</code> 。</li>
+<li>非主键索引，叶子节点存储的是主键的值，也叫做 <code>二级索引(secondary index)</code> 。</li>
+</ul>
+
+<p>
+<b>区别：</b>
+</p>
+<ul class="org-ul">
+<li><code>select * from T where ID=500</code> ，主键查询只搜索主键这课 B+ 树。</li>
+<li><code>select * from T where k=500</code> ， 先搜索 k 索引树，拿到主键，在搜索主键索引树。</li>
+</ul>
+
+<p>
+B+ 树为了维护有序性，在数据插入、删除时，可能会涉及到磁盘数据页的分裂或合并，所以一般会创建自增主键，这样每次插入都是追加数据，不会触发叶子节点分裂。
+主键长度越小，普通索引的叶子节点就越小，普通索引占用的空间也越小。从性能和存储空间方面考量，自增主键往往是更合理的选择。在 <code>Key-Value</code> 的场景下，只有一个索引且是唯一索引，则适合直接使用业务字段作为主键索引。
+</p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org5ad2eff" class="outline-2">
+<h2 id="org5ad2eff">05 | 深入浅出索引（下）</h2>
+<div class="outline-text-2" id="text-org5ad2eff">
+</div>
+<div id="outline-container-org6db43f3" class="outline-3">
+<h3 id="org6db43f3">覆盖索引</h3>
+<div class="outline-text-3" id="text-org6db43f3">
+<p>
+插入数据 <code>insert into T values(100,1, 'aa'),(200,2,'bb'),(300,3,'cc'),(500,5,'ee'),(600,6,'ff'),(700,7,'gg');</code>
+</p>
+
+<p>
+sql 语句 <code>select * from T where k betwee 3 and 5</code> 执行时会先定位到 k=3 的记录，拿到主键 ID，然后根据 ID 回到主键索引树搜索，这个过程称为 <code>回表</code> 。继续搜索后面满足条件的值，直至不满足条件。
+如果 sql 语句变为 <code>select ID from T where k between 3 and 5</code> ，那么就无需回表，因为 ID 值已经在 k 索引树上了，覆盖率查询需求，称为 <code>覆盖索引</code> 。覆盖索引可以减少树的搜索次数，优化查询性能，也是比较
+常用的优化手段。
+</p>
+
+<p>
+<code>如果查询条件使用的是普通索引（或是联合索引的最左原则字段），查询结果是联合索引的字段或是主键，不用回表操作，直接返回结果，减少IO磁盘读写读取正行数据。</code>
+</p>
+</div>
+</div>
+
+<div id="outline-container-orge6ed438" class="outline-3">
+<h3 id="orge6ed438">最左前缀原则</h3>
+<div class="outline-text-3" id="text-orge6ed438">
+
+<div class="figure">
+<p><img src=" ../img/mysql-45/4.5.png" alt="4.5.png" width="400" />
+</p>
+</div>
+
+<p>
+用 <code>(name, age)</code> 作联合索引，索引项是按照索引定义出现的字段顺序排列的。
+在查询 <code>where name=“张三”</code> 时，可以迅速定位到 ID4，并向后遍历；查询 <code>where name like “张 %”</code> 时，也可以定位到 ID3，并向后遍历。
+</p>
+
+<p>
+<code>最左前缀可以是联合索引的最左 N 个字段，也可以是字符串索引的最左 M 个字符</code> 。所以在建立联合索引时，要考虑索引的顺序，尽可能的做到复用最大化。
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgafea2e0" class="outline-3">
+<h3 id="orgafea2e0">索引下推</h3>
+<div class="outline-text-3" id="text-orgafea2e0">
+<p>
+如果查询语句是 <code>like 'hello%’and age &gt;10</code> ，那么 age 索引不会生效，在 MySQL 5.6 之前会回表查询数据行再比对，在 MySQL 5.6 之后，引入了索引下推(index condition pushdown)，在索引遍历过程中对索引包含的字段
+优先判断，直接过滤不符合条件的数据，减少回表次数。
+</p>
+
+<p>
+<code>尽量少地访问资源，减少资源消耗是数据库设计的重要原则。</code>
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org8a3d976" class="outline-2">
+<h2 id="org8a3d976">06 | 全局锁和表锁 ：给表加个字段怎么有这么多阻碍？</h2>
+<div class="outline-text-2" id="text-org8a3d976">
+<p>
+数据库锁的设计主要是为了处理并发问题，MySQL 的锁大致分为三类：全局锁、表级锁和行锁。
+</p>
+</div>
+
+<div id="outline-container-org27d660c" class="outline-3">
+<h3 id="org27d660c">全局锁</h3>
+<div class="outline-text-3" id="text-org27d660c">
+<p>
+全局锁的典型应用场景是*全库逻辑备份*，MySQL 命令是 <code>Flush tables with read lock(FTWRL)</code> 。
+执行此命令后，整个库处于只读状态，数据的增删改及更新，表结构更新都会被阻塞。
+</p>
+
+<p>
+整个库都只读听上去很危险：
+</p>
+
+<ul class="org-ul">
+<li>从主库上备份，备份期间不能更新，业务会停摆</li>
+<li>从从库备份，不能执行从主库同步过来的 =binlog=，导致主从不一致</li>
+</ul>
+
+<p>
+但如果不加锁的话，备份系统备份得到库不是一个逻辑时间点，这个视图是逻辑不一致的。可以在 <code>可重复读</code> 隔离级别下开启一个事务，来确保拿到一致性视图。
+官方逻辑备份工具 <code>mysqldump</code> 使用参数 <code>--single-transaction</code> 支持这种操作，但需要引擎支持这个隔离级别，像 <code>MyISAM</code> 这种不支持事务的，就只能使用 <code>FTWRL</code> 了。
+</p>
+
+<p>
+为什么不使用 <code>set global readonly=true</code> 的方式呢？
+</p>
+
+<ul class="org-ul">
+<li>有些系统 readonly 用来做其他逻辑，如判断是主库还是备库，修改 global 影响太大</li>
+<li>在异常处理机制上有差异，执行 <code>FTWRL</code> 命令之后，客户端异常断开后，MySQL 会自动释放全局锁，回到可更新状态；而 readonly 方式不会释放，风险较高；</li>
+<li>还有个情况在 slave 上 如果用户有超级权限的话 readonly 是失效的</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgb513540" class="outline-3">
+<h3 id="orgb513540">表级锁</h3>
+<div class="outline-text-3" id="text-orgb513540">
+<p>
+表级锁有两种：表锁和元数据锁(meta data lock, MDL)。
+</p>
+
+<p>
+表锁的语法是 <code>lock tables … read/writ</code> ，lock tables 语法除了限制本其他线程的读写外，也限定了本线程的操作对象。
+</p>
+
+<p>
+另一个表级的锁是 MDL，MDL 的作用是防止 DDL 和 DML 并发冲突，不需要显示调用。对一个表增删改查时，加 MDL 读锁；更改表结构时加 MDL 写锁。
+</p>
+
+<ul class="org-ul">
+<li>读锁直接不互斥，多个线程可以对同一个表增删改查</li>
+<li>读写锁、写锁之间互斥，保证变更表结构的安全性</li>
+</ul>
+
+<p>
+系统默认加 MDL 锁的机制很重要，下面是给小表加字段，导致整个库挂了的案例。
+</p>
+
+
+<div class="figure">
+<p><img src=" ../img/mysql-45/6.1.png" alt="6.1.png" width="400" />
+</p>
+</div>
+
+<p>
+session A 启动，加 MDL 读锁，session B 也需要读锁，正常运行。session C 会被 blocked，因为 A 的读锁还未释放，而 C 需要写锁，后面的 D 也会阻塞。
+如果表上查询频繁就会导致线程数爆满，导致整个库挂掉。
+</p>
+
+<p>
+如何安全的给小表加字段？
+</p>
+
+<ul class="org-ul">
+<li>事务不提交，就会一直占着 MDL 锁， 查询 MySQL 的 <code>information_schema</code> 库的 <code>innodb_trx</code> ，找到长事务，如果有，暂停 DDL 或者 kill 掉长事务。</li>
+<li>热点表不适合 kill 的情况下，设定等待时间 <code>NOWAIT/WAIT n</code> 。</li>
+</ul>
+
+<p>
+备份一般都会在备库上执行，在用–single-transaction+方法做逻辑备份的过程中，如果主库上的一个小表做了一个DDL，比如给一个表上加了一列。这时候，从备库上会看到什么现象呢？
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sql">Q1:<span style="color: #EF2F27;">SET</span> <span style="color: #EF2F27;">SESSION</span> <span style="color: #EF2F27;">TRANSACTION</span> <span style="color: #EF2F27;">ISOLATION</span> <span style="color: #EF2F27;">LEVEL</span> <span style="color: #EF2F27;">REPEATABLE</span> <span style="color: #EF2F27;">READ</span>;
+Q2:<span style="color: #EF2F27;">START</span> <span style="color: #EF2F27;">TRANSACTION</span>  <span style="color: #EF2F27;">WITH</span> CONSISTENT SNAPSHOT&#65307;
+<span style="color: #918175; font-style: italic;">/* other tables */</span>
+Q3:<span style="color: #EF2F27;">SAVEPOINT</span> sp;
+<span style="color: #918175; font-style: italic;">/* &#26102;&#21051; 1 */</span>
+Q4:show <span style="color: #EF2F27;">create</span> <span style="color: #EF2F27;">table</span> `t1`;
+<span style="color: #918175; font-style: italic;">/* &#26102;&#21051; 2 */</span>
+Q5:<span style="color: #EF2F27;">SELECT</span> * <span style="color: #EF2F27;">FROM</span> `t1`;
+<span style="color: #918175; font-style: italic;">/* &#26102;&#21051; 3 */</span>
+Q6:<span style="color: #EF2F27;">ROLLBACK</span> <span style="color: #EF2F27;">TO</span> <span style="color: #EF2F27;">SAVEPOINT</span> sp;
+<span style="color: #918175; font-style: italic;">/* &#26102;&#21051; 4 */</span>
+<span style="color: #918175; font-style: italic;">/* other tables */</span>
+</pre>
+</div>
+
+<p>
+Q4 拿表结构，Q5 导数据， Q6 释放 t1 的 MDL 锁。
+</p>
+
+<ul class="org-ul">
+<li>Q4 之前到达，没影响，备份拿到 DDL 后的表结构</li>
+<li>在 <code>时刻2</code> 到达，报 <code>Table definition has changed, please retry transaction</code> ，mysqldump 终止</li>
+<li>在 <code>时刻2</code> 和 <code>时刻3</code> 之间达到，mysqldump 占着 t1 的 MDL 读锁，binlog 被堵塞，主从延迟，直到 Q6 完成</li>
+<li>从 <code>时刻4</code> 开始，mysqldump 释放了 MDL 读锁，没有影响，拿到 DDL 之前的表结构</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
