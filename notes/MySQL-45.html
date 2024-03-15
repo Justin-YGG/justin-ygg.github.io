@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-12-04 Sun 12:01 -->
+<!-- 2024-03-15 Fri 20:12 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>MySQL实战45讲</title>
@@ -96,7 +96,7 @@
 <h2 id="org28e7e71">01 | 基础架构：一条 SQL 查询语句是如何执行的？</h2>
 <div class="outline-text-2" id="text-org28e7e71">
 
-<div id="org3a7dc1d" class="figure">
+<div id="org3cb43bd" class="figure">
 <p><img src=" ../img/mysql-45/mysql-architecture.png" alt="mysql-architecture.png" width="500" />
 </p>
 </div>
@@ -117,7 +117,7 @@ Mysql 大体分为 <code>Server</code> 层和 <code>存储引擎</code> 两部�
 
 <ul class="org-ul">
 <li>长连接：客户端持续有请求，一直使用一个连接</li>
-<li>短连接：每次执行完几次操作后断开，下一次重新建立连接</li>
+<li>短连接：每次执行完几次操作后断开，下一次重新建立</li>
 </ul>
 
 <p>
@@ -179,7 +179,7 @@ MySQL 通过关键字将 SQL 语句解析，生成一课对应的“解析树”
 </p>
 
 
-<div id="org1cbcd5f" class="figure">
+<div id="org44722fd" class="figure">
 <p><img src=" ../img/mysql-45/WAL.jpg" alt="WAL.jpg" width="500" />
 </p>
 </div>
@@ -223,7 +223,7 @@ MySQL server 层提供 binlog 功能，用以归档，没有 <code>crash-safe</c
 </p>
 
 
-<div id="orgafa498f" class="figure">
+<div id="org921628a" class="figure">
 <p><img src=" ../img/mysql-45/update.png" alt="update.png" width="500" />
 </p>
 </div>
@@ -282,7 +282,7 @@ SQL 标准隔离级别： <code>读未提交（read uncommited）</code> 、 <co
 </ul>
 
 
-<div id="org7f37d40" class="figure">
+<div id="org881579c" class="figure">
 <p><img src=" ../img/mysql-45/session.png" alt="session.png" width="400" />
 </p>
 </div>
@@ -297,7 +297,7 @@ SQL 标准隔离级别： <code>读未提交（read uncommited）</code> 、 <co
 <h3 id="org22c321c">事务隔离的实现</h3>
 <div class="outline-text-3" id="text-org22c321c">
 
-<div id="orgded7dfe" class="figure">
+<div id="orgc56609b" class="figure">
 <p><img src=" ../img/mysql-45/read-view.png" alt="read-view.png" width="500" />
 </p>
 </div>
@@ -407,7 +407,7 @@ index (k)
 表中 R1~R5 的 (ID,k) 值分别为 (100,1)、(200,2)、(300,3)、(500,5) 和 (600,6)，两棵树示意图如下：
 </p>
 
-<div id="org943d3cf" class="figure">
+<div id="org7570bd2" class="figure">
 <p><img src=" ../img/mysql-45/4.1.png" alt="4.1.png" width="400" />
 </p>
 </div>
@@ -461,7 +461,7 @@ sql 语句 <code>select * from T where k betwee 3 and 5</code> 执行时会先�
 <h3 id="org01c8e8f">最左前缀原则</h3>
 <div class="outline-text-3" id="text-org01c8e8f">
 
-<div id="orga8a1820" class="figure">
+<div id="orgba7aeb9" class="figure">
 <p><img src=" ../img/mysql-45/4.5.png" alt="4.5.png" width="400" />
 </p>
 </div>
@@ -558,7 +558,7 @@ sql 语句 <code>select * from T where k betwee 3 and 5</code> 执行时会先�
 </p>
 
 
-<div id="orgd3afae2" class="figure">
+<div id="orgd7b9427" class="figure">
 <p><img src=" ../img/mysql-45/6.1.png" alt="6.1.png" width="400" />
 </p>
 </div>
